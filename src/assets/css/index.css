@@ -314,7 +314,7 @@ body[data-subpage="true"] .mobile-header-subpage {
   font-weight: 700;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .brand-circle-card {
     width: auto;
     background-color: var(--surface);

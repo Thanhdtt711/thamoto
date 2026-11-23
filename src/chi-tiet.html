@@ -93,7 +93,7 @@
             <!-- Material Pills -->
             <div class="space-y-2">
               <span class="text-xs font-semibold text-slate-600 block">Chất liệu thảm:</span>
-              <div id="step2-materials" class="flex flex-wrap gap-2.5">
+              <div id="step2-materials" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <!-- Injected by JS -->
               </div>
             </div>
@@ -184,7 +184,9 @@
       VehicleSelector.setSelectedVehicle(resolved.brand, resolved.model, activeYear || resolved.years[0]);
 
       // Update Header / Breadcrumb / Title
-      const fullName = `${resolved.brand} ${resolved.model}`;
+      const formatVehicleName = (brand, model) =>
+        model.toLowerCase().startsWith(brand.toLowerCase()) ? model : `${brand} ${model}`;
+      const fullName = formatVehicleName(resolved.brand, resolved.model);
       document.title = `Thảm Lót Sàn ${fullName} - Trung Thành Auto`;
       const appbarTitle = document.getElementById('mobile-appbar-title');
       if (appbarTitle) appbarTitle.textContent = fullName.toUpperCase();
@@ -289,13 +291,21 @@
       };
 
       // Step 2: Render Materials & Colors
+      const materialNotes = {
+        'Thảm 6D Cao Cấp': 'Êm chân, có lớp thảm rối',
+        'Thảm 360 Full Xe': 'Phủ kín 100% nỉ sàn xe',
+        'Thảm Nhựa TPE Đúc Khuôn': 'Chống nước, không mùi',
+        'Thảm Da 5D Quả Trám': 'May quả trám cổ điển'
+      };
       const materialsEl = document.getElementById('step2-materials');
       const renderMaterials = () => {
         materialsEl.innerHTML = materialNames.map((name) => {
           const isActive = name === selectedMaterial;
+          const note = materialNotes[name] || '';
           return `
-            <button type="button" data-material="${name}" aria-pressed="${isActive}" class="material-pill ${isActive ? 'is-active' : ''}">
-              <span>${name}</span>
+            <button type="button" data-material="${name}" aria-pressed="${isActive}" class="material-pill w-full flex-col items-start justify-center gap-0.5 text-left py-2.5 px-3.5 ${isActive ? 'is-active' : ''}">
+              <span class="text-xs sm:text-sm font-bold leading-snug">${name}</span>
+              ${note ? `<span class="text-[11px] font-normal ${isActive ? 'text-slate-200' : 'text-slate-500'}">${note}</span>` : ''}
             </button>
           `;
         }).join('');

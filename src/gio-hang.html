@@ -30,7 +30,14 @@
 
     <!-- Filled Cart -->
     <div id="cart-filled-layout" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-      <div id="cart-items-list-container" class="lg:col-span-2 space-y-3.5"></div>
+      <div class="lg:col-span-2 space-y-4">
+        <div id="cart-items-list-container" class="space-y-3.5"></div>
+        <div class="card-surface p-3.5 bg-[#EFF4FA] border-[#0D2C54]/15 flex flex-wrap items-center justify-between gap-2 text-xs text-[#0D2C54] font-semibold">
+          <span>✓ Vừa vặn 100% theo phom xe</span>
+          <span>✓ Lắp đặt tận nơi miễn phí</span>
+          <span>✓ Đổi trả 1-1 · Bảo hành 24 tháng</span>
+        </div>
+      </div>
 
       <aside class="card-surface p-5 space-y-4">
         <h2 class="text-sm font-extrabold uppercase text-[#0D2C54] pb-3 border-b border-slate-200 m-0">Tóm tắt đơn hàng</h2>
@@ -126,8 +133,11 @@
         filledLayout.classList.remove('hidden');
 
         itemsContainer.innerHTML = items.map((item) => {
+          const baseVehicle = item.vehicle
+            ? (item.vehicle.model.toLowerCase().startsWith(item.vehicle.brand.toLowerCase()) ? item.vehicle.model : `${item.vehicle.brand} ${item.vehicle.model}`)
+            : '';
           const vehicleText = item.vehicle
-            ? `${item.vehicle.brand} ${item.vehicle.model}${item.vehicle.year ? ' (' + item.vehicle.year + ')' : ''}`
+            ? `${baseVehicle}${item.vehicle.year ? ' (' + item.vehicle.year + ')' : ''}`
             : '';
           const addonsText = Array.isArray(item.addons) && item.addons.length > 0
             ? item.addons.map((a) => a.label).join(', ')

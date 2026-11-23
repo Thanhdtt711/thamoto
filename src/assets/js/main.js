@@ -52,6 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     appbarTitle.textContent = document.body.dataset.pageTitle;
   }
 
+  // Hide floating contact on mobile cart/checkout so it never overlaps form controls
+  if (currentPath.endsWith('/gio-hang.html') || currentPath.endsWith('/thanh-toan.html')) {
+    document.querySelectorAll('.js-floating-contact').forEach(el => {
+      el.classList.add('hidden', 'lg:flex');
+    });
+  }
+
   // 3. Cart Drawer Logic
   const cartDrawer = document.getElementById('cart-drawer');
   const cartDrawerOverlay = document.getElementById('cart-drawer-overlay');
@@ -120,9 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filledStateEl) filledStateEl.classList.remove('hidden');
 
     if (itemsContainer) {
+      const formatVehicleLabel = (v) => {
+        if (!v) return '';
+        const base = v.model.toLowerCase().startsWith(v.brand.toLowerCase()) ? v.model : `${v.brand} ${v.model}`;
+        return `${base}${v.year ? ' ' + v.year : ''}`;
+      };
       itemsContainer.innerHTML = cart.map(item => {
         const vehicleInfo = item.vehicle
-          ? `<p class="text-[11px] font-semibold text-[#0D2C54] mt-0.5">${item.vehicle.brand} ${item.vehicle.model}${item.vehicle.year ? ' ' + item.vehicle.year : ''}</p>`
+          ? `<p class="text-[11px] font-semibold text-[#0D2C54] mt-0.5">${formatVehicleLabel(item.vehicle)}</p>`
           : '';
         const formInfo = item.formLabel
           ? `<p class="text-[11px] text-slate-600 mt-0.5">${item.formLabel}</p>`
