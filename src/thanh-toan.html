@@ -41,9 +41,13 @@
         <div class="flex justify-between"><span class="text-slate-500">Khách hàng:</span><span id="success-customer-name" class="font-semibold text-slate-900"></span></div>
         <div class="flex justify-between"><span class="text-slate-500">Số điện thoại:</span><span id="success-customer-phone" class="font-semibold text-slate-900 tabular-nums"></span></div>
         <div class="flex justify-between"><span class="text-slate-500">Thanh toán:</span><span id="success-payment-method" class="font-semibold text-slate-900"></span></div>
+        <div id="success-ref-row" class="hidden flex justify-between"><span class="text-slate-500">Mã giới thiệu (CTV):</span><span id="success-ref-code" class="font-semibold text-[#0D2C54] uppercase"></span></div>
         <div class="flex justify-between pt-2 border-t border-slate-200"><span class="font-semibold text-slate-700">Tổng tiền:</span><span id="success-total-price" class="font-bold text-[#15803D] tabular-nums"></span></div>
       </div>
-      <a href="/index.html" class="btn-cta text-xs px-8">QUAY LẠI TRANG CHỦ</a>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a id="success-zalo-btn" href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="btn-outline text-xs px-6">NHẮN ZALO XÁC NHẬN NHANH (0963 294 492)</a>
+        <a href="/index.html" class="btn-cta text-xs px-8">QUAY LẠI TRANG CHỦ</a>
+      </div>
     </div>
 
     <!-- Active Checkout -->
@@ -75,6 +79,11 @@
           <div class="space-y-1.5">
             <label for="billing-notes" class="text-xs font-semibold text-slate-700 block">Ghi chú (giờ giao, lưu ý xe...)</label>
             <textarea id="billing-notes" rows="2" placeholder="Ghi chú thêm cho kỹ thuật viên..." class="field-input min-h-[76px] resize-none"></textarea>
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="billing-ref" class="text-xs font-semibold text-slate-700 block">Mã CTV / Người giới thiệu (nếu có)</label>
+            <input type="text" id="billing-ref" placeholder="VD: CTV01 (tự động điền khi vào từ link giới thiệu)" class="field-input uppercase">
           </div>
         </div>
 
@@ -175,6 +184,8 @@
   <script type="module" src="./assets/js/main.js"></script>
   <script type="module">
     import { Cart } from './assets/js/cart.js';
+    import { AffiliateTracker } from './assets/js/affiliate.js';
+    import { supabase, isSupabaseConfigured } from './assets/js/supabase.js';
 
     document.addEventListener('DOMContentLoaded', () => {
       const activeLayout = document.getElementById('checkout-active-layout');
@@ -187,8 +198,19 @@
       const discountVal = document.getElementById('checkout-discount-val');
       const checkoutForm = document.getElementById('checkout-form');
       const vietqrModal = document.getElementById('vietqr-modal');
+      const placeOrderBtn = document.getElementById('btn-place-order');
+      const qrConfirmBtn = document.getElementById('btn-qr-confirm');
+      const refInput = document.getElementById('billing-ref');
+      const errorBox = document.getElementById('checkout-form-error');
 
       let grandTotalGlobal = 0;
+      let activeCouponCode = '';
+      let isSubmitting = false;
+
+      const savedRef = AffiliateTracker.getRefCode();
+      if (savedRef && refInput) {
+        refInput.value = savedRef;
+      }
 
       const renderCheckout = () => {
         const items = Cart.getCart();
@@ -218,9 +240,11 @@
 
         const storedCoupon = sessionStorage.getItem('thamoto_applied_coupon');
         let discountAmount = 0;
+        activeCouponCode = '';
         if (storedCoupon) {
           try {
             const activeCoupon = JSON.parse(storedCoupon);
+            activeCouponCode = activeCoupon.code || '';
             discountAmount = activeCoupon.type === 'percent' ? Math.round(subtotal * activeCoupon.value) : activeCoupon.value;
             discountRow.classList.remove('hidden');
             discountLabel.textContent = `Ưu đãi (${activeCoupon.code})`;
@@ -235,28 +259,91 @@
         if (window.lucide) window.lucide.createIcons();
       };
 
-      const completeOrderCheckout = (methodText) => {
-        const name = document.getElementById('billing-name').value;
-        const phone = document.getElementById('billing-phone').value;
-        const randomOrderId = `TT-${Math.floor(10000 + Math.random() * 90000)}`;
+      const setSubmittingState = (loading) => {
+        isSubmitting = loading;
+        if (placeOrderBtn) {
+          placeOrderBtn.disabled = loading;
+          placeOrderBtn.textContent = loading ? 'ĐANG GỬI ĐƠN...' : 'ĐẶT HÀNG NGAY';
+        }
+        if (qrConfirmBtn) {
+          qrConfirmBtn.disabled = loading;
+          qrConfirmBtn.textContent = loading ? 'ĐANG GỬI...' : 'ĐÃ CHUYỂN KHOẢN';
+        }
+      };
 
-        document.getElementById('success-order-id').textContent = `#${randomOrderId}`;
-        document.getElementById('success-customer-name').textContent = name;
-        document.getElementById('success-customer-phone').textContent = phone;
-        document.getElementById('success-payment-method').textContent = methodText;
-        document.getElementById('success-total-price').textContent = Cart.formatCurrency(grandTotalGlobal);
+      const buildItemsSummary = (items) =>
+        items.map((item) => {
+          const vStr = item.vehicle
+            ? (item.vehicle.model.toLowerCase().startsWith(item.vehicle.brand.toLowerCase()) ? item.vehicle.model : `${item.vehicle.brand} ${item.vehicle.model}`)
+            : '';
+          const parts = [vStr, item.formLabel, item.material, item.color].filter(Boolean).join(' | ');
+          return `${item.quantity}x ${item.name} (${parts})`;
+        }).join('\n');
 
-        Cart.clearCart();
-        sessionStorage.removeItem('thamoto_applied_coupon');
+      const completeOrderCheckout = async (methodKey, methodText) => {
+        if (isSubmitting) return;
+        const name = document.getElementById('billing-name').value.trim();
+        const phone = document.getElementById('billing-phone').value.replace(/\s+/g, '');
+        const address = document.getElementById('billing-address').value.trim();
+        const notes = document.getElementById('billing-notes').value.trim();
+        const affiliateCode = (refInput ? refInput.value.trim().toUpperCase() : '') || AffiliateTracker.getRefCode();
+        const items = Cart.getCart();
+        const orderCode = `TT-${Math.floor(10000 + Math.random() * 90000)}`;
 
-        activeLayout.classList.add('hidden');
-        successContainer.classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setSubmittingState(true);
+        errorBox.classList.add('hidden');
+
+        try {
+          if (isSupabaseConfigured && supabase) {
+            const { error } = await supabase.from('orders').insert({
+              order_code: orderCode,
+              customer_name: name,
+              phone,
+              address,
+              notes: notes || null,
+              payment_method: methodKey,
+              coupon_code: activeCouponCode || null,
+              total_amount: grandTotalGlobal,
+              items,
+              items_summary: buildItemsSummary(items),
+              affiliate_code: affiliateCode || null
+            });
+
+            if (error) {
+              throw error;
+            }
+          }
+
+          document.getElementById('success-order-id').textContent = `#${orderCode}`;
+          document.getElementById('success-customer-name').textContent = name;
+          document.getElementById('success-customer-phone').textContent = phone;
+          document.getElementById('success-payment-method').textContent = methodText;
+          document.getElementById('success-total-price').textContent = Cart.formatCurrency(grandTotalGlobal);
+
+          const refRow = document.getElementById('success-ref-row');
+          const refCodeEl = document.getElementById('success-ref-code');
+          if (affiliateCode && refRow && refCodeEl) {
+            refCodeEl.textContent = affiliateCode;
+            refRow.classList.remove('hidden');
+          }
+
+          Cart.clearCart();
+          sessionStorage.removeItem('thamoto_applied_coupon');
+
+          activeLayout.classList.add('hidden');
+          successContainer.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (err) {
+          errorBox.innerHTML = `Không thể gửi đơn lên hệ thống lúc này (mã tham chiếu <strong>#${orderCode}</strong>). Vui lòng thử lại hoặc <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="underline font-bold">nhắn Zalo 0963 294 492</a> để chốt đơn ngay.`;
+          errorBox.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } finally {
+          setSubmittingState(false);
+        }
       };
 
       checkoutForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const errorBox = document.getElementById('checkout-form-error');
         const nameEl = document.getElementById('billing-name');
         const phoneEl = document.getElementById('billing-phone');
         const addrEl = document.getElementById('billing-address');
@@ -292,16 +379,16 @@
           document.getElementById('qr-transfer-amount').textContent = Cart.formatCurrency(grandTotalGlobal);
           vietqrModal.classList.remove('hidden');
         } else {
-          completeOrderCheckout('Thanh toán khi nhận hàng (COD)');
+          completeOrderCheckout('COD', 'Thanh toán khi nhận hàng (COD)');
         }
       });
 
       const closeQRModal = () => vietqrModal.classList.add('hidden');
       document.getElementById('btn-qr-cancel').addEventListener('click', closeQRModal);
       document.getElementById('vietqr-modal-backdrop').addEventListener('click', closeQRModal);
-      document.getElementById('btn-qr-confirm').addEventListener('click', () => {
+      qrConfirmBtn.addEventListener('click', () => {
         closeQRModal();
-        completeOrderCheckout('Chuyển khoản (VietQR)');
+        completeOrderCheckout('VietQR', 'Chuyển khoản (VietQR)');
       });
 
       renderCheckout();

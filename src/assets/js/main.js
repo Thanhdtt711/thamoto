@@ -1,7 +1,10 @@
 import { Cart } from './cart.js';
 import { VehicleSelector } from './selector.js';
+import { AffiliateTracker } from './affiliate.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  AffiliateTracker.captureFromUrl();
+
   if (window.lucide) {
     window.lucide.createIcons();
   }

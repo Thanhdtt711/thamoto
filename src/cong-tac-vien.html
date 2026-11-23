@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chương Trình Cộng Tác Viên | Trung Thành Auto</title>
+  <meta name="description" content="Đăng ký làm cộng tác viên bán thảm lót sàn ô tô Trung Thành Auto. Không cần ôm hàng, chiết khấu hấp dẫn, theo dõi đơn hàng và hoa hồng minh bạch.">
+  <link rel="canonical" href="https://thamoto.vercel.app/cong-tac-vien.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="/favicon.png" />
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/assets/css/index.css">
+</head>
+<body class="bg-[#F4F6F9] text-[#0F172A]" data-subpage="true" data-page-title="CỘNG TÁC VIÊN">
+
+  <include src="partials/header.html"></include>
+
+  <main id="main-content" class="container-app py-5 md:py-8 space-y-6">
+    <nav aria-label="Breadcrumb" class="breadcrumb hidden lg:flex">
+      <a href="/index.html">Trang chủ</a>
+      <span>&gt;</span>
+      <span class="font-semibold text-[#0D2C54]">Cộng tác viên</span>
+    </nav>
+
+    <!-- Banner giới thiệu -->
+    <section class="bg-[#0D2C54] text-white rounded-2xl p-5 sm:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+      <div class="space-y-2.5 max-w-2xl">
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-white/10 text-[#F59E0B]">
+          <i data-lucide="handshake" class="w-3.5 h-3.5"></i> Hợp tác phân phối toàn quốc
+        </span>
+        <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold m-0 leading-tight">
+          TUYỂN CỘNG TÁC VIÊN THẢM LÓT SÀN Ô TÔ
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-200 m-0 leading-relaxed">
+          Phù hợp cho Sale hãng xe, chủ Gara, tiệm rửa xe, chăm sóc xe hoặc bán hàng online. Chỉ cần chia sẻ link giới thiệu có mã CTV — xưởng lo đo phom, cắt may, giao lắp và bảo hành 24 tháng.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 shrink-0">
+        <a href="#ctv-register-form" class="btn-cta text-xs px-5">ĐĂNG KÝ NGAY</a>
+        <a href="/ctv.html" class="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold no-underline transition border border-white/20">
+          <i data-lucide="log-in" class="w-4 h-4"></i> ĐĂNG NHẬP CỔNG CTV
+        </a>
+      </div>
+    </section>
+
+    <!-- 3 Quyền lợi chính -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card-surface p-5 space-y-2">
+        <div class="w-10 h-10 rounded-xl bg-[#EFF4FA] text-[#0D2C54] flex items-center justify-center">
+          <i data-lucide="percent" class="w-5 h-5"></i>
+        </div>
+        <h2 class="text-sm font-bold text-[#0D2C54] uppercase m-0">Hoa hồng 10% – 15% / đơn</h2>
+        <p class="text-xs text-slate-600 m-0 leading-relaxed">
+          Tự động tính hoa hồng theo từng đơn thành công. Không áp doanh số, không cần vốn ôm hàng.
+        </p>
+      </div>
+      <div class="card-surface p-5 space-y-2">
+        <div class="w-10 h-10 rounded-xl bg-[#EFF4FA] text-[#0D2C54] flex items-center justify-center">
+          <i data-lucide="link" class="w-5 h-5"></i>
+        </div>
+        <h2 class="text-sm font-bold text-[#0D2C54] uppercase m-0">Lưu mã giới thiệu 30 ngày</h2>
+        <p class="text-xs text-slate-600 m-0 leading-relaxed">
+          Khách bấm link của bạn hôm nay, tuần sau quay lại đặt vẫn tự động ghi nhận đúng mã CTV của bạn.
+        </p>
+      </div>
+      <div class="card-surface p-5 space-y-2">
+        <div class="w-10 h-10 rounded-xl bg-[#EFF4FA] text-[#0D2C54] flex items-center justify-center">
+          <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+        </div>
+        <h2 class="text-sm font-bold text-[#0D2C54] uppercase m-0">Theo dõi đơn minh bạch</h2>
+        <p class="text-xs text-slate-600 m-0 leading-relaxed">
+          Đăng nhập Cổng CTV để tạo link nhanh theo từng dòng xe, xem trạng thái đơn và đối soát hoa hồng trực tiếp.
+        </p>
+      </div>
+    </section>
+
+    <!-- Quy trình + Form đăng ký -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+      <section class="lg:col-span-2 card-surface p-5 space-y-4">
+        <h2 class="text-sm font-bold uppercase text-[#0D2C54] pb-3 border-b border-slate-200 m-0">
+          3 bước bắt đầu bán hàng
+        </h2>
+        <ol class="space-y-3.5 m-0 p-0 list-none text-xs sm:text-sm text-slate-700">
+          <li class="flex gap-3">
+            <span class="w-6 h-6 rounded-full bg-[#0D2C54] text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
+            <div>
+              <strong class="text-[#0D2C54] block">Đăng ký tài khoản CTV</strong>
+              Điền thông tin bên cạnh và chọn mã CTV ngắn gọn (VD: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-[#0D2C54]">MINH01</code>).
+            </div>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-6 h-6 rounded-full bg-[#0D2C54] text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
+            <div>
+              <strong class="text-[#0D2C54] block">Duyệt &amp; kích hoạt nhanh</strong>
+              Quản trị viên duyệt tài khoản và xác nhận mức hoa hồng qua Zalo trong ngày.
+            </div>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-6 h-6 rounded-full bg-[#0D2C54] text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
+            <div>
+              <strong class="text-[#0D2C54] block">Lấy link bán hàng &amp; nhận hoa hồng</strong>
+              Vào <a href="/ctv.html" class="text-[#C81E2B] font-semibold underline">Cổng CTV</a> tạo link theo từng dòng xe gửi khách, theo dõi đơn và đối soát hoa hồng định kỳ.
+            </div>
+          </li>
+        </ol>
+
+        <div class="rounded-xl bg-[#EFF4FA] border border-[#0D2C54]/15 p-3.5 text-xs text-slate-700 space-y-1">
+          <p class="font-semibold text-[#0D2C54] m-0">Hỗ trợ CTV trực tiếp:</p>
+          <p class="m-0">Hotline / Zalo: <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="font-bold text-[#0D2C54] tabular-nums">0963 294 492</a></p>
+        </div>
+      </section>
+
+      <section class="lg:col-span-3 card-surface p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between gap-3 pb-3 border-b border-slate-200">
+          <h2 class="text-base font-bold uppercase text-[#0D2C54] m-0">Đăng ký tài khoản CTV</h2>
+          <a href="/ctv.html" class="text-xs font-semibold text-[#0D2C54] hover:text-[#C81E2B]">Đã có tài khoản? Đăng nhập →</a>
+        </div>
+
+        <div id="ctv-config-warning" class="hidden rounded-xl bg-amber-50 border border-amber-200 p-3.5 text-xs text-amber-900">
+          Hệ thống Supabase chưa được cấu hình biến môi trường (<code>VITE_SUPABASE_URL</code>, <code>VITE_SUPABASE_ANON_KEY</code>). Vui lòng cấu hình trong file <code>.env</code> để kích hoạt đăng ký thật.
+        </div>
+
+        <p id="ctv-register-error" role="alert" class="hidden text-xs font-semibold text-[#C81E2B] bg-[#FEF2F2] border border-[#C81E2B]/30 rounded-lg px-3.5 py-2.5 m-0"></p>
+
+        <div id="ctv-register-success" class="hidden rounded-xl bg-green-50 border border-green-200 p-5 text-center space-y-3">
+          <div class="w-12 h-12 rounded-full bg-white border border-green-200 text-[#15803D] flex items-center justify-center mx-auto">
+            <i data-lucide="check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-bold text-[#0D2C54] m-0">Đăng ký CTV thành công!</h3>
+          <p id="ctv-success-detail" class="text-xs text-slate-600 m-0 leading-relaxed"></p>
+          <div class="flex flex-wrap justify-center gap-3 pt-1">
+            <a href="/ctv.html" class="btn-cta text-xs px-5">VÀO CỔNG CTV</a>
+            <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="btn-outline text-xs px-5">NHẮN ZALO DUYỆT NHANH</a>
+          </div>
+        </div>
+
+        <form id="ctv-register-form" novalidate class="space-y-3.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="space-y-1">
+              <label for="ctv-name" class="text-xs font-semibold text-slate-700 block">Họ và tên *</label>
+              <input type="text" id="ctv-name" required placeholder="VD: Nguyễn Minh Tuấn" class="field-input">
+            </div>
+            <div class="space-y-1">
+              <label for="ctv-phone" class="text-xs font-semibold text-slate-700 block">Số điện thoại / Zalo *</label>
+              <input type="tel" id="ctv-phone" required placeholder="VD: 0963294492" class="field-input">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="space-y-1">
+              <label for="ctv-email" class="text-xs font-semibold text-slate-700 block">Email đăng nhập *</label>
+              <input type="email" id="ctv-email" required placeholder="email@domain.com" class="field-input">
+            </div>
+            <div class="space-y-1">
+              <label for="ctv-password" class="text-xs font-semibold text-slate-700 block">Mật khẩu (tối thiểu 6 ký tự) *</label>
+              <input type="password" id="ctv-password" required minlength="6" placeholder="Nhập mật khẩu..." class="field-input">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <div class="space-y-1">
+              <label for="ctv-code" class="text-xs font-semibold text-slate-700 block">Mã CTV mong muốn</label>
+              <input type="text" id="ctv-code" placeholder="VD: TUAN01" class="field-input uppercase">
+            </div>
+            <div class="space-y-1">
+              <label for="ctv-job" class="text-xs font-semibold text-slate-700 block">Công việc hiện tại</label>
+              <select id="ctv-job" class="ymm-select text-xs">
+                <option value="Sale hãng xe">Sale hãng xe</option>
+                <option value="Chủ Gara / Detailing">Chủ Gara / Detailing</option>
+                <option value="Tiệm rửa xe">Tiệm rửa xe</option>
+                <option value="Bán hàng online">Bán hàng online</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <label for="ctv-area" class="text-xs font-semibold text-slate-700 block">Khu vực / Tỉnh thành</label>
+              <input type="text" id="ctv-area" placeholder="VD: Hà Nội" class="field-input">
+            </div>
+          </div>
+
+          <button type="submit" id="btn-ctv-submit" class="btn-cta w-full text-xs">
+            ĐĂNG KÝ LÀM CỘNG TÁC VIÊN
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <include src="partials/footer.html"></include>
+  <include src="partials/cart-drawer.html"></include>
+  <include src="partials/mobile-nav.html"></include>
+
+  <script type="module" src="./assets/js/main.js"></script>
+  <script type="module">
+    import { supabase, isSupabaseConfigured } from './assets/js/supabase.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('ctv-register-form');
+      const errorBox = document.getElementById('ctv-register-error');
+      const successBox = document.getElementById('ctv-register-success');
+      const successDetail = document.getElementById('ctv-success-detail');
+      const configWarning = document.getElementById('ctv-config-warning');
+      const submitBtn = document.getElementById('btn-ctv-submit');
+
+      if (!isSupabaseConfigured && configWarning) {
+        configWarning.classList.remove('hidden');
+      }
+
+      const generateCode = (rawInput) => {
+        const clean = String(rawInput || '')
+          .trim()
+          .toUpperCase()
+          .replace(/[^A-Z0-9_-]/g, '')
+          .slice(0, 16);
+        if (clean.length >= 3) return clean;
+        return `CTV${Math.floor(1000 + Math.random() * 9000)}`;
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorBox.classList.add('hidden');
+
+        const fullName = document.getElementById('ctv-name').value.trim();
+        const phone = document.getElementById('ctv-phone').value.replace(/\s+/g, '');
+        const email = document.getElementById('ctv-email').value.trim().toLowerCase();
+        const password = document.getElementById('ctv-password').value;
+        const jobType = document.getElementById('ctv-job').value;
+        const area = document.getElementById('ctv-area').value.trim();
+        const code = generateCode(document.getElementById('ctv-code').value);
+
+        if (fullName.length < 2) {
+          errorBox.textContent = 'Vui lòng nhập họ và tên (ít nhất 2 ký tự).';
+          errorBox.classList.remove('hidden');
+          return;
+        }
+        if (!/^0[35789]\d{8}$/.test(phone)) {
+          errorBox.textContent = 'Số điện thoại không hợp lệ (cần đúng 10 số, VD: 0963294492).';
+          errorBox.classList.remove('hidden');
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          errorBox.textContent = 'Email không hợp lệ.';
+          errorBox.classList.remove('hidden');
+          return;
+        }
+        if (password.length < 6) {
+          errorBox.textContent = 'Mật khẩu phải có ít nhất 6 ký tự.';
+          errorBox.classList.remove('hidden');
+          return;
+        }
+
+        if (!isSupabaseConfigured || !supabase) {
+          errorBox.textContent = 'Chưa cấu hình kết nối Supabase (.env). Vui lòng thêm VITE_SUPABASE_URL và VITE_SUPABASE_ANON_KEY.';
+          errorBox.classList.remove('hidden');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'ĐANG TẠO TÀI KHOẢN...';
+
+        try {
+          const { data: authData, error: authError } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                full_name: fullName,
+                phone,
+                code,
+                area: area || '',
+                job_type: jobType
+              }
+            }
+          });
+
+          if (authError) throw authError;
+          if (!authData.user) {
+            throw new Error('Không thể khởi tạo tài khoản. Vui lòng thử lại.');
+          }
+
+          form.classList.add('hidden');
+          const needEmailConfirm = !authData.session;
+          successDetail.innerHTML = needEmailConfirm
+            ? `Mã CTV của bạn là <strong class="text-[#0D2C54]">${code}</strong>. Vui lòng kiểm tra hộp thư <strong>${email}</strong> để xác nhận email, sau đó quản trị viên sẽ duyệt tài khoản.`
+            : `Mã CTV của bạn là <strong class="text-[#0D2C54]">${code}</strong>. Tài khoản đang ở trạng thái <strong>Chờ duyệt</strong> — quản trị viên sẽ kích hoạt sớm để bạn bắt đầu tạo link bán hàng.`;
+          successBox.classList.remove('hidden');
+          if (window.lucide) window.lucide.createIcons();
+        } catch (err) {
+          errorBox.textContent = err?.message || 'Đăng ký thất bại. Vui lòng thử lại sau.';
+          errorBox.classList.remove('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'ĐĂNG KÝ LÀM CỘNG TÁC VIÊN';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

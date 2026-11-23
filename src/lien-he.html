@@ -106,6 +106,8 @@
   <script type="module" src="./assets/js/main.js"></script>
   <script type="module">
     import { VehicleSelector } from './assets/js/selector.js';
+    import { AffiliateTracker } from './assets/js/affiliate.js';
+    import { supabase, isSupabaseConfigured } from './assets/js/supabase.js';
 
     document.addEventListener('DOMContentLoaded', () => {
       const selectBrand = document.getElementById('contact-brand');
@@ -113,6 +115,7 @@
       const selectYear = document.getElementById('contact-year');
       const form = document.getElementById('contact-form');
       const modal = document.getElementById('contact-success-modal');
+      const submitBtn = form.querySelector('button[type="submit"]');
 
       VehicleSelector.getBrands().forEach((b) => {
         const opt = document.createElement('option');
@@ -149,11 +152,12 @@
         }
       });
 
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const errorBox = document.getElementById('contact-form-error');
         const nameEl = document.getElementById('contact-name');
         const phoneEl = document.getElementById('contact-phone');
+        const msgEl = document.getElementById('contact-message');
         const nameVal = nameEl.value.trim();
         const phoneClean = phoneEl.value.replace(/\s+/g, '');
 
@@ -172,7 +176,37 @@
           return;
         }
         errorBox.classList.add('hidden');
-        modal.classList.remove('hidden');
+
+        const vehicleParts = [selectBrand.value, selectModel.value, selectYear.value].filter(Boolean);
+        const vehicleStr = vehicleParts.join(' ');
+        const messageVal = msgEl.value.trim();
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'ĐANG GỬI YÊU CẦU...';
+        }
+
+        try {
+          if (isSupabaseConfigured && supabase) {
+            const { error } = await supabase.from('leads').insert({
+              customer_name: nameVal,
+              phone: phoneClean,
+              vehicle: vehicleStr || null,
+              message: messageVal || null,
+              affiliate_code: AffiliateTracker.getRefCode() || null
+            });
+            if (error) throw error;
+          }
+          modal.classList.remove('hidden');
+        } catch {
+          errorBox.innerHTML = 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại hoặc <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="underline font-bold">nhắn Zalo 0963 294 492</a>.';
+          errorBox.classList.remove('hidden');
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'GỬI YÊU CẦU TƯ VẤN';
+          }
+        }
       });
 
       const closeModal = () => {

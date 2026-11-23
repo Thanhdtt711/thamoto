@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Quản Trị Hệ Thống (Admin Portal) | Trung Thành Auto</title>
+  <meta name="description" content="Trang quản trị đơn hàng, cộng tác viên và đối soát hoa hồng của Trung Thành Auto.">
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="/favicon.png" />
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/assets/css/index.css">
+</head>
+<body class="bg-[#F4F6F9] text-[#0F172A]" data-subpage="true" data-page-title="QUẢN TRỊ ADMIN">
+
+  <include src="partials/header.html"></include>
+
+  <!-- Toast Notification -->
+  <div id="admin-toast" role="status" aria-live="polite" class="fixed top-4 right-4 left-4 sm:left-auto sm:w-auto sm:max-w-sm z-50 hidden items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl border text-xs font-semibold transition-all">
+    <span id="admin-toast-dot" class="w-2.5 h-2.5 rounded-full shrink-0"></span>
+    <span id="admin-toast-text" class="leading-snug"></span>
+  </div>
+
+  <main id="main-content" class="container-app py-5 md:py-8 space-y-5">
+    <!-- 1. Login View -->
+    <section id="admin-login-view" class="max-w-md mx-auto card-surface p-6 space-y-4">
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 rounded-2xl bg-[#0D2C54] text-white flex items-center justify-center mx-auto">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <h1 class="text-lg font-bold uppercase text-[#0D2C54] m-0">Đăng Nhập Quản Trị</h1>
+        <p class="text-xs text-slate-500 m-0">Dành riêng cho Admin &amp; Develop quản lý toàn bộ hệ thống</p>
+      </div>
+
+      <p id="admin-login-error" role="alert" class="hidden text-xs font-semibold text-[#C81E2B] bg-[#FEF2F2] border border-[#C81E2B]/30 rounded-lg px-3.5 py-2.5 m-0"></p>
+
+      <form id="admin-login-form" class="space-y-3.5">
+        <div class="space-y-1">
+          <label for="admin-email" class="text-xs font-semibold text-slate-700 block">Email quản trị</label>
+          <input type="email" id="admin-email" required placeholder="admin@domain.com" class="field-input">
+        </div>
+        <div class="space-y-1">
+          <label for="admin-password" class="text-xs font-semibold text-slate-700 block">Mật khẩu</label>
+          <input type="password" id="admin-password" required placeholder="Nhập mật khẩu..." class="field-input">
+        </div>
+        <button type="submit" id="btn-admin-login" class="btn-cta w-full text-xs">ĐĂNG NHẬP QUẢN TRỊ</button>
+      </form>
+
+      <p class="text-xs text-slate-600 text-center m-0 pt-2 border-t border-slate-100">
+        Bạn là Cộng tác viên? <a href="/ctv.html" class="font-semibold text-[#0D2C54] underline">Vào Cổng CTV →</a>
+      </p>
+    </section>
+
+    <!-- 2. Forbidden View -->
+    <section id="admin-forbidden-view" class="hidden max-w-lg mx-auto card-surface p-6 text-center space-y-4">
+      <div class="w-14 h-14 rounded-full bg-[#FEF2F2] border border-[#C81E2B]/30 text-[#C81E2B] flex items-center justify-center mx-auto">
+        <i data-lucide="lock" class="w-7 h-7"></i>
+      </div>
+      <h2 class="text-lg font-bold text-[#0D2C54] m-0">Không có quyền truy cập trang Admin</h2>
+      <p class="text-xs sm:text-sm text-slate-600 m-0 leading-relaxed">
+        Tài khoản hiện tại không có quyền quản trị hệ thống. Vui lòng sử dụng <strong>Cổng CTV</strong> để xem đơn hàng cá nhân.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/ctv.html" class="btn-cta text-xs px-5">VÀO CỔNG CTV</a>
+        <button type="button" id="btn-forbidden-logout" class="btn-outline text-xs px-5">Đăng xuất</button>
+      </div>
+    </section>
+
+    <!-- 3. Admin Dashboard -->
+    <section id="admin-dashboard-view" class="hidden space-y-5">
+      <!-- Top Bar -->
+      <div class="card-surface p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="space-y-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold text-[#0D2C54] m-0">QUẢN TRỊ HỆ THỐNG</h1>
+            <span id="admin-role-pill" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-[#0D2C54] text-white whitespace-nowrap">ADMIN PORTAL</span>
+          </div>
+          <p id="admin-user-info" class="text-xs text-slate-500 m-0 truncate">Đang đăng nhập quản trị viên</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <a id="btn-dev-goto-ctv" href="/ctv.html" class="hidden inline-flex items-center justify-center gap-1.5 min-h-[44px] lg:min-h-[40px] px-3.5 rounded-lg bg-[#EFF4FA] hover:bg-slate-200 text-[#0D2C54] text-xs font-semibold no-underline transition whitespace-nowrap shrink-0">
+            <i data-lucide="user-check" class="w-3.5 h-3.5"></i> Xem Cổng CTV
+          </a>
+          <button type="button" id="btn-open-create-account" class="hidden inline-flex items-center justify-center gap-1.5 min-h-[44px] lg:min-h-[40px] px-3.5 rounded-lg bg-[#0D2C54] hover:bg-[#133A6E] text-white text-xs font-semibold cursor-pointer transition whitespace-nowrap shrink-0">
+            <i data-lucide="user-plus" class="w-3.5 h-3.5"></i> Tạo tài khoản
+          </button>
+          <button type="button" id="btn-admin-refresh" class="btn-outline text-xs px-3.5 min-h-[44px] lg:min-h-[40px] whitespace-nowrap shrink-0">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Tải lại
+          </button>
+          <button type="button" id="btn-admin-logout" class="btn-outline text-xs px-3.5 min-h-[44px] lg:min-h-[40px] text-[#C81E2B] border-[#C81E2B]/30 whitespace-nowrap shrink-0">
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Tổng đơn hệ thống</span>
+          <span id="kpi-all-orders" class="text-xl sm:text-2xl font-bold text-[#0D2C54] tabular-nums block">0</span>
+          <span id="kpi-order-split" class="text-[11px] text-slate-500 block tabular-nums">0 lẻ · 0 CTV</span>
+        </div>
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Tổng doanh số</span>
+          <span id="kpi-all-revenue" class="text-xl sm:text-2xl font-bold text-[#15803D] tabular-nums block">0 đ</span>
+          <span class="text-[11px] text-slate-500 block">Đã trừ đơn hủy</span>
+        </div>
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Cộng tác viên</span>
+          <span id="kpi-ctv-active" class="text-xl sm:text-2xl font-bold text-[#0D2C54] tabular-nums block">0</span>
+          <span id="kpi-ctv-pending" class="text-[11px] text-[#C81E2B] font-semibold block tabular-nums">0 chờ duyệt</span>
+        </div>
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Hoa hồng chờ trả</span>
+          <span id="kpi-comm-due" class="text-xl sm:text-2xl font-bold text-[#0D2C54] tabular-nums block">0 đ</span>
+          <span id="kpi-comm-paid" class="text-[11px] text-[#15803D] font-semibold block tabular-nums">Đã trả: 0 đ</span>
+        </div>
+      </div>
+
+      <!-- Tabs (Scrollable on Mobile, No Wrap) -->
+      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1 border-b border-slate-200">
+        <button type="button" data-tab="orders" class="admin-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-[#0D2C54] text-white cursor-pointer whitespace-nowrap shrink-0">
+          1. Quản lý đơn hàng
+        </button>
+        <button type="button" data-tab="affiliates" class="admin-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 cursor-pointer whitespace-nowrap shrink-0">
+          2. Quản lý CTV
+        </button>
+        <button type="button" data-tab="settlement" class="admin-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 cursor-pointer whitespace-nowrap shrink-0">
+          3. Đối soát &amp; Thanh toán
+        </button>
+        <button type="button" data-tab="leads" class="admin-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 cursor-pointer whitespace-nowrap shrink-0">
+          4. Yêu cầu tư vấn
+        </button>
+      </div>
+
+      <!-- TAB 1: Quản lý đơn hàng -->
+      <div id="tab-panel-orders" class="card-surface p-4 sm:p-5 space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <input type="search" id="admin-order-search" placeholder="Tìm mã đơn, tên khách, SĐT, mã CTV..." class="field-input text-xs">
+          <select id="admin-filter-source" class="ymm-select text-xs">
+            <option value="">Tất cả nguồn đơn (Lẻ + CTV)</option>
+            <option value="direct">Chỉ đơn khách lẻ</option>
+            <option value="ctv">Chỉ đơn qua CTV</option>
+          </select>
+          <select id="admin-filter-status" class="ymm-select text-xs">
+            <option value="">Tất cả trạng thái đơn</option>
+            <option value="new">Mới</option>
+            <option value="confirmed">Đã xác nhận</option>
+            <option value="shipping">Đang giao</option>
+            <option value="completed">Hoàn thành</option>
+            <option value="cancelled">Đã hủy</option>
+          </select>
+        </div>
+
+        <!-- Desktop Table -->
+        <div class="hidden lg:block overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                <th class="py-2.5 pr-4 whitespace-nowrap">Mã đơn</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Khách hàng &amp; Địa chỉ</th>
+                <th class="py-2.5 pr-4">Sản phẩm &amp; Xe</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Tổng tiền</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Nguồn / CTV</th>
+                <th class="py-2.5 whitespace-nowrap">Xử lý đơn</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards -->
+        <div id="admin-orders-cards" class="lg:hidden space-y-3"></div>
+        <p id="admin-orders-empty" class="hidden text-xs text-slate-500 text-center py-6 m-0">Không có đơn hàng phù hợp bộ lọc.</p>
+      </div>
+
+      <!-- TAB 2: Quản lý CTV & Tài khoản -->
+      <div id="tab-panel-affiliates" class="hidden card-surface p-4 sm:p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0">Danh sách Cộng tác viên &amp; Tài khoản</h2>
+            <p class="text-xs text-slate-500 mt-0.5 m-0">Duyệt, tạm khóa, hủy CTV và cấu hình mức hoa hồng riêng.</p>
+          </div>
+          <select id="admin-filter-ctv-status" class="ymm-select text-xs sm:w-52">
+            <option value="">Tất cả trạng thái</option>
+            <option value="pending">Chờ duyệt</option>
+            <option value="active">Đang hoạt động</option>
+            <option value="suspended">Tạm khóa</option>
+            <option value="cancelled">Đã hủy / Từ chối</option>
+          </select>
+        </div>
+
+        <!-- Desktop Table -->
+        <div class="hidden lg:block overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                <th class="py-2.5 pr-4 whitespace-nowrap">Mã &amp; Vai trò</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Họ tên &amp; Liên hệ</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Nghề / Khu vực</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Hiệu suất</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Hoa hồng (%)</th>
+                <th class="py-2.5 whitespace-nowrap">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="admin-affiliates-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards -->
+        <div id="admin-affiliates-cards" class="lg:hidden space-y-3"></div>
+      </div>
+
+      <!-- TAB 3: Đối soát & Thanh toán -->
+      <div id="tab-panel-settlement" class="hidden space-y-5">
+        <div class="card-surface p-4 sm:p-5 space-y-4">
+          <div>
+            <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0">Đối soát công nợ hoa hồng theo CTV</h2>
+            <p class="text-xs text-slate-500 mt-1 m-0">Duyệt hoa hồng cho đơn hoàn thành, sau đó bấm <strong>Xác nhận thanh toán</strong> để chốt chi trả cho CTV.</p>
+          </div>
+
+          <div class="hidden lg:block overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                  <th class="py-2.5 pr-4 whitespace-nowrap">CTV</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Chờ duyệt</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Đã duyệt — Chờ trả</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Đã thanh toán</th>
+                  <th class="py-2.5 whitespace-nowrap">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="admin-settlement-body" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+          <div id="admin-settlement-cards" class="lg:hidden space-y-3"></div>
+          <p id="admin-settlement-empty" class="hidden text-xs text-slate-500 text-center py-6 m-0">Chưa có phát sinh hoa hồng từ CTV.</p>
+        </div>
+
+        <div class="card-surface p-4 sm:p-5 space-y-4">
+          <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0">Lịch sử đã thanh toán hoa hồng</h2>
+          <div class="hidden lg:block overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Thời gian</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Mã CTV</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Số đơn</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Số tiền đã trả</th>
+                  <th class="py-2.5">Ghi chú / Mã giao dịch</th>
+                </tr>
+              </thead>
+              <tbody id="admin-payouts-body" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+          <div id="admin-payouts-cards" class="lg:hidden space-y-3"></div>
+          <p id="admin-payouts-empty" class="hidden text-xs text-slate-500 text-center py-6 m-0">Chưa có giao dịch thanh toán hoa hồng nào.</p>
+        </div>
+      </div>
+
+      <!-- TAB 4: Yêu cầu tư vấn -->
+      <div id="tab-panel-leads" class="hidden card-surface p-4 sm:p-5 space-y-4">
+        <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0">Yêu cầu tư vấn &amp; đo phom xe</h2>
+        <div class="hidden lg:block overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                <th class="py-2.5 pr-4 whitespace-nowrap">Thời gian</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Khách hàng</th>
+                <th class="py-2.5 pr-4">Xe &amp; Nội dung</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Mã CTV</th>
+                <th class="py-2.5 whitespace-nowrap">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="admin-leads-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+        <div id="admin-leads-cards" class="lg:hidden space-y-3"></div>
+        <p id="admin-leads-empty" class="hidden text-xs text-slate-500 text-center py-6 m-0">Chưa có yêu cầu tư vấn nào.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Tạo Tài Khoản (Chỉ dành cho Develop) -->
+  <div id="create-account-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div id="create-account-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]"></div>
+    <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-5 sm:p-6 relative z-10 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h3 class="text-base font-bold uppercase text-[#0D2C54] m-0">Tạo tài khoản hệ thống</h3>
+        <button type="button" id="btn-close-create-modal" class="icon-touch-btn text-slate-500 hover:text-slate-900" aria-label="Đóng">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <p id="create-account-error" class="hidden text-xs font-semibold text-[#C81E2B] bg-[#FEF2F2] border border-[#C81E2B]/30 rounded-lg px-3 py-2 m-0"></p>
+      <form id="create-account-form" class="space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label for="new-acc-role" class="text-xs font-semibold text-slate-700 block">Vai trò *</label>
+            <select id="new-acc-role" class="ymm-select text-xs">
+              <option value="admin">Admin (Quản trị)</option>
+              <option value="ctv">CTV (Cộng tác viên)</option>
+              <option value="develop">Develop (Toàn quyền)</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label for="new-acc-rate" class="text-xs font-semibold text-slate-700 block">Hoa hồng (%)</label>
+            <input type="number" id="new-acc-rate" value="10" min="0" max="50" step="0.5" class="field-input text-xs tabular-nums">
+          </div>
+        </div>
+        <div class="space-y-1">
+          <label for="new-acc-name" class="text-xs font-semibold text-slate-700 block">Họ và tên *</label>
+          <input type="text" id="new-acc-name" required placeholder="VD: Nguyễn Văn Admin" class="field-input text-xs">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label for="new-acc-phone" class="text-xs font-semibold text-slate-700 block">Số điện thoại *</label>
+            <input type="tel" id="new-acc-phone" required placeholder="0963294492" class="field-input text-xs">
+          </div>
+          <div class="space-y-1">
+            <label for="new-acc-code" class="text-xs font-semibold text-slate-700 block">Mã định danh *</label>
+            <input type="text" id="new-acc-code" required placeholder="VD: ADMIN02" class="field-input text-xs uppercase">
+          </div>
+        </div>
+        <div class="space-y-1">
+          <label for="new-acc-email" class="text-xs font-semibold text-slate-700 block">Email đăng nhập *</label>
+          <input type="email" id="new-acc-email" required placeholder="email@domain.com" class="field-input text-xs">
+        </div>
+        <div class="space-y-1">
+          <label for="new-acc-password" class="text-xs font-semibold text-slate-700 block">Mật khẩu (≥ 6 ký tự) *</label>
+          <input type="password" id="new-acc-password" required minlength="6" placeholder="Nhập mật khẩu..." class="field-input text-xs">
+        </div>
+        <button type="submit" id="btn-submit-create-account" class="btn-cta w-full text-xs">TẠO &amp; KÍCH HOẠT NGAY</button>
+      </form>
+    </div>
+  </div>
+
+  <include src="partials/footer.html"></include>
+  <include src="partials/cart-drawer.html"></include>
+  <include src="partials/mobile-nav.html"></include>
+
+  <script type="module" src="./assets/js/main.js"></script>
+  <script type="module">
+    import { supabase, isSupabaseConfigured, createEphemeralClient } from './assets/js/supabase.js';
+    import { Cart } from './assets/js/cart.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginView = document.getElementById('admin-login-view');
+      const forbiddenView = document.getElementById('admin-forbidden-view');
+      const dashView = document.getElementById('admin-dashboard-view');
+      const loginForm = document.getElementById('admin-login-form');
+      const loginError = document.getElementById('admin-login-error');
+      const loginBtn = document.getElementById('btn-admin-login');
+      const toastEl = document.getElementById('admin-toast');
+      const toastDot = document.getElementById('admin-toast-dot');
+      const toastText = document.getElementById('admin-toast-text');
+
+      let toastTimer = null;
+      let currentAdmin = null;
+      let allOrders = [];
+      let allAffiliates = [];
+      let allLeads = [];
+      let allPayouts = [];
+
+      const showToast = (msg, type = 'success') => {
+        if (!toastEl) return;
+        clearTimeout(toastTimer);
+        toastText.textContent = msg;
+        toastEl.className = `fixed top-4 right-4 left-4 sm:left-auto sm:w-auto sm:max-w-sm z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl border text-xs font-semibold transition-all ${
+          type === 'error'
+            ? 'bg-[#FEF2F2] border-[#C81E2B]/40 text-[#C81E2B]'
+            : 'bg-white border-[#15803D]/30 text-[#0D2C54]'
+        }`;
+        toastDot.className = `w-2.5 h-2.5 rounded-full shrink-0 ${type === 'error' ? 'bg-[#C81E2B]' : 'bg-[#15803D]'}`;
+        toastTimer = setTimeout(() => {
+          toastEl.classList.add('hidden');
+          toastEl.classList.remove('flex');
+        }, 3200);
+      };
+
+      const STATUS_LABELS = {
+        new: 'Mới',
+        confirmed: 'Đã xác nhận',
+        shipping: 'Đang giao',
+        completed: 'Hoàn thành',
+        cancelled: 'Đã hủy'
+      };
+
+      const STATUS_BADGE = {
+        new: 'bg-sky-50 text-sky-700 border-sky-200',
+        confirmed: 'bg-[#EFF4FA] text-[#0D2C54] border-[#0D2C54]/20',
+        shipping: 'bg-amber-50 text-amber-700 border-amber-200',
+        completed: 'bg-green-50 text-[#15803D] border-green-200',
+        cancelled: 'bg-[#FEF2F2] text-[#C81E2B] border-[#C81E2B]/25'
+      };
+
+      const CTV_STATUS_LABELS = {
+        pending: 'Chờ duyệt',
+        active: 'Đang hoạt động',
+        suspended: 'Tạm khóa',
+        cancelled: 'Đã hủy'
+      };
+
+      const CTV_STATUS_BADGE = {
+        pending: 'bg-amber-50 text-amber-700 border-amber-200',
+        active: 'bg-green-50 text-[#15803D] border-green-200',
+        suspended: 'bg-slate-100 text-slate-700 border-slate-300',
+        cancelled: 'bg-[#FEF2F2] text-[#C81E2B] border-[#C81E2B]/25'
+      };
+
+      const COMM_LABELS = {
+        pending: 'Chờ duyệt',
+        approved: 'Đã duyệt',
+        paid: 'Đã trả'
+      };
+
+      const escapeHtml = (str) =>
+        String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+
+      const formatDate = (iso) => {
+        try {
+          return new Date(iso).toLocaleString('vi-VN', {
+            day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+        } catch {
+          return iso || '';
+        }
+      };
+
+      // Tab switcher
+      document.querySelectorAll('.admin-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.tab;
+          document.querySelectorAll('.admin-tab-btn').forEach((b) => {
+            const active = b.dataset.tab === target;
+            b.className = active
+              ? 'admin-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-[#0D2C54] text-white cursor-pointer whitespace-nowrap shrink-0'
+              : 'admin-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 cursor-pointer whitespace-nowrap shrink-0';
+          });
+          ['orders', 'affiliates', 'settlement', 'leads'].forEach((t) => {
+            document.getElementById(`tab-panel-${t}`).classList.toggle('hidden', t !== target);
+          });
+        });
+      });
+
+      const renderKpis = () => {
+        const directCount = allOrders.filter((o) => !o.affiliate_code).length;
+        const ctvCount = allOrders.length - directCount;
+        const validOrders = allOrders.filter((o) => o.status !== 'cancelled');
+        const totalRevenue = validOrders.reduce((s, o) => s + Number(o.total_amount || 0), 0);
+
+        const ctvOnly = allAffiliates.filter((a) => a.role === 'ctv');
+        const activeCtv = ctvOnly.filter((a) => a.status === 'active').length;
+        const pendingCtv = ctvOnly.filter((a) => a.status === 'pending').length;
+
+        const commDue = validOrders
+          .filter((o) => o.affiliate_code && o.commission_status !== 'paid')
+          .reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+        const commPaid = validOrders
+          .filter((o) => o.affiliate_code && o.commission_status === 'paid')
+          .reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+
+        document.getElementById('kpi-all-orders').textContent = String(allOrders.length);
+        document.getElementById('kpi-order-split').textContent = `${directCount} lẻ · ${ctvCount} CTV`;
+        document.getElementById('kpi-all-revenue').textContent = Cart.formatCurrency(totalRevenue);
+        document.getElementById('kpi-ctv-active').textContent = String(activeCtv);
+        document.getElementById('kpi-ctv-pending').textContent = `${pendingCtv} chờ duyệt`;
+        document.getElementById('kpi-comm-due').textContent = Cart.formatCurrency(commDue);
+        document.getElementById('kpi-comm-paid').textContent = `Đã trả: ${Cart.formatCurrency(commPaid)}`;
+      };
+
+      const bindOrderStatusSelects = (root) => {
+        root.querySelectorAll('.js-admin-order-status').forEach((sel) => {
+          sel.addEventListener('change', async () => {
+            const orderId = sel.dataset.orderId;
+            const orderCode = sel.dataset.orderCode;
+            const nextStatus = sel.value;
+            sel.disabled = true;
+            const { error } = await supabase.from('orders').update({ status: nextStatus }).eq('id', orderId);
+            sel.disabled = false;
+            if (error) {
+              showToast(`Lỗi cập nhật đơn #${orderCode}: ${error.message}`, 'error');
+            } else {
+              showToast(`Đã cập nhật đơn #${orderCode} → ${STATUS_LABELS[nextStatus]}`);
+              await loadAllAdminData();
+            }
+          });
+        });
+      };
+
+      const renderOrdersTable = () => {
+        const tbody = document.getElementById('admin-orders-body');
+        const cards = document.getElementById('admin-orders-cards');
+        const emptyEl = document.getElementById('admin-orders-empty');
+        const q = document.getElementById('admin-order-search').value.trim().toLowerCase();
+        const srcFilter = document.getElementById('admin-filter-source').value;
+        const stFilter = document.getElementById('admin-filter-status').value;
+
+        const filtered = allOrders.filter((o) => {
+          if (srcFilter === 'direct' && o.affiliate_code) return false;
+          if (srcFilter === 'ctv' && !o.affiliate_code) return false;
+          if (stFilter && o.status !== stFilter) return false;
+          if (q) {
+            const hay = `${o.order_code} ${o.customer_name} ${o.phone} ${o.affiliate_code || ''} ${o.items_summary}`.toLowerCase();
+            if (!hay.includes(q)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = '';
+          cards.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+        emptyEl.classList.add('hidden');
+
+        tbody.innerHTML = filtered.map((o) => `
+          <tr class="align-top">
+            <td class="py-3.5 pr-4 whitespace-nowrap">
+              <strong class="text-[#0D2C54] tabular-nums block">#${escapeHtml(o.order_code)}</strong>
+              <span class="text-[11px] text-slate-500 tabular-nums">${formatDate(o.created_at)}</span>
+            </td>
+            <td class="py-3.5 pr-4 min-w-[170px]">
+              <strong class="text-slate-900 block">${escapeHtml(o.customer_name)}</strong>
+              <a href="tel:${escapeHtml(o.phone)}" class="text-[#0D2C54] font-semibold tabular-nums no-underline hover:underline block">${escapeHtml(o.phone)}</a>
+              <span class="text-[11px] text-slate-500 block">${escapeHtml(o.address)}</span>
+              ${o.notes ? `<span class="text-[11px] text-amber-700 block">Ghi chú: ${escapeHtml(o.notes)}</span>` : ''}
+            </td>
+            <td class="py-3.5 pr-4 max-w-xs">
+              <p class="m-0 text-slate-700 whitespace-pre-line leading-snug">${escapeHtml(o.items_summary)}</p>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-semibold">${escapeHtml(o.payment_method)}</span>
+            </td>
+            <td class="py-3.5 pr-4 whitespace-nowrap font-bold text-[#15803D] tabular-nums">
+              ${Cart.formatCurrency(Number(o.total_amount || 0))}
+            </td>
+            <td class="py-3.5 pr-4 whitespace-nowrap">
+              ${o.affiliate_code
+                ? `<span class="inline-block px-2 py-0.5 rounded bg-[#FEF2F2] text-[#C81E2B] font-semibold text-[11px]">${escapeHtml(o.affiliate_code)}</span>
+                   <span class="block text-[#15803D] font-semibold tabular-nums mt-0.5">${Cart.formatCurrency(Number(o.commission_amount || 0))} (${COMM_LABELS[o.commission_status] || o.commission_status})</span>`
+                : `<span class="inline-block px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px]">Khách lẻ</span>`}
+            </td>
+            <td class="py-3.5 whitespace-nowrap">
+              <select data-order-id="${o.id}" data-order-code="${escapeHtml(o.order_code)}" class="js-admin-order-status min-h-[38px] w-36 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold bg-white text-[#0D2C54]">
+                ${Object.entries(STATUS_LABELS).map(([k, v]) => `<option value="${k}" ${o.status === k ? 'selected' : ''}>${v}</option>`).join('')}
+              </select>
+            </td>
+          </tr>
+        `).join('');
+
+        cards.innerHTML = filtered.map((o) => `
+          <div class="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4 space-y-3 text-xs">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <strong class="text-sm text-[#0D2C54] tabular-nums block">#${escapeHtml(o.order_code)}</strong>
+                <span class="text-[11px] text-slate-500 tabular-nums">${formatDate(o.created_at)}</span>
+              </div>
+              <span class="px-2.5 py-1 rounded-full border text-[11px] font-semibold whitespace-nowrap ${STATUS_BADGE[o.status] || 'bg-slate-100 text-slate-700'}">
+                ${STATUS_LABELS[o.status] || o.status}
+              </span>
+            </div>
+
+            <div class="space-y-1 bg-white rounded-lg p-3 border border-slate-200/80">
+              <div class="flex items-center justify-between gap-2">
+                <strong class="text-slate-900">${escapeHtml(o.customer_name)}</strong>
+                <a href="tel:${escapeHtml(o.phone)}" class="text-[#0D2C54] font-bold tabular-nums no-underline">${escapeHtml(o.phone)}</a>
+              </div>
+              <p class="text-[11px] text-slate-500 m-0">${escapeHtml(o.address)}</p>
+              ${o.notes ? `<p class="text-[11px] text-amber-700 m-0">Ghi chú: ${escapeHtml(o.notes)}</p>` : ''}
+            </div>
+
+            <p class="m-0 text-slate-700 whitespace-pre-line leading-relaxed">${escapeHtml(o.items_summary)}</p>
+
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-200">
+              <div>
+                <span class="text-[11px] text-slate-500 block">${escapeHtml(o.payment_method)} · ${o.affiliate_code ? `CTV ${escapeHtml(o.affiliate_code)}` : 'Khách lẻ'}</span>
+                <strong class="text-base text-[#15803D] tabular-nums">${Cart.formatCurrency(Number(o.total_amount || 0))}</strong>
+              </div>
+              <select data-order-id="${o.id}" data-order-code="${escapeHtml(o.order_code)}" class="js-admin-order-status min-h-[44px] w-40 border border-slate-300 rounded-lg px-3 text-xs font-semibold bg-white text-[#0D2C54]">
+                ${Object.entries(STATUS_LABELS).map(([k, v]) => `<option value="${k}" ${o.status === k ? 'selected' : ''}>${v}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+        `).join('');
+
+        bindOrderStatusSelects(tbody);
+        bindOrderStatusSelects(cards);
+      };
+
+      const bindAffiliateControls = (root) => {
+        root.querySelectorAll('.js-aff-status').forEach((sel) => {
+          sel.addEventListener('change', async () => {
+            const code = sel.dataset.affCode;
+            const nextStatus = sel.value;
+            sel.disabled = true;
+            const { error } = await supabase.from('affiliates').update({ status: nextStatus }).eq('id', sel.dataset.affId);
+            sel.disabled = false;
+            if (error) {
+              showToast(`Lỗi cập nhật CTV ${code}: ${error.message}`, 'error');
+            } else {
+              showToast(`Đã đổi trạng thái ${code} → ${CTV_STATUS_LABELS[nextStatus]}`);
+              await loadAllAdminData();
+            }
+          });
+        });
+
+        root.querySelectorAll('.js-aff-rate').forEach((inp) => {
+          inp.addEventListener('change', async () => {
+            const code = inp.dataset.affCode;
+            const rate = Math.max(0, Math.min(50, Number(inp.value) || 0));
+            const { error } = await supabase.from('affiliates').update({ commission_rate: rate }).eq('id', inp.dataset.affId);
+            if (error) {
+              showToast(`Lỗi cập nhật hoa hồng ${code}`, 'error');
+            } else {
+              showToast(`Đã cập nhật hoa hồng ${code} → ${rate}%`);
+              await loadAllAdminData();
+            }
+          });
+        });
+
+        root.querySelectorAll('.js-aff-role').forEach((sel) => {
+          sel.addEventListener('change', async () => {
+            const code = sel.dataset.affCode;
+            const email = sel.dataset.affEmail;
+            const nextRole = sel.value;
+            sel.disabled = true;
+            const { error } = await supabase.rpc('develop_set_account_role', {
+              p_email: email,
+              p_role: nextRole,
+              p_status: 'active'
+            });
+            sel.disabled = false;
+            if (error) {
+              showToast(`Lỗi đổi vai trò ${code}: ${error.message}`, 'error');
+            } else {
+              showToast(`Đã đổi vai trò ${code} → ${nextRole.toUpperCase()}`);
+              await loadAllAdminData();
+            }
+          });
+        });
+      };
+
+      const renderAffiliatesTable = () => {
+        const tbody = document.getElementById('admin-affiliates-body');
+        const cards = document.getElementById('admin-affiliates-cards');
+        const stFilter = document.getElementById('admin-filter-ctv-status').value;
+        const isDevelop = currentAdmin?.role === 'develop';
+        const list = stFilter ? allAffiliates.filter((a) => a.status === stFilter) : allAffiliates;
+
+        const roleControlHtml = (a) => {
+          if (isDevelop && a.id !== currentAdmin?.id) {
+            return `
+              <select data-aff-id="${a.id}" data-aff-code="${escapeHtml(a.code)}" data-aff-email="${escapeHtml(a.email)}" class="js-aff-role mt-1 border border-slate-300 rounded px-2 py-1 text-[11px] font-semibold bg-white text-[#0D2C54]">
+                <option value="ctv" ${a.role === 'ctv' ? 'selected' : ''}>CTV</option>
+                <option value="admin" ${a.role === 'admin' ? 'selected' : ''}>ADMIN</option>
+                <option value="develop" ${a.role === 'develop' ? 'selected' : ''}>DEVELOP</option>
+              </select>
+            `;
+          }
+          const pillCls = a.role === 'develop'
+            ? 'bg-[#C81E2B] text-white'
+            : (a.role === 'admin' ? 'bg-[#0D2C54] text-white' : 'bg-slate-100 text-slate-600');
+          return `<span class="inline-block mt-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded ${pillCls}">${escapeHtml(a.role)}</span>`;
+        };
+
+        tbody.innerHTML = list.map((a) => {
+          const code = String(a.code || '').toUpperCase();
+          const ctvOrders = allOrders.filter((o) => String(o.affiliate_code || '').toUpperCase() === code && o.status !== 'cancelled');
+          const ctvRev = ctvOrders.reduce((s, o) => s + Number(o.total_amount || 0), 0);
+          return `
+            <tr class="align-top">
+              <td class="py-3.5 pr-4 whitespace-nowrap">
+                <strong class="text-[#0D2C54] block">${escapeHtml(a.code)}</strong>
+                ${roleControlHtml(a)}
+              </td>
+              <td class="py-3.5 pr-4">
+                <strong class="text-slate-900 block">${escapeHtml(a.full_name)}</strong>
+                <a href="tel:${escapeHtml(a.phone)}" class="text-[#0D2C54] font-semibold tabular-nums no-underline block">${escapeHtml(a.phone)}</a>
+                <span class="text-[11px] text-slate-500 block">${escapeHtml(a.email)}</span>
+              </td>
+              <td class="py-3.5 pr-4 whitespace-nowrap">
+                <span class="block">${escapeHtml(a.job_type || '—')}</span>
+                <span class="text-[11px] text-slate-500">${escapeHtml(a.area || '—')}</span>
+              </td>
+              <td class="py-3.5 pr-4 whitespace-nowrap tabular-nums">
+                <strong class="text-[#0D2C54] block">${ctvOrders.length} đơn</strong>
+                <span class="text-[11px] text-[#15803D] font-semibold">${Cart.formatCurrency(ctvRev)}</span>
+              </td>
+              <td class="py-3.5 pr-4 whitespace-nowrap">
+                <input type="number" min="0" max="50" step="0.5" value="${a.commission_rate}" data-aff-id="${a.id}" data-aff-code="${escapeHtml(a.code)}" class="js-aff-rate w-20 min-h-[38px] border border-slate-300 rounded-lg px-2 text-xs font-semibold tabular-nums"> %
+              </td>
+              <td class="py-3.5 whitespace-nowrap">
+                <select data-aff-id="${a.id}" data-aff-code="${escapeHtml(a.code)}" class="js-aff-status min-h-[38px] w-36 border border-slate-300 rounded-lg px-2.5 text-xs font-semibold bg-white" ${a.id === currentAdmin?.id ? 'disabled' : ''}>
+                  ${Object.entries(CTV_STATUS_LABELS).map(([k, v]) => `<option value="${k}" ${a.status === k ? 'selected' : ''}>${v}</option>`).join('')}
+                </select>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        cards.innerHTML = list.map((a) => {
+          const code = String(a.code || '').toUpperCase();
+          const ctvOrders = allOrders.filter((o) => String(o.affiliate_code || '').toUpperCase() === code && o.status !== 'cancelled');
+          const ctvRev = ctvOrders.reduce((s, o) => s + Number(o.total_amount || 0), 0);
+          return `
+            <div class="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4 space-y-3 text-xs">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <strong class="text-sm text-[#0D2C54] block">${escapeHtml(a.full_name)}</strong>
+                  <span class="text-[11px] font-semibold text-slate-600">${escapeHtml(a.code)} · ${escapeHtml(a.job_type || '—')}</span>
+                </div>
+                <span class="px-2.5 py-1 rounded-full border text-[11px] font-semibold whitespace-nowrap ${CTV_STATUS_BADGE[a.status] || ''}">
+                  ${CTV_STATUS_LABELS[a.status] || a.status}
+                </span>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-slate-200/80 space-y-1">
+                <div class="flex justify-between">
+                  <a href="tel:${escapeHtml(a.phone)}" class="font-bold text-[#0D2C54] tabular-nums no-underline">${escapeHtml(a.phone)}</a>
+                  <span class="text-slate-500">${escapeHtml(a.area || '—')}</span>
+                </div>
+                <p class="text-[11px] text-slate-500 m-0 truncate">${escapeHtml(a.email)}</p>
+                <p class="text-[11px] text-[#15803D] font-semibold m-0 tabular-nums">${ctvOrders.length} đơn · ${Cart.formatCurrency(ctvRev)}</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <div>
+                  <label class="text-[10px] text-slate-500 block mb-1">Hoa hồng (%)</label>
+                  <input type="number" min="0" max="50" step="0.5" value="${a.commission_rate}" data-aff-id="${a.id}" data-aff-code="${escapeHtml(a.code)}" class="js-aff-rate w-full min-h-[44px] border border-slate-300 rounded-lg px-3 text-xs font-semibold tabular-nums bg-white">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-500 block mb-1">Trạng thái</label>
+                  <select data-aff-id="${a.id}" data-aff-code="${escapeHtml(a.code)}" class="js-aff-status w-full min-h-[44px] border border-slate-300 rounded-lg px-2.5 text-xs font-semibold bg-white" ${a.id === currentAdmin?.id ? 'disabled' : ''}>
+                    ${Object.entries(CTV_STATUS_LABELS).map(([k, v]) => `<option value="${k}" ${a.status === k ? 'selected' : ''}>${v}</option>`).join('')}
+                  </select>
+                </div>
+              </div>
+              ${isDevelop && a.id !== currentAdmin?.id ? `<div><label class="text-[10px] text-slate-500 block mb-1">Vai trò (Develop)</label>${roleControlHtml(a)}</div>` : ''}
+            </div>
+          `;
+        }).join('');
+
+        bindAffiliateControls(tbody);
+        bindAffiliateControls(cards);
+      };
+
+      const bindSettlementActions = (root) => {
+        root.querySelectorAll('.js-approve-comm').forEach((btn) => {
+          btn.addEventListener('click', async () => {
+            const code = btn.dataset.code;
+            const ids = allOrders
+              .filter((o) => String(o.affiliate_code || '').toUpperCase() === code && o.status === 'completed' && o.commission_status === 'pending')
+              .map((o) => o.id);
+            if (ids.length === 0) return;
+            btn.disabled = true;
+            const { error } = await supabase.from('orders').update({ commission_status: 'approved' }).in('id', ids);
+            if (error) {
+              showToast(`Lỗi duyệt hoa hồng ${code}`, 'error');
+            } else {
+              showToast(`Đã duyệt hoa hồng ${ids.length} đơn cho ${code}`);
+              await loadAllAdminData();
+            }
+          });
+        });
+
+        root.querySelectorAll('.js-pay-comm').forEach((btn) => {
+          btn.addEventListener('click', async () => {
+            const code = btn.dataset.code;
+            const amount = Number(btn.dataset.amount || 0);
+            const count = Number(btn.dataset.count || 0);
+            const note = window.prompt(`Nhập ghi chú / mã giao dịch chuyển khoản ${Cart.formatCurrency(amount)} cho ${code}:`, `CK hoa hồng ${code} (${count} đơn)`);
+            if (note === null) return;
+
+            const ids = allOrders
+              .filter((o) => String(o.affiliate_code || '').toUpperCase() === code && o.commission_status === 'approved')
+              .map((o) => o.id);
+            if (ids.length === 0) return;
+
+            btn.disabled = true;
+            const { error: upErr } = await supabase.from('orders').update({ commission_status: 'paid' }).in('id', ids);
+            const { error: insErr } = await supabase.from('commission_payouts').insert({
+              affiliate_code: code,
+              amount,
+              order_count: count,
+              note: note.trim() || `Thanh toán hoa hồng ${code}`,
+              created_by: currentAdmin?.user_id || null
+            });
+            if (upErr || insErr) {
+              showToast(`Lỗi ghi nhận thanh toán cho ${code}`, 'error');
+            } else {
+              showToast(`Đã thanh toán ${Cart.formatCurrency(amount)} cho ${code}`);
+              await loadAllAdminData();
+            }
+          });
+        });
+      };
+
+      const renderSettlement = () => {
+        const tbody = document.getElementById('admin-settlement-body');
+        const cards = document.getElementById('admin-settlement-cards');
+        const emptyEl = document.getElementById('admin-settlement-empty');
+
+        const map = new Map();
+        allAffiliates.forEach((a) => {
+          map.set(String(a.code).toUpperCase(), {
+            code: String(a.code).toUpperCase(),
+            name: a.full_name,
+            phone: a.phone,
+            completedPendingOrders: [],
+            approvedOrders: [],
+            paidAmount: 0
+          });
+        });
+
+        allOrders.forEach((o) => {
+          if (!o.affiliate_code || o.status === 'cancelled') return;
+          const code = String(o.affiliate_code).toUpperCase();
+          if (!map.has(code)) {
+            map.set(code, { code, name: code, phone: '', completedPendingOrders: [], approvedOrders: [], paidAmount: 0 });
+          }
+          const entry = map.get(code);
+          if (o.commission_status === 'paid') {
+            entry.paidAmount += Number(o.commission_amount || 0);
+          } else if (o.commission_status === 'approved') {
+            entry.approvedOrders.push(o);
+          } else if (o.status === 'completed' && o.commission_status === 'pending') {
+            entry.completedPendingOrders.push(o);
+          }
+        });
+
+        const rows = Array.from(map.values()).filter(
+          (r) => r.completedPendingOrders.length > 0 || r.approvedOrders.length > 0 || r.paidAmount > 0
+        );
+
+        if (rows.length === 0) {
+          tbody.innerHTML = '';
+          cards.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+        } else {
+          emptyEl.classList.add('hidden');
+          tbody.innerHTML = rows.map((r) => {
+            const pendingAmt = r.completedPendingOrders.reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+            const approvedAmt = r.approvedOrders.reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+            return `
+              <tr class="align-top">
+                <td class="py-3.5 pr-4 whitespace-nowrap">
+                  <strong class="text-[#0D2C54] block">${escapeHtml(r.code)}</strong>
+                  <span class="text-slate-600 block">${escapeHtml(r.name)}</span>
+                  <span class="text-[11px] text-slate-500 tabular-nums">${escapeHtml(r.phone)}</span>
+                </td>
+                <td class="py-3.5 pr-4 whitespace-nowrap tabular-nums">
+                  <strong class="text-[#0D2C54] block">${Cart.formatCurrency(pendingAmt)}</strong>
+                  <span class="text-[11px] text-slate-500">${r.completedPendingOrders.length} đơn hoàn thành</span>
+                </td>
+                <td class="py-3.5 pr-4 whitespace-nowrap tabular-nums">
+                  <strong class="text-[#C81E2B] block">${Cart.formatCurrency(approvedAmt)}</strong>
+                  <span class="text-[11px] text-slate-500">${r.approvedOrders.length} đơn chờ trả</span>
+                </td>
+                <td class="py-3.5 pr-4 whitespace-nowrap font-bold text-[#15803D] tabular-nums">
+                  ${Cart.formatCurrency(r.paidAmount)}
+                </td>
+                <td class="py-3.5 whitespace-nowrap">
+                  <div class="flex items-center gap-2">
+                    ${r.completedPendingOrders.length > 0
+                      ? `<button type="button" data-code="${escapeHtml(r.code)}" class="js-approve-comm min-h-[36px] px-3 rounded-lg bg-[#0D2C54] hover:bg-[#133A6E] text-white text-[11px] font-semibold cursor-pointer whitespace-nowrap">Duyệt hoa hồng</button>`
+                      : ''}
+                    ${r.approvedOrders.length > 0
+                      ? `<button type="button" data-code="${escapeHtml(r.code)}" data-amount="${approvedAmt}" data-count="${r.approvedOrders.length}" class="js-pay-comm min-h-[36px] px-3 rounded-lg bg-[#15803D] hover:bg-green-800 text-white text-[11px] font-semibold cursor-pointer whitespace-nowrap">Xác nhận thanh toán</button>`
+                      : ''}
+                    ${r.completedPendingOrders.length === 0 && r.approvedOrders.length === 0
+                      ? '<span class="text-[11px] text-slate-400">Đã đối soát xong</span>'
+                      : ''}
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          cards.innerHTML = rows.map((r) => {
+            const pendingAmt = r.completedPendingOrders.reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+            const approvedAmt = r.approvedOrders.reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+            return `
+              <div class="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4 space-y-3 text-xs">
+                <div>
+                  <strong class="text-sm text-[#0D2C54]">${escapeHtml(r.code)}</strong> · <span class="font-semibold">${escapeHtml(r.name)}</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center bg-white rounded-lg p-2.5 border border-slate-200/80">
+                  <div><span class="text-[10px] text-slate-500 block">Chờ duyệt</span><strong class="text-[#0D2C54] tabular-nums">${Cart.formatCurrency(pendingAmt)}</strong></div>
+                  <div><span class="text-[10px] text-slate-500 block">Chờ trả</span><strong class="text-[#C81E2B] tabular-nums">${Cart.formatCurrency(approvedAmt)}</strong></div>
+                  <div><span class="text-[10px] text-slate-500 block">Đã trả</span><strong class="text-[#15803D] tabular-nums">${Cart.formatCurrency(r.paidAmount)}</strong></div>
+                </div>
+                <div class="flex flex-col gap-2">
+                  ${r.completedPendingOrders.length > 0
+                    ? `<button type="button" data-code="${escapeHtml(r.code)}" class="js-approve-comm min-h-[44px] w-full rounded-lg bg-[#0D2C54] text-white text-xs font-semibold">Duyệt hoa hồng (${r.completedPendingOrders.length} đơn)</button>`
+                    : ''}
+                  ${r.approvedOrders.length > 0
+                    ? `<button type="button" data-code="${escapeHtml(r.code)}" data-amount="${approvedAmt}" data-count="${r.approvedOrders.length}" class="js-pay-comm min-h-[44px] w-full rounded-lg bg-[#15803D] text-white text-xs font-semibold">Xác nhận thanh toán ${Cart.formatCurrency(approvedAmt)}</button>`
+                    : ''}
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          bindSettlementActions(tbody);
+          bindSettlementActions(cards);
+        }
+
+        const pBody = document.getElementById('admin-payouts-body');
+        const pCards = document.getElementById('admin-payouts-cards');
+        const pEmpty = document.getElementById('admin-payouts-empty');
+        if (allPayouts.length === 0) {
+          pBody.innerHTML = '';
+          pCards.innerHTML = '';
+          pEmpty.classList.remove('hidden');
+        } else {
+          pEmpty.classList.add('hidden');
+          pBody.innerHTML = allPayouts.map((p) => `
+            <tr>
+              <td class="py-3 pr-4 whitespace-nowrap text-slate-600 tabular-nums">${formatDate(p.paid_at)}</td>
+              <td class="py-3 pr-4 whitespace-nowrap font-bold text-[#0D2C54]">${escapeHtml(p.affiliate_code)}</td>
+              <td class="py-3 pr-4 whitespace-nowrap tabular-nums">${p.order_count} đơn</td>
+              <td class="py-3 pr-4 whitespace-nowrap font-bold text-[#15803D] tabular-nums">${Cart.formatCurrency(Number(p.amount || 0))}</td>
+              <td class="py-3 text-slate-600">${escapeHtml(p.note || '—')}</td>
+            </tr>
+          `).join('');
+          pCards.innerHTML = allPayouts.map((p) => `
+            <div class="rounded-xl border border-slate-200 bg-[#F8FAFC] p-3.5 text-xs space-y-1">
+              <div class="flex justify-between items-center">
+                <strong class="text-[#0D2C54]">${escapeHtml(p.affiliate_code)} · ${p.order_count} đơn</strong>
+                <strong class="text-[#15803D] tabular-nums">${Cart.formatCurrency(Number(p.amount || 0))}</strong>
+              </div>
+              <p class="text-[11px] text-slate-500 m-0 tabular-nums">${formatDate(p.paid_at)}</p>
+              <p class="text-slate-600 m-0">${escapeHtml(p.note || '—')}</p>
+            </div>
+          `).join('');
+        }
+      };
+
+      const bindLeadControls = (root) => {
+        root.querySelectorAll('.js-lead-status').forEach((sel) => {
+          sel.addEventListener('change', async () => {
+            sel.disabled = true;
+            const { error } = await supabase.from('leads').update({ status: sel.value }).eq('id', sel.dataset.leadId);
+            sel.disabled = false;
+            if (error) {
+              showToast('Lỗi cập nhật trạng thái tư vấn', 'error');
+            } else {
+              showToast('Đã cập nhật trạng thái yêu cầu tư vấn');
+            }
+          });
+        });
+      };
+
+      const renderLeadsTable = () => {
+        const tbody = document.getElementById('admin-leads-body');
+        const cards = document.getElementById('admin-leads-cards');
+        const emptyEl = document.getElementById('admin-leads-empty');
+        if (allLeads.length === 0) {
+          tbody.innerHTML = '';
+          cards.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+        emptyEl.classList.add('hidden');
+
+        tbody.innerHTML = allLeads.map((l) => `
+          <tr class="align-top">
+            <td class="py-3.5 pr-4 whitespace-nowrap text-slate-500 tabular-nums">${formatDate(l.created_at)}</td>
+            <td class="py-3.5 pr-4 whitespace-nowrap">
+              <strong class="text-slate-900 block">${escapeHtml(l.customer_name)}</strong>
+              <a href="tel:${escapeHtml(l.phone)}" class="text-[#0D2C54] font-semibold tabular-nums no-underline">${escapeHtml(l.phone)}</a>
+            </td>
+            <td class="py-3.5 pr-4">
+              <strong class="text-[#0D2C54] block">${escapeHtml(l.vehicle || 'Chưa chọn xe')}</strong>
+              <span class="text-slate-600">${escapeHtml(l.message || '—')}</span>
+            </td>
+            <td class="py-3.5 pr-4 whitespace-nowrap font-semibold text-[#0D2C54]">${escapeHtml(l.affiliate_code || '—')}</td>
+            <td class="py-3.5 whitespace-nowrap">
+              <select data-lead-id="${l.id}" class="js-lead-status min-h-[38px] border border-slate-300 rounded-lg px-2.5 text-xs font-semibold bg-white">
+                <option value="new" ${l.status === 'new' ? 'selected' : ''}>Chưa gọi</option>
+                <option value="contacted" ${l.status === 'contacted' ? 'selected' : ''}>Đã tư vấn</option>
+                <option value="closed" ${l.status === 'closed' ? 'selected' : ''}>Đã chốt / Đóng</option>
+              </select>
+            </td>
+          </tr>
+        `).join('');
+
+        cards.innerHTML = allLeads.map((l) => `
+          <div class="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4 space-y-2.5 text-xs">
+            <div class="flex justify-between items-start gap-2">
+              <div>
+                <strong class="text-slate-900 block">${escapeHtml(l.customer_name)}</strong>
+                <a href="tel:${escapeHtml(l.phone)}" class="text-[#0D2C54] font-bold tabular-nums no-underline">${escapeHtml(l.phone)}</a>
+              </div>
+              <span class="text-[11px] text-slate-500 tabular-nums">${formatDate(l.created_at)}</span>
+            </div>
+            <p class="m-0"><strong class="text-[#0D2C54]">${escapeHtml(l.vehicle || 'Chưa chọn xe')}</strong> — ${escapeHtml(l.message || '—')}</p>
+            <select data-lead-id="${l.id}" class="js-lead-status w-full min-h-[44px] border border-slate-300 rounded-lg px-3 text-xs font-semibold bg-white">
+              <option value="new" ${l.status === 'new' ? 'selected' : ''}>Chưa gọi</option>
+              <option value="contacted" ${l.status === 'contacted' ? 'selected' : ''}>Đã tư vấn</option>
+              <option value="closed" ${l.status === 'closed' ? 'selected' : ''}>Đã chốt / Đóng</option>
+            </select>
+          </div>
+        `).join('');
+
+        bindLeadControls(tbody);
+        bindLeadControls(cards);
+      };
+
+      // Develop Create Account Modal
+      const createModal = document.getElementById('create-account-modal');
+      const createForm = document.getElementById('create-account-form');
+      const createErr = document.getElementById('create-account-error');
+      const openCreateModal = () => {
+        createErr.classList.add('hidden');
+        createForm.reset();
+        createModal.classList.remove('hidden');
+        if (window.lucide) window.lucide.createIcons();
+      };
+      const closeCreateModal = () => createModal.classList.add('hidden');
+      document.getElementById('btn-open-create-account').addEventListener('click', openCreateModal);
+      document.getElementById('btn-close-create-modal').addEventListener('click', closeCreateModal);
+      document.getElementById('create-account-backdrop').addEventListener('click', closeCreateModal);
+
+      createForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        createErr.classList.add('hidden');
+        const submitBtn = document.getElementById('btn-submit-create-account');
+        const role = document.getElementById('new-acc-role').value;
+        const rate = Number(document.getElementById('new-acc-rate').value) || 10;
+        const fullName = document.getElementById('new-acc-name').value.trim();
+        const phone = document.getElementById('new-acc-phone').value.replace(/\s+/g, '');
+        const code = document.getElementById('new-acc-code').value.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+        const email = document.getElementById('new-acc-email').value.trim().toLowerCase();
+        const password = document.getElementById('new-acc-password').value;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'ĐANG TẠO TÀI KHOẢN...';
+        try {
+          const tempClient = createEphemeralClient();
+          const { error: signUpErr } = await tempClient.auth.signUp({
+            email,
+            password,
+            options: {
+              data: { full_name: fullName, phone, code, job_type: role === 'admin' ? 'Quản trị viên' : 'Cộng tác viên' }
+            }
+          });
+          if (signUpErr) throw signUpErr;
+
+          const { error: rpcErr } = await supabase.rpc('develop_set_account_role', {
+            p_email: email,
+            p_role: role,
+            p_status: 'active',
+            p_commission_rate: rate
+          });
+          if (rpcErr) throw rpcErr;
+
+          closeCreateModal();
+          showToast(`Đã tạo tài khoản ${role.toUpperCase()} (${email}) thành công!`);
+          await loadAllAdminData();
+        } catch (err) {
+          createErr.textContent = err?.message || 'Không thể tạo tài khoản.';
+          createErr.classList.remove('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'TẠO & KÍCH HOẠT NGAY';
+        }
+      });
+
+      ['admin-order-search', 'admin-filter-source', 'admin-filter-status'].forEach((id) => {
+        document.getElementById(id).addEventListener('input', renderOrdersTable);
+        document.getElementById(id).addEventListener('change', renderOrdersTable);
+      });
+      document.getElementById('admin-filter-ctv-status').addEventListener('change', renderAffiliatesTable);
+
+      const loadAllAdminData = async () => {
+        const [
+          { data: orders },
+          { data: affiliates },
+          { data: leads },
+          { data: payouts }
+        ] = await Promise.all([
+          supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(300),
+          supabase.from('affiliates').select('*').order('created_at', { ascending: false }),
+          supabase.from('leads').select('*').order('created_at', { ascending: false }).limit(150),
+          supabase.from('commission_payouts').select('*').order('paid_at', { ascending: false }).limit(150)
+        ]);
+
+        allOrders = orders || [];
+        allAffiliates = affiliates || [];
+        allLeads = leads || [];
+        allPayouts = payouts || [];
+
+        renderKpis();
+        renderOrdersTable();
+        renderAffiliatesTable();
+        renderSettlement();
+        renderLeadsTable();
+      };
+
+      const checkAdminSession = async () => {
+        if (!isSupabaseConfigured || !supabase) {
+          loginView.classList.remove('hidden');
+          forbiddenView.classList.add('hidden');
+          dashView.classList.add('hidden');
+          return;
+        }
+
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          loginView.classList.remove('hidden');
+          forbiddenView.classList.add('hidden');
+          dashView.classList.add('hidden');
+          return;
+        }
+
+        const { data: profile } = await supabase
+          .from('affiliates')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .maybeSingle();
+
+        const isAllowed = profile && ['admin', 'develop'].includes(profile.role) && profile.status === 'active';
+        if (!isAllowed) {
+          loginView.classList.add('hidden');
+          dashView.classList.add('hidden');
+          forbiddenView.classList.remove('hidden');
+          return;
+        }
+
+        currentAdmin = profile;
+        const isDevelop = profile.role === 'develop';
+        loginView.classList.add('hidden');
+        forbiddenView.classList.add('hidden');
+        dashView.classList.remove('hidden');
+
+        document.getElementById('admin-role-pill').textContent = isDevelop ? 'DEVELOP · TOÀN QUYỀN' : 'ADMIN PORTAL';
+        document.getElementById('admin-user-info').textContent = `${profile.full_name} (${profile.email})`;
+        document.getElementById('btn-dev-goto-ctv').classList.toggle('hidden', !isDevelop);
+        document.getElementById('btn-open-create-account').classList.toggle('hidden', !isDevelop);
+
+        await loadAllAdminData();
+        if (window.lucide) window.lucide.createIcons();
+      };
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        loginError.classList.add('hidden');
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'ĐANG ĐĂNG NHẬP...';
+        try {
+          const email = document.getElementById('admin-email').value.trim();
+          const password = document.getElementById('admin-password').value;
+          const { error } = await supabase.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+          await checkAdminSession();
+        } catch (err) {
+          loginError.textContent = err?.message === 'Invalid login credentials'
+            ? 'Email hoặc mật khẩu không đúng.'
+            : (err?.message || 'Đăng nhập thất bại.');
+          loginError.classList.remove('hidden');
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'ĐĂNG NHẬP QUẢN TRỊ';
+        }
+      });
+
+      const handleLogout = async () => {
+        if (supabase) await supabase.auth.signOut();
+        currentAdmin = null;
+        await checkAdminSession();
+      };
+
+      document.getElementById('btn-admin-logout').addEventListener('click', handleLogout);
+      document.getElementById('btn-forbidden-logout').addEventListener('click', handleLogout);
+      document.getElementById('btn-admin-refresh').addEventListener('click', async () => {
+        await loadAllAdminData();
+        showToast('Đã làm mới dữ liệu hệ thống');
+      });
+
+      checkAdminSession();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cổng Cộng Tác Viên (CTV Portal) | Trung Thành Auto</title>
+  <meta name="description" content="Đăng nhập Cổng Cộng tác viên Trung Thành Auto để tạo link bán hàng, theo dõi đơn hàng cá nhân và lịch sử hoa hồng.">
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="/favicon.png" />
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/assets/css/index.css">
+</head>
+<body class="bg-[#F4F6F9] text-[#0F172A]" data-subpage="true" data-page-title="CỔNG CTV">
+
+  <include src="partials/header.html"></include>
+
+  <!-- Toast Notification -->
+  <div id="ctv-toast" role="status" aria-live="polite" class="fixed top-4 right-4 left-4 sm:left-auto sm:w-auto sm:max-w-sm z-50 hidden items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl border bg-white border-[#15803D]/30 text-[#0D2C54] text-xs font-semibold">
+    <span class="w-2.5 h-2.5 rounded-full bg-[#15803D] shrink-0"></span>
+    <span id="ctv-toast-text"></span>
+  </div>
+
+  <main id="main-content" class="container-app py-5 md:py-8 space-y-5">
+    <div id="portal-config-warning" class="hidden card-surface p-5 border-amber-300 bg-amber-50 text-xs sm:text-sm text-amber-900 space-y-1.5">
+      <p class="font-bold m-0">Chưa cấu hình Supabase</p>
+      <p class="m-0">Tạo file <code>.env</code> từ <code>.env.example</code> với <code>VITE_SUPABASE_URL</code> và <code>VITE_SUPABASE_ANON_KEY</code>.</p>
+    </div>
+
+    <!-- 1. Login View -->
+    <section id="portal-login-view" class="max-w-md mx-auto card-surface p-6 space-y-4">
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 rounded-2xl bg-[#EFF4FA] text-[#0D2C54] flex items-center justify-center mx-auto">
+          <i data-lucide="user-check" class="w-6 h-6"></i>
+        </div>
+        <h1 class="text-lg font-bold uppercase text-[#0D2C54] m-0">Đăng Nhập Cổng CTV</h1>
+        <p class="text-xs text-slate-500 m-0">Xem đơn hàng bạn đã giới thiệu, tạo link bán hàng và theo dõi hoa hồng</p>
+      </div>
+
+      <p id="portal-login-error" role="alert" class="hidden text-xs font-semibold text-[#C81E2B] bg-[#FEF2F2] border border-[#C81E2B]/30 rounded-lg px-3.5 py-2.5 m-0"></p>
+
+      <form id="portal-login-form" class="space-y-3.5">
+        <div class="space-y-1">
+          <label for="login-email" class="text-xs font-semibold text-slate-700 block">Email</label>
+          <input type="email" id="login-email" required placeholder="email@domain.com" class="field-input">
+        </div>
+        <div class="space-y-1">
+          <label for="login-password" class="text-xs font-semibold text-slate-700 block">Mật khẩu</label>
+          <input type="password" id="login-password" required placeholder="Nhập mật khẩu..." class="field-input">
+        </div>
+        <button type="submit" id="btn-portal-login" class="btn-cta w-full text-xs">ĐĂNG NHẬP CTV</button>
+      </form>
+
+      <p class="text-xs text-slate-600 text-center m-0 pt-2 border-t border-slate-100">
+        Chưa có tài khoản CTV? <a href="/cong-tac-vien.html" class="font-semibold text-[#C81E2B] underline">Đăng ký ngay</a>
+      </p>
+    </section>
+
+    <!-- 2. Pending / Suspended / Cancelled View -->
+    <section id="portal-pending-view" class="hidden max-w-lg mx-auto card-surface p-6 text-center space-y-4">
+      <div class="w-14 h-14 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mx-auto">
+        <i data-lucide="clock" class="w-7 h-7"></i>
+      </div>
+      <h2 id="pending-title" class="text-lg font-bold text-[#0D2C54] m-0">Tài khoản đang chờ duyệt</h2>
+      <p id="pending-desc" class="text-xs sm:text-sm text-slate-600 m-0 leading-relaxed"></p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="btn-cta text-xs px-5">NHẮN ZALO HỖ TRỢ</a>
+        <button type="button" id="btn-pending-logout" class="btn-outline text-xs px-5">Đăng xuất</button>
+      </div>
+    </section>
+
+    <!-- 3. CTV Personal Dashboard -->
+    <section id="portal-dashboard-view" class="hidden space-y-5">
+      <!-- Top Bar -->
+      <div class="card-surface p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="space-y-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 id="dash-user-name" class="text-base sm:text-lg font-bold text-[#0D2C54] m-0">Cộng tác viên</h1>
+            <span class="text-[11px] font-semibold uppercase px-2.5 py-0.5 rounded-full bg-[#EFF4FA] text-[#0D2C54] whitespace-nowrap">CTV Portal</span>
+            <span id="dash-code-badge" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-[#FEF2F2] text-[#C81E2B] tabular-nums whitespace-nowrap">CTV01</span>
+          </div>
+          <p id="dash-rate-info" class="text-xs text-slate-500 m-0">Mức hoa hồng của bạn: 10%</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <a id="btn-goto-admin" href="/admin.html" class="hidden inline-flex items-center justify-center gap-1.5 min-h-[44px] lg:min-h-[40px] px-3.5 rounded-lg bg-[#0D2C54] hover:bg-[#133A6E] text-white text-xs font-semibold no-underline transition whitespace-nowrap shrink-0">
+            <i data-lucide="shield" class="w-3.5 h-3.5"></i> Mở Trang Admin →
+          </a>
+          <button type="button" id="btn-dash-refresh" class="btn-outline text-xs px-3.5 min-h-[44px] lg:min-h-[40px] whitespace-nowrap shrink-0">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Tải lại
+          </button>
+          <button type="button" id="btn-dash-logout" class="btn-outline text-xs px-3.5 min-h-[44px] lg:min-h-[40px] text-[#C81E2B] border-[#C81E2B]/30 whitespace-nowrap shrink-0">
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Đơn đã giới thiệu</span>
+          <span id="kpi-orders" class="text-xl sm:text-2xl font-bold text-[#0D2C54] tabular-nums block">0</span>
+        </div>
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Tổng doanh số</span>
+          <span id="kpi-revenue" class="text-xl sm:text-2xl font-bold text-[#0D2C54] tabular-nums block">0 đ</span>
+        </div>
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Hoa hồng chờ duyệt / rút</span>
+          <span id="kpi-commission-pending" class="text-xl sm:text-2xl font-bold text-[#0D2C54] tabular-nums block">0 đ</span>
+        </div>
+        <div class="card-surface p-4 space-y-1">
+          <span class="text-[11px] font-semibold uppercase text-slate-500 block">Hoa hồng đã nhận</span>
+          <span id="kpi-commission-paid" class="text-xl sm:text-2xl font-bold text-[#15803D] tabular-nums block">0 đ</span>
+        </div>
+      </div>
+
+      <!-- Share Link Generator -->
+      <div class="card-surface p-4 sm:p-5 space-y-3.5">
+        <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0 flex items-center gap-2">
+          <i data-lucide="link-2" class="w-4 h-4 shrink-0"></i> Tạo link bán hàng nhanh (tự gắn mã giới thiệu)
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <select id="share-brand" class="ymm-select text-xs">
+            <option value="">Trang chủ (tất cả xe)</option>
+          </select>
+          <select id="share-model" class="ymm-select text-xs" disabled>
+            <option value="">Tất cả dòng xe của hãng</option>
+          </select>
+          <button type="button" id="btn-copy-share-link" class="btn-cta text-xs min-h-[44px] whitespace-nowrap">
+            <i data-lucide="copy" class="w-4 h-4"></i> SAO CHÉP LINK
+          </button>
+        </div>
+        <div class="flex items-center gap-2 bg-[#F4F6F9] border border-slate-200 rounded-lg px-3 py-2.5">
+          <input type="text" id="share-url-preview" readonly class="w-full bg-transparent border-0 text-xs text-[#0D2C54] font-medium focus:outline-none">
+        </div>
+      </div>
+
+      <!-- CTV Tabs -->
+      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1 border-b border-slate-200">
+        <button type="button" data-ctv-tab="orders" class="ctv-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-[#0D2C54] text-white cursor-pointer whitespace-nowrap shrink-0">
+          Danh sách đơn hàng của tôi
+        </button>
+        <button type="button" data-ctv-tab="payouts" class="ctv-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 cursor-pointer whitespace-nowrap shrink-0">
+          Lịch sử hoa hồng / Rút tiền
+        </button>
+      </div>
+
+      <!-- Tab 1: My Referred Orders -->
+      <div id="ctv-panel-orders" class="card-surface p-4 sm:p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0">Đơn hàng qua mã giới thiệu của bạn</h2>
+          <select id="filter-order-status" class="ymm-select text-xs sm:w-48">
+            <option value="">Tất cả trạng thái</option>
+            <option value="new">Mới</option>
+            <option value="confirmed">Đã xác nhận</option>
+            <option value="shipping">Đang giao</option>
+            <option value="completed">Hoàn thành</option>
+            <option value="cancelled">Đã hủy</option>
+          </select>
+        </div>
+
+        <div class="hidden lg:block overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                <th class="py-2.5 pr-4 whitespace-nowrap">Mã đơn</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Khách hàng</th>
+                <th class="py-2.5 pr-4">Sản phẩm &amp; Xe</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Giá trị đơn</th>
+                <th class="py-2.5 pr-4 whitespace-nowrap">Hoa hồng</th>
+                <th class="py-2.5 whitespace-nowrap">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+        <div id="orders-cards-body" class="lg:hidden space-y-3"></div>
+        <p id="orders-empty-msg" class="hidden text-xs text-slate-500 text-center py-6 m-0">Chưa có đơn hàng nào từ link/mã giới thiệu của bạn.</p>
+      </div>
+
+      <!-- Tab 2: Commission & Payout History -->
+      <div id="ctv-panel-payouts" class="hidden space-y-4">
+        <div class="card-surface p-4 sm:p-5 space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0">Tổng hợp đối soát hoa hồng</h2>
+              <p class="text-xs text-slate-500 mt-1 m-0">Hoa hồng được duyệt sau khi đơn hàng giao lắp hoàn thành.</p>
+            </div>
+            <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="btn-outline text-xs px-4 min-h-[44px] lg:min-h-[40px] whitespace-nowrap shrink-0 no-underline">
+              Nhắn Zalo yêu cầu rút tiền
+            </a>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="bg-[#F4F6F9] rounded-xl p-3.5 border border-slate-200">
+              <span class="text-slate-500 block">Chờ duyệt (đơn đang xử lý)</span>
+              <strong id="payout-stat-pending" class="text-base font-bold text-[#0D2C54] tabular-nums block mt-1">0 đ</strong>
+            </div>
+            <div class="bg-[#EFF4FA] rounded-xl p-3.5 border border-[#0D2C54]/20">
+              <span class="text-[#0D2C54] block">Đã duyệt — Chờ chi trả</span>
+              <strong id="payout-stat-approved" class="text-base font-bold text-[#0D2C54] tabular-nums block mt-1">0 đ</strong>
+            </div>
+            <div class="bg-green-50 rounded-xl p-3.5 border border-green-200">
+              <span class="text-[#15803D] block">Tổng đã thanh toán</span>
+              <strong id="payout-stat-paid" class="text-base font-bold text-[#15803D] tabular-nums block mt-1">0 đ</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-surface p-4 sm:p-5 space-y-4">
+          <h2 class="text-sm font-bold uppercase text-[#0D2C54] m-0">Lịch sử các đợt thanh toán hoa hồng</h2>
+          <div class="hidden lg:block overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Thời gian chi trả</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Số đơn đối soát</th>
+                  <th class="py-2.5 pr-4 whitespace-nowrap">Số tiền đã nhận</th>
+                  <th class="py-2.5">Ghi chú / Mã giao dịch</th>
+                </tr>
+              </thead>
+              <tbody id="payouts-table-body" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+          <div id="payouts-cards-body" class="lg:hidden space-y-3"></div>
+          <p id="payouts-empty-msg" class="hidden text-xs text-slate-500 text-center py-6 m-0">Chưa có đợt thanh toán hoa hồng nào được ghi nhận.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <include src="partials/footer.html"></include>
+  <include src="partials/cart-drawer.html"></include>
+  <include src="partials/mobile-nav.html"></include>
+
+  <script type="module" src="./assets/js/main.js"></script>
+  <script type="module">
+    import { supabase, isSupabaseConfigured } from './assets/js/supabase.js';
+    import { Cart } from './assets/js/cart.js';
+    import { VehicleSelector } from './assets/js/selector.js';
+    import { AffiliateTracker } from './assets/js/affiliate.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const configWarning = document.getElementById('portal-config-warning');
+      const loginView = document.getElementById('portal-login-view');
+      const pendingView = document.getElementById('portal-pending-view');
+      const dashView = document.getElementById('portal-dashboard-view');
+      const loginForm = document.getElementById('portal-login-form');
+      const loginError = document.getElementById('portal-login-error');
+      const loginBtn = document.getElementById('btn-portal-login');
+      const toastEl = document.getElementById('ctv-toast');
+      const toastText = document.getElementById('ctv-toast-text');
+
+      let toastTimer = null;
+      let currentProfile = null;
+      let myOrders = [];
+      let myPayouts = [];
+
+      const showToast = (msg) => {
+        clearTimeout(toastTimer);
+        toastText.textContent = msg;
+        toastEl.classList.remove('hidden');
+        toastEl.classList.add('flex');
+        toastTimer = setTimeout(() => {
+          toastEl.classList.add('hidden');
+          toastEl.classList.remove('flex');
+        }, 2800);
+      };
+
+      const STATUS_LABELS = {
+        new: 'Mới',
+        confirmed: 'Đã xác nhận',
+        shipping: 'Đang giao',
+        completed: 'Hoàn thành',
+        cancelled: 'Đã hủy'
+      };
+
+      const STATUS_BADGE = {
+        new: 'bg-sky-50 text-sky-700 border-sky-200',
+        confirmed: 'bg-[#EFF4FA] text-[#0D2C54] border-[#0D2C54]/20',
+        shipping: 'bg-amber-50 text-amber-700 border-amber-200',
+        completed: 'bg-green-50 text-[#15803D] border-green-200',
+        cancelled: 'bg-[#FEF2F2] text-[#C81E2B] border-[#C81E2B]/25'
+      };
+
+      const COMM_LABELS = {
+        pending: 'Chờ duyệt',
+        approved: 'Đã duyệt (chờ rút)',
+        paid: 'Đã thanh toán'
+      };
+
+      const maskPhone = (phone) => {
+        const s = String(phone || '');
+        return s.length >= 7 ? `${s.slice(0, 4)}***${s.slice(-3)}` : s;
+      };
+
+      const escapeHtml = (str) =>
+        String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+
+      const formatDate = (iso) => {
+        try {
+          return new Date(iso).toLocaleString('vi-VN', {
+            day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+        } catch {
+          return iso || '';
+        }
+      };
+
+      // Share Link Generator
+      const shareBrand = document.getElementById('share-brand');
+      const shareModel = document.getElementById('share-model');
+      const shareUrlPreview = document.getElementById('share-url-preview');
+
+      VehicleSelector.getBrandCatalog().forEach((b) => {
+        const opt = document.createElement('option');
+        opt.value = b.slug;
+        opt.textContent = `Hãng ${b.name}`;
+        shareBrand.appendChild(opt);
+      });
+
+      const updateSharePreview = () => {
+        const code = currentProfile ? currentProfile.code : '';
+        const brandSlug = shareBrand.value;
+        const modelSlug = shareModel.value;
+        let path = '/';
+        if (brandSlug && modelSlug) {
+          path = `/chi-tiet.html?hang=${brandSlug}&xe=${modelSlug}`;
+        } else if (brandSlug) {
+          path = `/san-pham.html?hang=${brandSlug}`;
+        }
+        shareUrlPreview.value = AffiliateTracker.buildShareUrl(path, code);
+      };
+
+      shareBrand.addEventListener('change', () => {
+        shareModel.innerHTML = '<option value="">Tất cả dòng xe của hãng</option>';
+        if (!shareBrand.value) {
+          shareModel.disabled = true;
+        } else {
+          shareModel.disabled = false;
+          VehicleSelector.getModelsWithMeta(shareBrand.value).forEach((m) => {
+            const opt = document.createElement('option');
+            opt.value = m.slug;
+            opt.textContent = m.name;
+            shareModel.appendChild(opt);
+          });
+        }
+        updateSharePreview();
+      });
+      shareModel.addEventListener('change', updateSharePreview);
+
+      document.getElementById('btn-copy-share-link').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(shareUrlPreview.value);
+          showToast('Đã sao chép link bán hàng!');
+        } catch {
+          shareUrlPreview.select();
+          document.execCommand('copy');
+          showToast('Đã sao chép link bán hàng!');
+        }
+      });
+
+      // CTV Tab Switcher
+      document.querySelectorAll('.ctv-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.ctvTab;
+          document.querySelectorAll('.ctv-tab-btn').forEach((b) => {
+            const active = b.dataset.ctvTab === target;
+            b.className = active
+              ? 'ctv-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-[#0D2C54] text-white cursor-pointer whitespace-nowrap shrink-0'
+              : 'ctv-tab-btn min-h-[42px] px-4 py-2 rounded-lg text-xs font-semibold bg-white text-slate-700 border border-slate-200 cursor-pointer whitespace-nowrap shrink-0';
+          });
+          document.getElementById('ctv-panel-orders').classList.toggle('hidden', target !== 'orders');
+          document.getElementById('ctv-panel-payouts').classList.toggle('hidden', target !== 'payouts');
+        });
+      });
+
+      const renderOrdersAndKpis = () => {
+        const tbody = document.getElementById('orders-table-body');
+        const cards = document.getElementById('orders-cards-body');
+        const emptyMsg = document.getElementById('orders-empty-msg');
+        const filterVal = document.getElementById('filter-order-status').value;
+        const list = filterVal ? myOrders.filter((o) => o.status === filterVal) : myOrders;
+
+        const validOrders = myOrders.filter((o) => o.status !== 'cancelled');
+        const totalRev = validOrders.reduce((s, o) => s + Number(o.total_amount || 0), 0);
+        const commPending = validOrders
+          .filter((o) => o.commission_status === 'pending')
+          .reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+        const commApproved = validOrders
+          .filter((o) => o.commission_status === 'approved')
+          .reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+        const commPaid = validOrders
+          .filter((o) => o.commission_status === 'paid')
+          .reduce((s, o) => s + Number(o.commission_amount || 0), 0);
+
+        document.getElementById('kpi-orders').textContent = String(myOrders.length);
+        document.getElementById('kpi-revenue').textContent = Cart.formatCurrency(totalRev);
+        document.getElementById('kpi-commission-pending').textContent = Cart.formatCurrency(commPending + commApproved);
+        document.getElementById('kpi-commission-paid').textContent = Cart.formatCurrency(commPaid);
+
+        document.getElementById('payout-stat-pending').textContent = Cart.formatCurrency(commPending);
+        document.getElementById('payout-stat-approved').textContent = Cart.formatCurrency(commApproved);
+        document.getElementById('payout-stat-paid').textContent = Cart.formatCurrency(commPaid);
+
+        if (list.length === 0) {
+          tbody.innerHTML = '';
+          cards.innerHTML = '';
+          emptyMsg.classList.remove('hidden');
+          return;
+        }
+        emptyMsg.classList.add('hidden');
+
+        tbody.innerHTML = list.map((o) => `
+          <tr class="align-top">
+            <td class="py-3.5 pr-4 whitespace-nowrap">
+              <strong class="text-[#0D2C54] tabular-nums block">#${escapeHtml(o.order_code)}</strong>
+              <span class="text-[11px] text-slate-500 tabular-nums">${formatDate(o.created_at)}</span>
+            </td>
+            <td class="py-3.5 pr-4 whitespace-nowrap">
+              <strong class="text-slate-900 block">${escapeHtml(o.customer_name)}</strong>
+              <span class="text-slate-500 tabular-nums block">${escapeHtml(maskPhone(o.phone))}</span>
+            </td>
+            <td class="py-3.5 pr-4 max-w-xs">
+              <p class="m-0 text-slate-700 whitespace-pre-line leading-snug">${escapeHtml(o.items_summary)}</p>
+              <span class="text-[11px] text-slate-500">${escapeHtml(o.payment_method)}</span>
+            </td>
+            <td class="py-3.5 pr-4 whitespace-nowrap font-semibold text-slate-900 tabular-nums">
+              ${Cart.formatCurrency(Number(o.total_amount || 0))}
+            </td>
+            <td class="py-3.5 pr-4 whitespace-nowrap font-bold text-[#15803D] tabular-nums">
+              ${Cart.formatCurrency(Number(o.commission_amount || 0))}
+              <span class="block text-[11px] font-medium text-slate-500">${Number(o.commission_rate || 0)}%</span>
+            </td>
+            <td class="py-3.5 whitespace-nowrap">
+              <span class="inline-block px-2.5 py-0.5 rounded-full border font-semibold text-[11px] ${STATUS_BADGE[o.status] || ''}">${STATUS_LABELS[o.status] || o.status}</span>
+              <span class="block text-[11px] text-slate-500 mt-1">${COMM_LABELS[o.commission_status] || o.commission_status}</span>
+            </td>
+          </tr>
+        `).join('');
+
+        cards.innerHTML = list.map((o) => `
+          <div class="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4 space-y-2.5 text-xs">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <strong class="text-sm text-[#0D2C54] tabular-nums block">#${escapeHtml(o.order_code)}</strong>
+                <span class="text-[11px] text-slate-500 tabular-nums">${formatDate(o.created_at)}</span>
+              </div>
+              <span class="px-2.5 py-1 rounded-full border text-[11px] font-semibold whitespace-nowrap ${STATUS_BADGE[o.status] || ''}">
+                ${STATUS_LABELS[o.status] || o.status}
+              </span>
+            </div>
+            <div class="text-slate-700">
+              <strong>${escapeHtml(o.customer_name)}</strong> · <span class="tabular-nums text-slate-500">${escapeHtml(maskPhone(o.phone))}</span>
+            </div>
+            <p class="m-0 text-slate-600 whitespace-pre-line leading-relaxed bg-white rounded-lg p-2.5 border border-slate-200/80">${escapeHtml(o.items_summary)}</p>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-200">
+              <div>
+                <span class="text-[11px] text-slate-500 block">Giá trị đơn</span>
+                <strong class="text-slate-900 tabular-nums">${Cart.formatCurrency(Number(o.total_amount || 0))}</strong>
+              </div>
+              <div class="text-right">
+                <span class="text-[11px] text-slate-500 block">Hoa hồng (${COMM_LABELS[o.commission_status] || o.commission_status})</span>
+                <strong class="text-sm text-[#15803D] tabular-nums">${Cart.formatCurrency(Number(o.commission_amount || 0))}</strong>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      };
+
+      const renderPayouts = () => {
+        const tbody = document.getElementById('payouts-table-body');
+        const cards = document.getElementById('payouts-cards-body');
+        const emptyMsg = document.getElementById('payouts-empty-msg');
+        if (myPayouts.length === 0) {
+          tbody.innerHTML = '';
+          cards.innerHTML = '';
+          emptyMsg.classList.remove('hidden');
+          return;
+        }
+        emptyMsg.classList.add('hidden');
+
+        tbody.innerHTML = myPayouts.map((p) => `
+          <tr>
+            <td class="py-3 pr-4 whitespace-nowrap text-slate-700 tabular-nums">${formatDate(p.paid_at)}</td>
+            <td class="py-3 pr-4 whitespace-nowrap font-semibold text-[#0D2C54] tabular-nums">${p.order_count} đơn</td>
+            <td class="py-3 pr-4 whitespace-nowrap font-bold text-[#15803D] tabular-nums">${Cart.formatCurrency(Number(p.amount || 0))}</td>
+            <td class="py-3 text-slate-600">${escapeHtml(p.note || 'Đã chuyển khoản thanh toán hoa hồng')}</td>
+          </tr>
+        `).join('');
+
+        cards.innerHTML = myPayouts.map((p) => `
+          <div class="rounded-xl border border-slate-200 bg-[#F8FAFC] p-3.5 text-xs space-y-1">
+            <div class="flex justify-between items-center">
+              <strong class="text-[#0D2C54]">${p.order_count} đơn đối soát</strong>
+              <strong class="text-[#15803D] tabular-nums">${Cart.formatCurrency(Number(p.amount || 0))}</strong>
+            </div>
+            <p class="text-[11px] text-slate-500 m-0 tabular-nums">${formatDate(p.paid_at)}</p>
+            <p class="text-slate-600 m-0">${escapeHtml(p.note || 'Đã chuyển khoản thanh toán hoa hồng')}</p>
+          </div>
+        `).join('');
+      };
+
+      document.getElementById('filter-order-status').addEventListener('change', renderOrdersAndKpis);
+
+      const loadMyData = async () => {
+        if (!currentProfile) return;
+        const myCode = String(currentProfile.code || '').toUpperCase();
+        const [{ data: orders }, { data: payouts }] = await Promise.all([
+          supabase
+            .from('orders')
+            .select('*')
+            .eq('affiliate_code', myCode)
+            .order('created_at', { ascending: false })
+            .limit(200),
+          supabase
+            .from('commission_payouts')
+            .select('*')
+            .eq('affiliate_code', myCode)
+            .order('paid_at', { ascending: false })
+            .limit(100)
+        ]);
+        myOrders = orders || [];
+        myPayouts = payouts || [];
+        renderOrdersAndKpis();
+        renderPayouts();
+      };
+
+      const renderSessionState = async () => {
+        if (!isSupabaseConfigured || !supabase) {
+          configWarning.classList.remove('hidden');
+          loginView.classList.remove('hidden');
+          pendingView.classList.add('hidden');
+          dashView.classList.add('hidden');
+          return;
+        }
+
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          loginView.classList.remove('hidden');
+          pendingView.classList.add('hidden');
+          dashView.classList.add('hidden');
+          return;
+        }
+
+        const { data: profile, error } = await supabase
+          .from('affiliates')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .maybeSingle();
+
+        if (error || !profile) {
+          loginView.classList.add('hidden');
+          dashView.classList.add('hidden');
+          pendingView.classList.remove('hidden');
+          document.getElementById('pending-title').textContent = 'Chưa có hồ sơ CTV';
+          document.getElementById('pending-desc').textContent = 'Tài khoản này chưa có thông tin CTV trong hệ thống. Vui lòng liên hệ quản trị viên qua Zalo 0963 294 492.';
+          return;
+        }
+
+        // Tài khoản Admin thuần tự động chuyển sang Trang Admin (chỉ CTV & Develop ở lại Cổng CTV)
+        if (profile.role === 'admin' && profile.status === 'active') {
+          window.location.href = '/admin.html';
+          return;
+        }
+
+        currentProfile = profile;
+        if (profile.status !== 'active') {
+          loginView.classList.add('hidden');
+          dashView.classList.add('hidden');
+          pendingView.classList.remove('hidden');
+          const statusTitles = {
+            pending: 'Tài khoản đang chờ duyệt',
+            suspended: 'Tài khoản đang tạm khóa',
+            cancelled: 'Tài khoản CTV đã bị hủy'
+          };
+          document.getElementById('pending-title').textContent = statusTitles[profile.status] || 'Tài khoản chưa kích hoạt';
+          document.getElementById('pending-desc').textContent =
+            `Mã CTV của bạn là ${profile.code}. Vui lòng nhắn Zalo 0963 294 492 nếu cần hỗ trợ kích hoạt.`;
+          return;
+        }
+
+        loginView.classList.add('hidden');
+        pendingView.classList.add('hidden');
+        dashView.classList.remove('hidden');
+
+        document.getElementById('dash-user-name').textContent = profile.full_name;
+        document.getElementById('dash-code-badge').textContent = profile.code;
+        document.getElementById('dash-rate-info').textContent =
+          `Mức hoa hồng của bạn: ${profile.commission_rate}% trên tổng giá trị đơn hàng giới thiệu thành công.`;
+
+        // Chỉ Develop mới thấy nút chuyển nhanh sang Trang Admin
+        const gotoAdminBtn = document.getElementById('btn-goto-admin');
+        if (gotoAdminBtn) {
+          gotoAdminBtn.classList.toggle('hidden', profile.role !== 'develop');
+        }
+
+        updateSharePreview();
+        await loadMyData();
+        if (window.lucide) window.lucide.createIcons();
+      };
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        loginError.classList.add('hidden');
+        if (!isSupabaseConfigured || !supabase) {
+          loginError.textContent = 'Chưa cấu hình kết nối Supabase (.env).';
+          loginError.classList.remove('hidden');
+          return;
+        }
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'ĐANG ĐĂNG NHẬP...';
+        try {
+          const email = document.getElementById('login-email').value.trim();
+          const password = document.getElementById('login-password').value;
+          const { error } = await supabase.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+          await renderSessionState();
+        } catch (err) {
+          loginError.textContent = err?.message === 'Invalid login credentials'
+            ? 'Email hoặc mật khẩu không đúng.'
+            : (err?.message || 'Đăng nhập thất bại.');
+          loginError.classList.remove('hidden');
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'ĐĂNG NHẬP CTV';
+        }
+      });
+
+      const handleLogout = async () => {
+        if (supabase) await supabase.auth.signOut();
+        currentProfile = null;
+        myOrders = [];
+        myPayouts = [];
+        await renderSessionState();
+      };
+
+      document.getElementById('btn-dash-logout').addEventListener('click', handleLogout);
+      document.getElementById('btn-pending-logout').addEventListener('click', handleLogout);
+      document.getElementById('btn-dash-refresh').addEventListener('click', async () => {
+        await loadMyData();
+        showToast('Đã làm mới dữ liệu');
+      });
+
+      renderSessionState();
+    });
+  </script>
+</body>
+</html>

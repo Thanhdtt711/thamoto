@@ -75,6 +75,7 @@ function sitemapPlugin() {
         'https://thamoto.vercel.app/san-pham.html',
         'https://thamoto.vercel.app/tin-tuc.html',
         'https://thamoto.vercel.app/lien-he.html',
+        'https://thamoto.vercel.app/cong-tac-vien.html',
         // Products
         'https://thamoto.vercel.app/san-pham/tham-da-carbon-cao-cap.html',
         'https://thamoto.vercel.app/san-pham/tham-nhua-tpe-duc-khuon.html',
@@ -127,6 +128,7 @@ ${urls.map(url => `  <url>
 
 export default defineConfig({
   root: 'src',
+  envDir: resolve(__dirname),
   build: {
     outDir: '../dist',
     emptyOutDir: true,
@@ -140,7 +142,10 @@ export default defineConfig({
         thanhToan: resolve(__dirname, 'src/thanh-toan.html'),
         tinTuc: resolve(__dirname, 'src/tin-tuc.html'),
         chiTietTinTuc: resolve(__dirname, 'src/chi-tiet-tin-tuc.html'),
-        lienHe: resolve(__dirname, 'src/lien-he.html')
+        lienHe: resolve(__dirname, 'src/lien-he.html'),
+        congTacVien: resolve(__dirname, 'src/cong-tac-vien.html'),
+        ctv: resolve(__dirname, 'src/ctv.html'),
+        admin: resolve(__dirname, 'src/admin.html')
       }
     }
   },
