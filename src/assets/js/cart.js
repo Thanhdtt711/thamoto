@@ -1,26 +1,35 @@
 export const Cart = {
   getCart() {
-    const saved = localStorage.getItem('thamoto_cart');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('thamoto_cart');
+      const parsed = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
   },
-  
+
   saveCart(cart) {
     localStorage.setItem('thamoto_cart', JSON.stringify(cart));
-    // Dispatch custom event to notify all listeners (Header badge, Drawer, etc.)
     window.dispatchEvent(new CustomEvent('cartChanged', { detail: cart }));
   },
-  
+
   addToCart(product) {
-    // product should contain: productId, name, price, image, color, material, vehicle (optional), quantity
     const cart = this.getCart();
-    
-    // Generate a unique ID for this specific configuration
-    const vehicleStr = product.vehicle ? `${product.vehicle.brand}-${product.vehicle.model}-${product.vehicle.year}` : 'generic';
-    const engravingStr = product.engraving ? product.engraving : '';
-    const uniqueId = `${product.productId}-${product.color}-${product.material}-${vehicleStr}-${engravingStr}`.replace(/\s+/g, '-').toLowerCase();
-    
+
+    const vehicleStr = product.vehicle
+      ? `${product.vehicle.brand}-${product.vehicle.model}-${product.vehicle.year || product.formLabel || ''}`
+      : 'generic';
+    const addonsStr = Array.isArray(product.addons) && product.addons.length > 0
+      ? product.addons.map(a => a.id).sort().join('+')
+      : 'none';
+    const formStr = product.formLabel || '';
+    const uniqueId = `${product.productId}-${product.color}-${product.material}-${vehicleStr}-${formStr}-${addonsStr}`
+      .replace(/\s+/g, '-')
+      .toLowerCase();
+
     const existingIndex = cart.findIndex(item => item.id === uniqueId);
-    
+
     if (existingIndex > -1) {
       cart[existingIndex].quantity += (product.quantity || 1);
     } else {
@@ -33,21 +42,24 @@ export const Cart = {
         color: product.color,
         material: product.material,
         vehicle: product.vehicle || null,
-        engraving: product.engraving || "",
+        formLabel: product.formLabel || '',
+        addons: Array.isArray(product.addons) ? product.addons : [],
+        engraving: product.engraving || '',
         quantity: product.quantity || 1
       });
     }
-    
+
     this.saveCart(cart);
-    
-    // Auto-open cart drawer after adding
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('openCartDrawer'));
-    }, 100);
+
+    if (!product.silent) {
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('openCartDrawer'));
+      }, 100);
+    }
   },
-  
+
   updateQuantity(id, quantity) {
-    let cart = this.getCart();
+    const cart = this.getCart();
     const index = cart.findIndex(item => item.id === id);
     if (index > -1) {
       if (quantity <= 0) {
@@ -58,27 +70,26 @@ export const Cart = {
       this.saveCart(cart);
     }
   },
-  
+
   removeFromCart(id) {
-    let cart = this.getCart();
-    cart = cart.filter(item => item.id !== id);
+    const cart = this.getCart().filter(item => item.id !== id);
     this.saveCart(cart);
   },
-  
+
   getCartTotal() {
     return this.getCart().reduce((sum, item) => sum + (item.price * item.quantity), 0);
   },
-  
+
   getCartCount() {
     return this.getCart().reduce((sum, item) => sum + item.quantity, 0);
   },
-  
+
   clearCart() {
     this.saveCart([]);
   },
-  
+
   formatCurrency(value) {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+    return `${new Intl.NumberFormat('vi-VN').format(value || 0)} đ`;
   }
 };
 

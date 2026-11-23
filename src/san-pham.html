@@ -3,661 +3,247 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Danh Sách Thảm Lót Sàn Ô Tô - Trung Thành Auto Premium Car Mats</title>
-  <meta name="description" content="Khám phá danh sách thảm lót sàn ô tô cao cấp Trung Thành Auto. Lọc thảm theo dòng xe, chất liệu da 5D, 6D, Carbon, cao su và thảm nhựa TPE đúc khuôn.">
-  
-  <!-- Canonical Link -->
+  <title>Chọn Dòng Xe | Trung Thành Auto</title>
+  <meta name="description" content="Chọn hãng xe và dòng xe của bạn để đặt thảm lót sàn ô tô 6D, 360 độ may đo chuẩn phom 100% tại Trung Thành Auto.">
   <link rel="canonical" href="https://thamoto.vercel.app/san-pham.html" />
-
-  <!-- Preconnect/Preload Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="/favicon.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://thamoto.vercel.app/san-pham.html" />
-  <meta property="og:title" content="Danh Sách Thảm Lót Sàn Ô Tô - Trung Thành Auto Premium Car Mats" />
-  <meta property="og:description" content="Khám phá danh sách thảm lót sàn ô tô cao cấp Trung Thành Auto. Lọc thảm theo dòng xe, chất liệu da 5D, 6D, Carbon, cao su và thảm nhựa TPE đúc khuôn." />
-  <meta property="og:image" content="https://thamoto.vercel.app/assets/images/trung-thanh-logo.png" />
-  <meta property="og:site_name" content="Trung Thành Auto" />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://thamoto.vercel.app/san-pham.html" />
-  <meta property="twitter:title" content="Danh Sách Thảm Lót Sàn Ô Tô - Trung Thành Auto Premium Car Mats" />
-  <meta property="twitter:description" content="Khám phá danh sách thảm lót sàn ô tô cao cấp Trung Thành Auto. Lọc thảm theo dòng xe, chất liệu da 5D, 6D, Carbon, cao su và thảm nhựa TPE đúc khuôn." />
-  <meta property="twitter:image" content="https://thamoto.vercel.app/assets/images/trung-thanh-logo.png" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Danh Sách Thảm Lót Sàn Ô Tô - Trung Thành Auto",
-    "description": "Danh sách các dòng thảm lót sàn ô tô cao cấp may đo chuẩn phom: da 5D, 6D, Carbon, cao su và nhựa TPE đúc khuôn thương hiệu Trung Thành Auto.",
-    "url": "https://thamoto.vercel.app/san-pham.html",
-    "about": {
-      "@type": "Thing",
-      "name": "Thảm lót sàn ô tô"
-    }
-  }
-  </script>
-
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            luxury: {
-              bg: '#09090B',
-              card: '#121214',
-              border: '#27272A',
-              gold: '#CC7A00',
-              orange: '#F97316',
-              text: '#FFFFFF',
-              textMuted: '#A1A1AA'
-            }
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="/assets/css/index.css">
 </head>
-<body class="bg-luxury-bg text-white pt-24">
+<body class="bg-[#F4F6F9] text-[#0F172A]" data-subpage="true" data-page-title="CHỌN DÒNG XE">
 
-  <!-- Header -->
   <include src="partials/header.html"></include>
 
-  <!-- Products Main Content -->
-  <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Breadcrumb -->
-    <nav class="flex text-xs text-zinc-500 mb-6 gap-2">
-      <a href="/index.html" class="hover:text-luxury-gold">Trang chủ</a>
-      <span>/</span>
-      <span class="text-zinc-300">Danh mục sản phẩm</span>
+  <main id="main-content" class="container-app py-4 md:py-7 space-y-5 md:space-y-6">
+
+    <!-- Desktop Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="breadcrumb hidden lg:flex">
+      <a href="/index.html">Trang chủ</a>
+      <span>&gt;</span>
+      <span id="breadcrumb-brand" class="font-semibold text-[#0D2C54]">Toyota</span>
     </nav>
 
-    <h1 class="text-2xl sm:text-3xl font-serif-luxury font-bold text-white mb-6 text-gold-gradient">Danh Sách Thảm Lót Sàn Ô Tô</h1>
-
-    <!-- Selected Vehicle Banner Alert -->
-    <div id="vehicle-alert-banner" class="hidden glass-effect border border-luxury-gold/30 rounded-xl p-4 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-luxury-gold/10 border border-luxury-gold/25 flex items-center justify-center text-luxury-gold shrink-0">
-          <i data-lucide="car" class="w-5 h-5"></i>
-        </div>
-        <div class="text-center sm:text-left">
-          <h4 class="text-sm font-bold text-white">Đang tìm thảm cho xế cưng của bạn</h4>
-          <p id="vehicle-alert-text" class="text-xs text-zinc-400 mt-0.5">Xe đã chọn: Toyota Camry 2022</p>
-        </div>
+    <!-- Brand Quick-Switch Tabs -->
+    <section aria-label="Chuyển nhanh hãng xe" class="card-surface p-3 sm:p-4">
+      <div id="brand-tabs-bar" class="flex flex-wrap items-center gap-2">
+        <!-- Injected by JS -->
       </div>
-      <div class="flex items-center gap-3 shrink-0">
-        <a href="/index.html" class="text-xs font-bold text-luxury-gold hover:underline">Thay đổi xe</a>
-        <span class="text-zinc-700">|</span>
-        <button id="btn-clear-vehicle" class="text-xs font-medium text-zinc-400 hover:text-white transition">Hủy chọn xe</button>
+    </section>
+
+    <!-- Custom Measurement Fallback Banner -->
+    <div class="card-surface p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-[#EFF4FA] border-[#0D2C54]/20">
+      <div class="text-xs text-slate-700">
+        <strong class="text-[#0D2C54]">Xe của bạn chưa có trong danh sách?</strong> Nhắn Zalo hoặc để lại thông tin để kỹ thuật viên hỗ trợ đo phom miễn phí.
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="btn-outline text-xs px-4">Chat Zalo</a>
+        <a href="/lien-he.html" class="btn-cta text-xs px-4">Gửi yêu cầu</a>
       </div>
     </div>
 
-    <!-- Layout Grid Sidebar + Products -->
-    <div class="flex flex-col lg:flex-row gap-8">
-      
-      <!-- Sidebar Filters (Desktop) -->
-      <aside class="w-full lg:w-64 shrink-0 hidden lg:block bg-luxury-card border border-luxury-border rounded-xl p-6 h-fit">
-        <h3 class="font-bold text-white text-base mb-6 pb-3 border-b border-luxury-border flex items-center gap-2">
-          <i data-lucide="sliders-horizontal" class="w-4 h-4 text-luxury-gold"></i> Bộ Lọc Tìm Kiếm
-        </h3>
+    <!-- Quick Search & Heading -->
+    <section class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <h1 id="page-brand-heading" class="section-heading">CHỌN DÒNG XE TOYOTA</h1>
+        <p class="text-xs text-slate-500 mt-1 m-0">Chọn đúng dòng xe của bạn để xem form đời xe và bảng giá chi tiết.</p>
+      </div>
 
-        <!-- Filter Material -->
-        <div class="mb-6">
-          <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Chất liệu thảm</h4>
-          <div class="space-y-2.5 text-xs text-zinc-300">
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-material" value="Carbon" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Da Carbon Cao Cấp</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-material" value="TPE" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Nhựa TPE Nguyên Sinh</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-material" value="5D" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Da 5D Quả Trám</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-material" value="6D" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Da 6D Rối Đa Tầng</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-material" value="CaoSu" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Cao Su Tự Nhiên</span>
-            </label>
-          </div>
-        </div>
+      <div class="relative w-full md:w-80">
+        <label for="model-quick-search" class="sr-only">Tìm nhanh dòng xe</label>
+        <input id="model-quick-search" type="search" placeholder="Tìm nhanh xe Toyota của bạn..."
+          class="field-input pr-10">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+      </div>
+    </section>
 
-        <!-- Filter Color -->
-        <div class="mb-6">
-          <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Màu sắc chủ đạo</h4>
-          <div class="space-y-2.5 text-xs text-zinc-300">
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-color" value="Đen" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Đen sang trọng</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-color" value="Nâu" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Nâu / Cafe</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-color" value="Kem" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Kem / Beige</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-color" value="Đỏ" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Đỏ cá tính</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="checkbox" name="filter-color" value="Xám" class="rounded border-luxury-border text-luxury-gold focus:ring-0 focus:ring-offset-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Xám / Ghi</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Filter Price Range -->
-        <div>
-          <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Khoảng giá</h4>
-          <div class="space-y-2.5 text-xs text-zinc-300">
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="radio" name="filter-price" value="all" checked class="border-luxury-border text-luxury-gold bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Tất cả khoảng giá</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="radio" name="filter-price" value="under-1m" class="border-luxury-border text-luxury-gold bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Dưới 1.000.000 đ</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="radio" name="filter-price" value="1m-1.5m" class="border-luxury-border text-luxury-gold bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>1.000.000 đ - 1.500.000 đ</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer hover:text-white">
-              <input type="radio" name="filter-price" value="above-1.5m" class="border-luxury-border text-luxury-gold bg-luxury-bg w-4 h-4 cursor-pointer">
-              <span>Trên 1.500.000 đ</span>
-            </label>
-          </div>
-        </div>
-
-        <button id="btn-reset-filters" class="btn btn-secondary w-full mt-8 hover:border-red-500 hover:text-red-500">
-          XÓA TẤT CẢ BỘ LỌC
-        </button>
-      </aside>
-
-      <!-- Main Products Listing -->
-      <section class="flex-1">
-        
-        <!-- Toolbar (Search + Sort + Mobile Filter Button) -->
-        <div class="bg-luxury-card border border-luxury-border rounded-xl p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          
-          <!-- Search box in toolbar -->
-          <div class="relative w-full sm:w-72">
-            <input type="text" id="search-input" placeholder="Tìm tên sản phẩm thảm..." 
-              class="w-full bg-luxury-bg border border-luxury-border rounded-md py-2 pl-4 pr-10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-luxury-gold transition">
-            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
-              <i data-lucide="search" class="w-4 h-4"></i>
-            </div>
-          </div>
-
-          <!-- Sort + Mobile Filter button -->
-          <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto shrink-0">
-            <!-- Mobile Filter Trigger -->
-            <button id="btn-mobile-filter-open" class="lg:hidden flex items-center gap-1.5 px-3 py-2 border border-luxury-border rounded-md text-xs font-bold text-zinc-300 hover:text-white bg-luxury-bg transition focus:outline-none">
-              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-luxury-gold"></i> Lọc
-            </button>
-
-            <!-- Sort Dropdown -->
-            <div class="flex items-center gap-2">
-              <label class="text-xs text-zinc-500 whitespace-nowrap hidden sm:inline">Sắp xếp:</label>
-              <select id="sort-select" class="bg-luxury-bg border border-luxury-border rounded-md px-3 py-2 text-xs text-white focus:outline-none focus:border-luxury-gold transition cursor-pointer">
-                <option value="newest">Mới nhất</option>
-                <option value="bestseller">Bán chạy nhất</option>
-                <option value="price-asc">Giá: Thấp đến Cao</option>
-                <option value="price-desc">Giá: Cao đến Thấp</option>
-              </select>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Products Grid -->
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Dynamic products list will be injected here by JS -->
-        </div>
-
-        <!-- Empty Results State -->
-        <div id="empty-products-state" class="hidden text-center py-16 bg-luxury-card border border-luxury-border rounded-xl">
-          <div class="w-12 h-12 rounded-full bg-[#1E1E1F] flex items-center justify-center text-zinc-500 border border-luxury-border mx-auto mb-4">
-            <i data-lucide="info" class="w-6 h-6"></i>
-          </div>
-          <h4 class="font-bold text-white text-base">Không tìm thấy thảm xe phù hợp</h4>
-          <p class="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">Vui lòng thay đổi tùy chọn bộ lọc hoặc hãng xe đã chọn để xem các loại thảm lót sàn khác.</p>
-          <button id="btn-clear-all-filters-fallback" class="btn btn-accent mt-4">
-            Xóa bộ lọc để xem lại toàn bộ
-          </button>
-        </div>
-
-      </section>
-
+    <!-- Segmented Models Container -->
+    <div id="segments-container" class="space-y-7">
+      <!-- Injected by JS -->
     </div>
+
+    <!-- Empty State (Xe không có trong danh sách) -->
+    <div id="empty-models-state" class="hidden card-surface p-8 text-center space-y-3">
+      <p class="text-sm font-bold text-[#0D2C54] m-0">Không tìm thấy dòng xe phù hợp trong danh sách</p>
+      <p class="text-xs text-slate-600 m-0 max-w-md mx-auto">Xưởng có hơn 500+ phom xe và nhận đo Laser 3D trực tiếp tại nhà cho xe đời mới hoặc xe nhập khẩu riêng.</p>
+      <div class="flex flex-wrap items-center justify-center gap-2.5 pt-1">
+        <button type="button" id="btn-reset-model-search" class="btn-outline text-xs">Xem tất cả dòng xe</button>
+        <a href="/lien-he.html" class="btn-cta text-xs">Đặt đo riêng / Chat Zalo</a>
+      </div>
+    </div>
+
   </main>
 
-  <!-- Mobile Bottom Sheet Filters -->
-  <div id="mobile-filter-sheet" class="fixed inset-0 z-50 hidden">
-    <!-- Backdrop -->
-    <div id="mobile-filter-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-xs"></div>
-    
-    <!-- Sheet Container -->
-    <div class="absolute bottom-0 left-0 right-0 max-h-[85vh] bg-[#121214] border-t border-[#27272A] rounded-t-2xl flex flex-col shadow-2xl transition-transform duration-300 translate-y-full">
-      <div class="p-4 border-b border-luxury-border flex items-center justify-between shrink-0">
-        <h3 class="font-bold text-white text-sm flex items-center gap-2">
-          <i data-lucide="sliders-horizontal" class="w-4 h-4 text-luxury-gold"></i> Bộ lọc tìm kiếm
-        </h3>
-        <button id="btn-mobile-filter-close" class="text-zinc-400 hover:text-white p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      
-      <!-- Scrollable content -->
-      <div class="flex-1 overflow-y-auto p-5 space-y-6">
-        <!-- Filter Material (copied for mobile) -->
-        <div>
-          <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Chất liệu thảm</h4>
-          <div class="grid grid-cols-2 gap-3 text-xs text-zinc-300" id="mobile-material-container">
-            <!-- Dynamically populated or manually bound in script -->
-          </div>
-        </div>
-
-        <!-- Filter Color -->
-        <div>
-          <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Màu sắc</h4>
-          <div class="grid grid-cols-2 gap-3 text-xs text-zinc-300" id="mobile-color-container">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-
-        <!-- Filter Price -->
-        <div>
-          <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Khoảng giá</h4>
-          <div class="space-y-3 text-xs text-zinc-300" id="mobile-price-container">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Action Footer -->
-      <div class="p-4 border-t border-luxury-border bg-[#09090B] flex gap-3 shrink-0">
-        <button id="btn-mobile-filter-reset" class="flex-1 border border-luxury-border text-zinc-300 font-bold text-xs py-3 rounded-md bg-[#121214]">
-          XÓA LỌC
-        </button>
-        <button id="btn-mobile-filter-apply" class="flex-1 bg-gradient-to-r from-luxury-gold to-luxury-orange text-black font-bold text-xs py-3 rounded-md">
-          ÁP DỤNG
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
   <include src="partials/footer.html"></include>
-
-  <!-- Cart Drawer -->
   <include src="partials/cart-drawer.html"></include>
-
-  <!-- Bottom Mobile Nav -->
   <include src="partials/mobile-nav.html"></include>
 
-  <!-- Main scripts module -->
   <script type="module" src="./assets/js/main.js"></script>
-
-  <!-- Dynamic Product Search, Filter and Sorting logic -->
   <script type="module">
-    import { Cart } from './assets/js/cart.js';
     import { VehicleSelector } from './assets/js/selector.js';
 
-    // 12 Products Mock Database
-    const productsData = [
-      { id: 1, name: "Thảm Da Carbon Cao Cấp", price: 1490000, material: "Carbon", colors: ["Đen"], image: "/assets/images/mat-carbon-gold.png", isBestSeller: true, isNew: false, desc: "Thảm vân carbon thể thao siêu bền, chống xước, dính bám tối ưu." },
-      { id: 2, name: "Thảm Nhựa TPE Đúc Khuôn", price: 1890000, material: "TPE", colors: ["Đen"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, desc: "Vật liệu TPE nguyên sinh, tràn viền khít khay nước sàn xe, không mùi." },
-      { id: 3, name: "Thảm Da 5D Quả Trám", price: 1250000, material: "5D", colors: ["Nâu"], image: "/assets/images/mat-5d-brown.png", isBestSeller: true, isNew: false, desc: "Họa tiết trám truyền thống sang trọng, mặt da 5 lớp ấm áp." },
-      { id: 4, name: "Thảm Da 6D Rối Đa Tầng", price: 1650000, material: "6D", colors: ["Đỏ"], image: "/assets/images/mat-6d-red.png", isBestSeller: false, isNew: true, desc: "Bao gồm lớp thảm rối chống bám bụi bẩn bùn đất tháo rời tiện lợi." },
-      { id: 5, name: "Thảm Da Carbon Sport Red", price: 1490000, material: "Carbon", colors: ["Đen", "Đỏ"], image: "/assets/images/mat-carbon-gold.png", isBestSeller: false, isNew: true, desc: "Màu chỉ đỏ thể thao nổi bật cá tính phong cách đua xe." },
-      { id: 6, name: "Thảm Nhựa TPE Eco Beige", price: 1990000, material: "TPE", colors: ["Kem"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: true, desc: "Tông màu kem sáng ấm cúng, sang chảnh, hài hòa khoang cabin sáng." },
-      { id: 7, name: "Thảm Da 5D Royal Cream", price: 1250000, material: "5D", colors: ["Kem"], image: "/assets/images/mat-5d-brown.png", isBestSeller: true, isNew: false, desc: "Họa tiết may chỉ kem đan chéo mang đậm chất hoàng gia châu Âu." },
-      { id: 8, name: "Thảm Da 6D Nâu Hoàng Gia", price: 1650000, material: "6D", colors: ["Nâu"], image: "/assets/images/mat-6d-red.png", isBestSeller: false, isNew: false, desc: "Phối chỉ vàng lịch lãm quý phái, bám khít sàn cách âm gầm." },
-      { id: 9, name: "Thảm Cao Su Tự Nhiên Fit", price: 690000, material: "CaoSu", colors: ["Đen"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, desc: "Dẻo dai co giãn, thiết kế rãnh ma sát sâu chống trượt, kinh tế." },
-      { id: 10, name: "Thảm Cao Su Tổ Ong Grey", price: 750000, material: "CaoSu", colors: ["Xám"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, desc: "Họa tiết tổ ong độc đáo chống bám bẩn gót chân, dễ tháo xịt nước rửa." },
-      { id: 11, name: "Thảm Da Carbon Luxury Grey", price: 1590000, material: "Carbon", colors: ["Xám"], image: "/assets/images/mat-carbon-gold.png", isBestSeller: false, isNew: true, desc: "Tông màu ghi xám sang trọng tiệm màu thảm trần xe cao cấp." },
-      { id: 12, name: "Thảm Da 6D Full 360 độ", price: 2490000, material: "6D", colors: ["Đen"], image: "/assets/images/mat-6d-red.png", isBestSeller: false, isNew: false, desc: "Bao bọc 100% nỉ sàn nguyên bản của xe, thiết kế sang trọng tột bậc." }
-    ];
-
-    const toSlug = str => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
-    productsData.forEach(p => p.slug = toSlug(p.name));
-
-    const getProductLink = p => `/san-pham/${p.slug}.html`;
-
     document.addEventListener('DOMContentLoaded', () => {
-      // Elements
-      const grid = document.getElementById('product-grid');
-      const emptyState = document.getElementById('empty-products-state');
-      const searchInput = document.getElementById('search-input');
-      const sortSelect = document.getElementById('sort-select');
-      
-      const vehicleBanner = document.getElementById('vehicle-alert-banner');
-      const vehicleBannerText = document.getElementById('vehicle-alert-text');
-      const btnClearVehicle = document.getElementById('btn-clear-vehicle');
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialQuery = (urlParams.get('q') || '').trim();
+      const hangParam = urlParams.get('hang');
 
-      // 1. Vehicle Alert Sync
-      const updateVehicleAlert = () => {
-        const selected = VehicleSelector.getSelectedVehicle();
-        if (selected) {
-          vehicleBannerText.textContent = `Xe hiện tại: ${selected.brand} ${selected.model} (Đời xe ${selected.year})`;
-          vehicleBanner.classList.remove('hidden');
-        } else {
-          vehicleBanner.classList.add('hidden');
-        }
-      };
+      const catalog = VehicleSelector.getBrandCatalog();
+      let activeBrandSlug = hangParam
+        ? (hangParam.toLowerCase() === 'all' ? 'all' : VehicleSelector.getBrandByQuery(hangParam).slug)
+        : 'all';
 
-      if (btnClearVehicle) {
-        btnClearVehicle.addEventListener('click', () => {
-          VehicleSelector.clearSelectedVehicle();
-          updateVehicleAlert();
-          renderFilteredProducts();
-        });
+      const brandTabsBar = document.getElementById('brand-tabs-bar');
+      const breadcrumbBrand = document.getElementById('breadcrumb-brand');
+      const pageHeading = document.getElementById('page-brand-heading');
+      const appbarTitle = document.getElementById('mobile-appbar-title');
+      const searchInput = document.getElementById('model-quick-search');
+      const segmentsContainer = document.getElementById('segments-container');
+      const emptyState = document.getElementById('empty-models-state');
+      const resetBtn = document.getElementById('btn-reset-model-search');
+
+      if (initialQuery) {
+        searchInput.value = initialQuery;
       }
-      updateVehicleAlert();
 
-      // 2. Filter Elements binding
-      const getSelectedCheckboxes = (name) => {
-        return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+      const renderBrandTabs = () => {
+        const allTabHtml = `
+          <button type="button" data-brand-slug="all"
+            class="min-h-[44px] px-3 sm:px-4 py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wide transition cursor-pointer inline-flex items-center justify-center gap-1.5 ${
+              activeBrandSlug === 'all'
+                ? 'bg-[#FEF2F2] text-[#C81E2B] border-2 border-[#C81E2B] shadow-sm'
+                : 'bg-white text-slate-700 border border-slate-200 hover:border-[#0D2C54] hover:text-[#0D2C54]'
+            }">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+            <span>Tất cả</span>
+          </button>
+        `;
+
+        const brandsHtml = catalog.map((b) => {
+          const isActive = b.slug === activeBrandSlug;
+          return `
+            <button type="button" data-brand-slug="${b.slug}"
+              class="min-h-[44px] px-3 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wide transition cursor-pointer inline-flex items-center justify-center gap-1.5 sm:gap-2 ${
+                isActive
+                  ? 'bg-[#FEF2F2] text-[#C81E2B] border-2 border-[#C81E2B] shadow-sm'
+                  : 'bg-white text-slate-700 border border-slate-200 hover:border-[#0D2C54] hover:text-[#0D2C54]'
+              }">
+              <img src="${b.logo}" alt="${b.name}" width="22" height="22" class="w-5 h-5 sm:w-6 sm:h-6 object-contain shrink-0">
+              <span>${b.name}</span>
+            </button>
+          `;
+        }).join('');
+
+        brandTabsBar.innerHTML = allTabHtml + brandsHtml;
+
+        brandTabsBar.querySelectorAll('button[data-brand-slug]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            activeBrandSlug = btn.dataset.brandSlug;
+            searchInput.value = '';
+            const nextUrl = activeBrandSlug === 'all' ? '/san-pham.html' : `/san-pham.html?hang=${activeBrandSlug}`;
+            window.history.replaceState({}, '', nextUrl);
+            updateBrandUI();
+          });
+        });
+
+        if (window.lucide) window.lucide.createIcons();
       };
 
-      const getSelectedPriceRange = () => {
-        const el = document.querySelector('input[name="filter-price"]:checked');
-        return el ? el.value : 'all';
-      };
+      const renderModels = () => {
+        const rawQuery = searchInput.value.toLowerCase().trim();
+        const normQuery = VehicleSelector.toSlug(rawQuery);
+        let models = [];
 
-      // 3. Main Filter & Render Logic
-      const renderFilteredProducts = () => {
-        const query = searchInput.value.toLowerCase().trim();
-        const selectedMaterials = getSelectedCheckboxes('filter-material');
-        const selectedColors = getSelectedCheckboxes('filter-color');
-        const priceRange = getSelectedPriceRange();
-        const sortBy = sortSelect.value;
-        const selectedVehicle = VehicleSelector.getSelectedVehicle();
+        const matchesQuery = (text) => {
+          if (!rawQuery) return true;
+          return text.toLowerCase().includes(rawQuery) || (normQuery && VehicleSelector.toSlug(text).includes(normQuery));
+        };
 
-        let filtered = [...productsData];
-
-        // Filter by Search Query
-        if (query) {
-          filtered = filtered.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
-        }
-
-        // Filter by Material
-        if (selectedMaterials.length > 0) {
-          filtered = filtered.filter(p => selectedMaterials.includes(p.material));
-        }
-
-        // Filter by Color
-        if (selectedColors.length > 0) {
-          filtered = filtered.filter(p => p.colors.some(c => selectedColors.includes(c)));
-        }
-
-        // Filter by Price Range
-        if (priceRange === 'under-1m') {
-          filtered = filtered.filter(p => p.price < 1000000);
-        } else if (priceRange === '1m-1.5m') {
-          filtered = filtered.filter(p => p.price >= 1000000 && p.price <= 1500000);
-        } else if (priceRange === 'above-1.5m') {
-          filtered = filtered.filter(p => p.price > 1500000);
-        }
-
-        // Sorting
-        if (sortBy === 'price-asc') {
-          filtered.sort((a, b) => a.price - b.price);
-        } else if (sortBy === 'price-desc') {
-          filtered.sort((a, b) => b.price - a.price);
-        } else if (sortBy === 'bestseller') {
-          filtered.sort((a, b) => (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0));
+        if (activeBrandSlug === 'all') {
+          catalog.forEach((b) => {
+            b.models.forEach((m) => {
+              if (matchesQuery(`${b.name} ${m.name}`)) {
+                models.push({ ...m, brand: b.name, brandSlug: b.slug, slug: VehicleSelector.toSlug(m.name) });
+              }
+            });
+          });
         } else {
-          // default/newest
-          filtered.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
+          models = VehicleSelector.getModelsWithMeta(activeBrandSlug).filter((m) => matchesQuery(m.name));
         }
 
-        // Render Grid HTML
-        if (filtered.length === 0) {
-          grid.innerHTML = '';
+        if (models.length === 0) {
+          segmentsContainer.innerHTML = '';
           emptyState.classList.remove('hidden');
           return;
         }
 
         emptyState.classList.add('hidden');
-        
-        grid.innerHTML = filtered.map(p => {
-          const badgeText = p.isBestSeller ? 'BÁN CHẠY' : (p.isNew ? 'MỚI' : '');
-          const badgeBg = p.isBestSeller ? 'bg-[#F97316]' : 'bg-luxury-gold';
-          const badgeHtml = badgeText ? `<span class="absolute top-3 left-3 ${badgeBg} text-black font-bold text-[9px] py-1 px-2.5 rounded-full shadow-lg z-10">${badgeText}</span>` : '';
-          
-          // Add matching car label if vehicle is selected
-          const carMatchTag = selectedVehicle ? `
-            <div class="mt-2 flex items-center gap-1 text-[10px] text-luxury-gold font-medium bg-luxury-gold/5 border border-luxury-gold/15 px-2 py-0.5 rounded w-fit">
-              <i data-lucide="check" class="w-3 h-3"></i> Phù hợp ${selectedVehicle.brand} ${selectedVehicle.model} ${selectedVehicle.year}
-            </div>
-          ` : '';
+
+        const segments = ['SUV / CUV / MPV', 'SEDAN / HATCHBACK'];
+        const currentSaved = VehicleSelector.getSelectedVehicle();
+
+        segmentsContainer.innerHTML = segments.map((seg) => {
+          const segModels = models.filter((m) => m.segment === seg);
+          if (segModels.length === 0) return '';
 
           return `
-            <div class="luxury-card-glow luxury-card-stitch bg-luxury-card rounded-xl overflow-hidden flex flex-col group scroll-reveal revealed">
-              <a href="${getProductLink(p)}" class="block overflow-hidden relative aspect-[4/3] border-b border-luxury-border">
-                <img src="${p.image}" alt="${p.name}" width="400" height="300" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                ${badgeHtml}
-              </a>
-              <div class="p-5 flex-1 flex flex-col">
-                <div class="flex items-center justify-between gap-2">
-                  <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider">${p.material} | ${p.colors.join(', ')}</span>
-                </div>
-                <a href="${getProductLink(p)}">
-                  <h3 class="font-bold text-white text-base group-hover:text-luxury-gold transition mt-1">${p.name}</h3>
-                </a>
-                <p class="text-xs text-zinc-500 mt-1 leading-relaxed line-clamp-2">${p.desc}</p>
-                ${carMatchTag}
-                
-                <div class="flex items-center justify-between mt-6 pt-4 border-t border-[#27272A]/30">
-                  <div class="flex flex-col">
-                    <span class="font-bold text-luxury-gold text-base">${Cart.formatCurrency(p.price)}</span>
-                    <span class="product-spec-stamp uppercase mt-0.5">SPEC: TM-${p.material.replace('/', '')}#0${p.id}A</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <a href="${getProductLink(p)}" class="btn-shine bg-[#1E1E1F] border border-luxury-border hover:border-luxury-gold text-white text-xs font-bold py-2 px-3 rounded-md transition duration-300">
-                      CHI TIẾT
-                    </a>
-                  </div>
-                </div>
+            <section class="space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                <h2 class="text-sm md:text-base font-extrabold uppercase tracking-wide text-[#0D2C54] m-0">${seg}</h2>
+                <span class="text-xs font-semibold text-slate-500 tabular-nums">${segModels.length} dòng xe</span>
               </div>
-            </div>
+
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5">
+                ${segModels.map((m) => {
+                  const isActive = currentSaved && currentSaved.model === m.name && currentSaved.brand === m.brand;
+                  const label = activeBrandSlug === 'all' ? `${m.brand} ${m.name}` : m.name;
+                  return `
+                    <a href="/chi-tiet.html?hang=${m.brandSlug}&xe=${m.slug}" class="model-card ${isActive ? 'is-active' : ''}">
+                      <div class="aspect-[4/3] bg-slate-50 overflow-hidden">
+                        <img src="${m.image}" alt="Thảm lót sàn ${m.brand} ${m.name}" width="320" height="240" loading="lazy" class="w-full h-full object-cover">
+                      </div>
+                      <div class="model-card__footer">${label}</div>
+                    </a>
+                  `;
+                }).join('')}
+              </div>
+            </section>
           `;
         }).join('');
+      };
 
-        // Trigger Lucide icons regeneration
-        if (window.lucide) {
-          window.lucide.createIcons();
+      const updateBrandUI = () => {
+        if (activeBrandSlug === 'all') {
+          document.title = 'Tất Cả Dòng Xe - Trung Thành Auto';
+          if (breadcrumbBrand) breadcrumbBrand.textContent = 'Tất cả dòng xe';
+          if (pageHeading) pageHeading.textContent = 'TẤT CẢ DÒNG XE';
+          if (appbarTitle) appbarTitle.textContent = 'TẤT CẢ DÒNG XE';
+          searchInput.placeholder = 'Tìm nhanh tên hãng hoặc dòng xe...';
+        } else {
+          const brandObj = VehicleSelector.getBrandByQuery(activeBrandSlug);
+          const upperBrand = brandObj.name.toUpperCase();
+          document.title = `Thảm Lót Sàn Xe ${brandObj.name} - Trung Thành Auto`;
+          if (breadcrumbBrand) breadcrumbBrand.textContent = brandObj.name;
+          if (pageHeading) pageHeading.textContent = `CHỌN DÒNG XE ${upperBrand}`;
+          if (appbarTitle) appbarTitle.textContent = upperBrand;
+          searchInput.placeholder = `Tìm nhanh xe ${brandObj.name} của bạn...`;
         }
+
+        renderBrandTabs();
+        renderModels();
       };
 
-      // 4. Bind event listeners
-      searchInput.addEventListener('input', renderFilteredProducts);
-      sortSelect.addEventListener('change', renderFilteredProducts);
-      
-      document.querySelectorAll('input[name="filter-material"]').forEach(el => el.addEventListener('change', renderFilteredProducts));
-      document.querySelectorAll('input[name="filter-color"]').forEach(el => el.addEventListener('change', renderFilteredProducts));
-      document.querySelectorAll('input[name="filter-price"]').forEach(el => el.addEventListener('change', renderFilteredProducts));
-
-      const resetAllFilters = () => {
+      searchInput.addEventListener('input', renderModels);
+      resetBtn.addEventListener('click', () => {
         searchInput.value = '';
-        document.querySelectorAll('input[name="filter-material"]').forEach(el => el.checked = false);
-        document.querySelectorAll('input[name="filter-color"]').forEach(el => el.checked = false);
-        const defaultRadio = document.querySelector('input[name="filter-price"][value="all"]');
-        if (defaultRadio) defaultRadio.checked = true;
-        sortSelect.value = 'newest';
-        
-        // Also resets mobile ones
-        document.querySelectorAll('input[name="mobile-filter-material"]').forEach(el => el.checked = false);
-        document.querySelectorAll('input[name="mobile-filter-color"]').forEach(el => el.checked = false);
-        const mobileDefaultRadio = document.querySelector('input[name="mobile-filter-price"][value="all"]');
-        if (mobileDefaultRadio) mobileDefaultRadio.checked = true;
+        renderModels();
+      });
 
-        renderFilteredProducts();
-      };
-
-      document.getElementById('btn-reset-filters').addEventListener('click', resetAllFilters);
-      document.getElementById('btn-clear-all-filters-fallback').addEventListener('click', resetAllFilters);
-
-      // Check URL query parameters (e.g. ?material=TPE or ?q=Camry)
-      const urlParams = new URLSearchParams(window.location.search);
-      const matParam = urlParams.get('material');
-      const searchParam = urlParams.get('q');
-      
-      if (matParam) {
-        const checkbox = document.querySelector(`input[name="filter-material"][value="${matParam}"]`);
-        if (checkbox) checkbox.checked = true;
-      }
-      if (searchParam) {
-        searchInput.value = searchParam;
-      }
-
-      // 5. Mobile Filters sheet implementation
-      const filterSheet = document.getElementById('mobile-filter-sheet');
-      const filterSheetContainer = filterSheet.querySelector('.transition-transform');
-      const btnOpenMob = document.getElementById('btn-open-mob'); // Wait, mobile button in code is btn-mobile-filter-open
-      const btnOpenMobCorrect = document.getElementById('btn-mobile-filter-open');
-      const btnCloseMob = document.getElementById('btn-mobile-filter-close');
-      const backdropMob = document.getElementById('mobile-filter-backdrop');
-      const btnApplyMob = document.getElementById('btn-mobile-filter-apply');
-      const btnResetMob = document.getElementById('btn-mobile-filter-reset');
-
-      // Populate Mobile Sheets layouts dynamically from Desktop filters so inputs stay in sync
-      const mobMaterialContainer = document.getElementById('mobile-material-container');
-      const mobColorContainer = document.getElementById('mobile-color-container');
-      const mobPriceContainer = document.getElementById('mobile-price-container');
-
-      if (mobMaterialContainer) {
-        const materials = ["Carbon", "TPE", "5D", "6D", "CaoSu"];
-        const labels = ["Da Carbon", "Nhựa TPE", "Da 5D", "Da 6D", "Cao Su"];
-        mobMaterialContainer.innerHTML = materials.map((m, idx) => `
-          <label class="flex items-center gap-2 p-2.5 rounded bg-luxury-bg border border-luxury-border cursor-pointer">
-            <input type="checkbox" name="mobile-filter-material" value="${m}" class="rounded border-luxury-border text-luxury-gold focus:ring-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-            <span>${labels[idx]}</span>
-          </label>
-        `).join('');
-      }
-
-      if (mobColorContainer) {
-        const colors = ["Đen", "Nâu", "Kem", "Đỏ", "Xám"];
-        mobColorContainer.innerHTML = colors.map(c => `
-          <label class="flex items-center gap-2 p-2.5 rounded bg-luxury-bg border border-luxury-border cursor-pointer">
-            <input type="checkbox" name="mobile-filter-color" value="${c}" class="rounded border-luxury-border text-luxury-gold focus:ring-0 bg-luxury-bg w-4 h-4 cursor-pointer">
-            <span>${c}</span>
-          </label>
-        `).join('');
-      }
-
-      if (mobPriceContainer) {
-        mobPriceContainer.innerHTML = `
-          <div class="grid grid-cols-1 gap-2">
-            <label class="flex items-center gap-2 p-2.5 rounded bg-luxury-bg border border-luxury-border cursor-pointer">
-              <input type="radio" name="mobile-filter-price" value="all" checked class="text-luxury-gold bg-luxury-bg w-4 h-4">
-              <span>Tất cả khoảng giá</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded bg-luxury-bg border border-luxury-border cursor-pointer">
-              <input type="radio" name="mobile-filter-price" value="under-1m" class="text-luxury-gold bg-luxury-bg w-4 h-4">
-              <span>Dưới 1.000.000 đ</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded bg-luxury-bg border border-luxury-border cursor-pointer">
-              <input type="radio" name="mobile-filter-price" value="1m-1.5m" class="text-luxury-gold bg-luxury-bg w-4 h-4">
-              <span>1.000.000 đ - 1.500.000 đ</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded bg-luxury-bg border border-luxury-border cursor-pointer">
-              <input type="radio" name="mobile-filter-price" value="above-1.5m" class="text-luxury-gold bg-luxury-bg w-4 h-4">
-              <span>Trên 1.500.000 đ</span>
-            </label>
-          </div>
-        `;
-      }
-
-      const openMobSheet = () => {
-        // Sync mobile sheet checkboxes from desktop state before showing
-        document.querySelectorAll('input[name="filter-material"]').forEach(desk => {
-          const mob = document.querySelector(`input[name="mobile-filter-material"][value="${desk.value}"]`);
-          if (mob) mob.checked = desk.checked;
-        });
-        document.querySelectorAll('input[name="filter-color"]').forEach(desk => {
-          const mob = document.querySelector(`input[name="mobile-filter-color"][value="${desk.value}"]`);
-          if (mob) mob.checked = desk.checked;
-        });
-        const deskPriceVal = getSelectedPriceRange();
-        const mobPrice = document.querySelector(`input[name="mobile-filter-price"][value="${deskPriceVal}"]`);
-        if (mobPrice) mobPrice.checked = true;
-
-        filterSheet.classList.remove('hidden');
-        setTimeout(() => {
-          filterSheetContainer.classList.remove('translate-y-full');
-        }, 50);
-      };
-
-      const closeMobSheet = () => {
-        filterSheetContainer.classList.add('translate-y-full');
-        setTimeout(() => {
-          filterSheet.classList.add('hidden');
-        }, 300);
-      };
-
-      if (btnOpenMobCorrect) btnOpenMobCorrect.addEventListener('click', openMobSheet);
-      if (btnCloseMob) btnCloseMob.addEventListener('click', closeMobSheet);
-      if (backdropMob) backdropMob.addEventListener('click', closeMobSheet);
-
-      // Mobile Apply clicks
-      if (btnApplyMob) {
-        btnApplyMob.addEventListener('click', () => {
-          // Sync desktop filters back from mobile sheet selections
-          document.querySelectorAll('input[name="mobile-filter-material"]').forEach(mob => {
-            const desk = document.querySelector(`input[name="filter-material"][value="${mob.value}"]`);
-            if (desk) desk.checked = mob.checked;
-          });
-          document.querySelectorAll('input[name="mobile-filter-color"]').forEach(mob => {
-            const desk = document.querySelector(`input[name="filter-color"][value="${mob.value}"]`);
-            if (desk) desk.checked = mob.checked;
-          });
-          const mobPriceVal = document.querySelector('input[name="mobile-filter-price"]:checked').value;
-          const deskPrice = document.querySelector(`input[name="filter-price"][value="${mobPriceVal}"]`);
-          if (deskPrice) deskPrice.checked = true;
-
-          closeMobSheet();
-          renderFilteredProducts();
-        });
-      }
-
-      if (btnResetMob) {
-        btnResetMob.addEventListener('click', () => {
-          resetAllFilters();
-          closeMobSheet();
-        });
-      }
-
-      // Initial Render!
-      renderFilteredProducts();
+      updateBrandUI();
+      if (window.lucide) window.lucide.createIcons();
     });
   </script>
 </body>

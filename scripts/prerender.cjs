@@ -17,7 +17,7 @@ function toSlug(str) {
 // HTML optimization: Inject meta tags, preconnects, manifest, and image lazy loading
 function optimizeHtml(html) {
   const optMeta = `
-  <meta name="theme-color" content="#09090B" />
+  <meta name="theme-color" content="#0D2C54" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="preconnect" href="https://cdn.tailwindcss.com" />
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />

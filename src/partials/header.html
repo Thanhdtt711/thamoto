@@ -1,122 +1,93 @@
-<header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
-  <!-- Skip Navigation -->
-  <a class="skip-to-content" href="#main-content">Bỏ qua navigation</a>
+<header id="main-header" class="site-header">
+  <a class="skip-to-content" href="#main-content">Bỏ qua điều hướng</a>
 
-  <!-- Sub-header Top Bar (Hidden on Mobile) -->
-  <div id="header-topbar" class="w-full bg-[#09090B] border-b border-luxury-border/30 py-2 transition-all duration-300 hidden md:block">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-[9px] tracking-[0.2em] font-sans-luxury uppercase">
-      <span class="text-zinc-500">Bespoke Car Mats — Handcrafted in Vietnam</span>
-      <span class="text-luxury-gold font-semibold">Miễn phí vận chuyển & lắp đặt toàn quốc</span>
-      <span class="text-zinc-500">Zalo: <a href="https://zalo.me/0968288288" target="_blank" class="text-white hover:text-luxury-gold transition font-bold">0968 288 288</a></span>
-    </div>
-  </div>
-  
-  <!-- Main Nav Bar -->
-  <div id="header-navbar" class="w-full py-5 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between">
-        
-        <!-- Logo -->
-        <a href="/index.html" class="flex items-center gap-2 group">
-          <img src="/assets/images/trung-thanh-logo.png" alt="Trung Thành Logo" width="180" height="64" loading="eager" class="h-14 md:h-16 w-auto object-contain rounded-md border border-luxury-border/30 shadow-lg group-hover:scale-105 transition-all duration-300">
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-8 relative">
-          <a href="/index.html" class="nav-link text-[10px] font-bold uppercase tracking-[0.25em] text-white hover:text-luxury-gold transition duration-300 py-2 relative group/link">
-            Trang chủ
-            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-luxury-gold to-luxury-orange scale-x-0 group-hover/link:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-          </a>
-          <a href="/gioi-thieu.html" class="nav-link text-[10px] font-bold uppercase tracking-[0.25em] text-white hover:text-luxury-gold transition duration-300 py-2 relative group/link">
-            Giới thiệu
-            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-luxury-gold to-luxury-orange scale-x-0 group-hover/link:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-          </a>
-          <a href="/san-pham.html" class="nav-link text-[10px] font-bold uppercase tracking-[0.25em] text-white hover:text-luxury-gold transition duration-300 py-2 relative group/link">
-            Sản phẩm
-            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-luxury-gold to-luxury-orange scale-x-0 group-hover/link:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-          </a>
-          <a href="/tin-tuc.html" class="nav-link text-[10px] font-bold uppercase tracking-[0.25em] text-white hover:text-luxury-gold transition duration-300 py-2 relative group/link">
-            Tin tức
-            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-luxury-gold to-luxury-orange scale-x-0 group-hover/link:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-          </a>
-          <a href="/lien-he.html" class="nav-link text-[10px] font-bold uppercase tracking-[0.25em] text-white hover:text-luxury-gold transition duration-300 py-2 relative group/link">
-            Liên hệ
-            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-luxury-gold to-luxury-orange scale-x-0 group-hover/link:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-          </a>
-        </nav>
-
-        <!-- Right Elements -->
-        <div class="flex items-center gap-4">
-          <!-- Premium Hotline & Zalo CTA button (Hidden on Mobile) -->
-          <a href="tel:0968288288" class="hidden lg:flex items-center gap-2 border border-luxury-gold/30 hover:border-luxury-gold text-white hover:text-black hover:bg-luxury-gold px-4 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-lg shadow-luxury-gold/5 font-sans-luxury">
-            <i data-lucide="phone" class="w-3 h-3"></i> Đặt lịch đo xe
-          </a>
-
-          <!-- Search bar (Desktop) -->
-          <div class="relative hidden sm:block">
-            <form action="/san-pham.html" method="GET" class="relative">
-              <input type="text" name="q" placeholder="Tìm kiếm thảm xe..." 
-                class="w-36 lg:w-44 bg-[#121214]/65 border border-[#27272A]/70 rounded-full py-1.5 pl-4 pr-10 text-[10px] text-white placeholder-zinc-500 focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-luxury-gold/30 transition-all duration-300 font-sans-luxury">
-              <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition" aria-label="Tìm kiếm">
-                <i data-lucide="search" class="w-3.5 h-3.5"></i>
-              </button>
-            </form>
-          </div>
-
-          <!-- Search button for mobile -->
-          <a href="/san-pham.html" class="sm:hidden text-zinc-300 hover:text-white transition p-2" aria-label="Tìm kiếm">
-            <i data-lucide="search" class="w-5 h-5"></i>
-          </a>
-
-          <!-- Cart Button -->
-          <button class="relative btn-open-cart text-zinc-300 hover:text-luxury-gold p-2 hover:scale-105 transition-all duration-300 focus:outline-none" aria-label="Giỏ hàng">
-            <i data-lucide="shopping-bag" class="w-5.5 h-5.5 stroke-[1.8]"></i>
-            <span class="w-5 cart-count-badge absolute -top-0.5 -right-0.5 bg-[#F97316] text-white text-[9px] font-bold rounded-full w-4.5 h-4.5 flex items-center justify-center shadow-lg border border-[#09090B] hidden">0</span>
-          </button>
-
-          <!-- Mobile Menu Toggle -->
-          <button id="mobile-menu-btn" class="md:hidden text-zinc-300 hover:text-white p-2 focus:outline-none" aria-expanded="false" aria-label="Mở menu">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-          </button>
-        </div>
-
+  <!-- MOBILE HOME HEADER (< 1024px, Trang chủ) -->
+  <div class="mobile-header-home items-center justify-between gap-2.5 px-3 py-2 lg:hidden">
+    <a href="/index.html" class="shrink-0 flex items-center gap-2 min-h-[44px] no-underline" aria-label="Trung Thành Auto - Trang chủ">
+      <svg class="w-8 h-8 shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="36" height="36" rx="8" fill="#C81E2B"/>
+        <path d="M8 12.5C8 11.1193 9.11929 10 10.5 10H25.5C26.8807 10 28 11.1193 28 12.5V22L23.5 26.5H12.5L8 22V12.5Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M13 15.5H23M18 15.5V22" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <div class="leading-none hidden xs:block sm:block">
+        <span class="block text-xs font-extrabold tracking-tight text-white">TRUNG THÀNH</span>
+        <span class="block text-[9px] font-semibold tracking-widest text-slate-300 mt-0.5">THẢM LÓT SÀN</span>
       </div>
-    </div>
-  </div>
+    </a>
 
-  <!-- Active Vehicle Sticky Bar -->
-  <div id="header-vehicle-bar" class="w-full bg-[#121214] border-b border-luxury-border/30 py-2.5 hidden animate-fade-in-up">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs text-zinc-300">
-      <div class="flex items-center gap-2">
-        <i data-lucide="car" class="w-4 h-4 text-luxury-gold"></i>
-        <span>Xe của bạn: <strong id="header-vehicle-name" class="text-white">-</strong></span>
+    <form action="/san-pham.html" method="GET" class="flex-1 min-w-0">
+      <label for="mobile-header-search" class="sr-only">Tìm theo tên xe</label>
+      <div class="relative">
+        <input id="mobile-header-search" type="search" name="q" placeholder="Tìm theo tên xe..."
+          class="w-full h-10 bg-white border border-transparent rounded-lg pl-3 pr-9 text-xs text-slate-900 placeholder-slate-400 focus:outline-none">
+        <button type="submit" class="absolute right-0 top-0 h-10 w-9 flex items-center justify-center text-slate-500 hover:text-[#0D2C54]" aria-label="Tìm kiếm">
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </button>
       </div>
-      <button id="btn-change-vehicle" class="text-luxury-gold hover:text-luxury-gold-hover transition font-bold text-[10px] uppercase tracking-wider focus:outline-none">Thay đổi</button>
-    </div>
-  </div>
+    </form>
 
-  <!-- Mobile Collapsible Menu -->
-  <div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-[#09090B] pt-24 px-6 md:hidden" style="background-color: #09090b !important; height: 100vh;">
-    <button id="mobile-menu-close" class="absolute top-6 right-6 text-zinc-300 hover:text-white p-2 focus:outline-none" aria-label="Đóng menu">
-      <i data-lucide="x" class="w-6 h-6"></i>
+    <button type="button" class="btn-open-cart icon-touch-btn relative text-white rounded-lg hover:bg-white/10 transition shrink-0" aria-label="Giỏ hàng">
+      <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+      <span class="cart-count-badge absolute top-1.5 right-1.5 bg-[#C81E2B] text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center border border-[#0D2C54] tabular-nums hidden">0</span>
     </button>
-    <div class="flex flex-col gap-6 text-lg font-sans-luxury">
-      <a href="/index.html" class="border-b border-[#27272A]/50 pb-4 text-white hover:text-luxury-gold uppercase tracking-wider text-sm font-semibold">Trang chủ</a>
-      <a href="/gioi-thieu.html" class="border-b border-[#27272A]/50 pb-4 text-white hover:text-luxury-gold uppercase tracking-wider text-sm font-semibold">Giới thiệu</a>
-      <a href="/san-pham.html" class="border-b border-[#27272A]/50 pb-4 text-white hover:text-luxury-gold uppercase tracking-wider text-sm font-semibold">Sản phẩm</a>
-      <a href="/tin-tuc.html" class="border-b border-[#27272A]/50 pb-4 text-white hover:text-luxury-gold uppercase tracking-wider text-sm font-semibold">Tin tức</a>
-      <a href="/lien-he.html" class="border-b border-[#27272A]/50 pb-4 text-white hover:text-luxury-gold uppercase tracking-wider text-sm font-semibold">Liên hệ</a>
-      
-      <!-- Mobile Contact info -->
-      <div class="mt-8 flex flex-col gap-4 text-sm text-zinc-400">
-        <a href="tel:0968288288" class="flex items-center gap-3 text-white">
-          <i data-lucide="phone" class="w-4 h-4 text-luxury-gold"></i>
-          <span>Hotline: 0968 288 288</span>
-        </a>
-        <a href="https://zalo.me/0968288288" target="_blank" class="flex items-center gap-3 text-white">
-          <i data-lucide="message-square" class="w-4 h-4 text-luxury-gold"></i>
-          <span>Chat Zalo</span>
-        </a>
+  </div>
+
+  <!-- MOBILE SUBPAGE APP BAR (< 1024px, Trang con) -->
+  <div class="mobile-header-subpage items-center justify-between gap-2 px-2 py-1.5 lg:hidden">
+    <button type="button" id="mobile-appbar-back" class="icon-touch-btn text-white rounded-lg hover:bg-white/10 transition shrink-0" aria-label="Quay lại">
+      <i data-lucide="arrow-left" class="w-5 h-5"></i>
+    </button>
+
+    <span id="mobile-appbar-title" class="flex-1 text-center text-sm font-extrabold uppercase tracking-wide text-white truncate px-2">
+      SẢN PHẨM
+    </span>
+
+    <button type="button" class="btn-open-cart icon-touch-btn relative text-white rounded-lg hover:bg-white/10 transition shrink-0" aria-label="Giỏ hàng">
+      <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+      <span class="cart-count-badge absolute top-1.5 right-1.5 bg-[#C81E2B] text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center border border-[#0D2C54] tabular-nums hidden">0</span>
+    </button>
+  </div>
+
+  <!-- DESKTOP HEADER (>= 1024px) -->
+  <div class="hidden lg:block border-b border-white/10">
+    <div class="container-app flex items-center justify-between gap-6 h-[68px]">
+      <!-- Brand SVG Logo -->
+      <a href="/index.html" class="flex items-center gap-2.5 shrink-0 no-underline group" aria-label="Trung Thành Auto - Trang chủ">
+        <svg class="w-9 h-9 shrink-0 transition-transform duration-200 group-hover:scale-105" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="36" height="36" rx="8" fill="#C81E2B"/>
+          <path d="M8 12.5C8 11.1193 9.11929 10 10.5 10H25.5C26.8807 10 28 11.1193 28 12.5V22L23.5 26.5H12.5L8 22V12.5Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M13 15.5H23M18 15.5V22" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <div class="leading-none">
+          <span class="block text-[15px] font-extrabold tracking-tight text-white mb-1">TRUNG THÀNH AUTO</span>
+          <span class="block text-[10px] font-semibold text-slate-300 mt-0.5">Thảm lót sàn ô tô</span>
+        </div>
+      </a>
+
+      <!-- Minimal Navigation -->
+      <nav aria-label="Điều hướng chính" class="flex items-center gap-1">
+        <a href="/index.html" class="nav-link px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition no-underline uppercase">Trang chủ</a>
+        <a href="/san-pham.html" class="nav-link px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition no-underline uppercase">Sản phẩm</a>
+        <a href="/tin-tuc.html" class="nav-link px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition no-underline uppercase">Tin tức</a>
+        <a href="/lien-he.html" class="nav-link px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition no-underline uppercase">Liên hệ</a>
+      </nav>
+
+      <!-- Search + Cart -->
+      <div class="flex items-center gap-2.5">
+        <form action="/san-pham.html" method="GET" class="relative">
+          <label for="desktop-header-search" class="sr-only">Tìm theo tên xe</label>
+          <input id="desktop-header-search" type="search" name="q" placeholder="Tìm theo tên xe..."
+            class="w-60 h-10 bg-white border border-transparent rounded-lg pl-3.5 pr-9 text-xs font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white/40 transition">
+          <button type="submit" class="absolute right-0 top-0 h-10 w-9 flex items-center justify-center text-slate-500 hover:text-[#0D2C54]" aria-label="Tìm kiếm">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </button>
+        </form>
+
+        <button type="button" class="btn-open-cart relative inline-flex items-center gap-2 bg-[#C81E2B] hover:bg-[#A81622] text-white px-4 h-10 rounded-lg text-xs font-bold transition shrink-0 shadow-sm cursor-pointer" aria-label="Giỏ hàng">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span>Giỏ hàng</span>
+          <span class="cart-count-badge bg-white text-[#C81E2B] text-[10px] font-extrabold rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center tabular-nums hidden">0</span>
+        </button>
       </div>
     </div>
   </div>

@@ -3,514 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="page-title">Chi Tiết Bài Viết - Trung Thành Auto</title>
+  <title id="page-title">Chi Tiết Bài Viết | Trung Thành Auto</title>
   <meta name="description" content="Kinh nghiệm, tin tức và xu hướng lựa chọn thảm lót sàn ô tô cao cấp mới nhất từ Trung Thành Auto.">
-  
-  <!-- Canonical Link -->
   <link rel="canonical" href="https://thamoto.vercel.app/chi-tiet-tin-tuc.html" />
-
-  <!-- Preconnect/Preload Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="/favicon.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://thamoto.vercel.app/chi-tiet-tin-tuc.html" />
   <meta property="og:title" content="Chi Tiết Bài Viết - Trung Thành Auto" />
-  <meta property="og:description" content="Kinh nghiệm, tin tức và xu hướng lựa chọn thảm lót sàn ô tô cao cấp mới nhất từ Trung Thành Auto." />
+  <meta property="og:description" content="Kinh nghiệm chọn thảm lót sàn ô tô chuẩn phom xe." />
   <meta property="og:image" content="https://thamoto.vercel.app/assets/images/trung-thanh-logo.png" />
-  <meta property="og:site_name" content="Trung Thành Auto" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://thamoto.vercel.app/chi-tiet-tin-tuc.html" />
-  <meta property="twitter:title" content="Chi Tiết Bài Viết - Trung Thành Auto" />
-  <meta property="twitter:description" content="Kinh nghiệm, tin tức và xu hướng lựa chọn thảm lót sàn ô tô cao cấp mới nhất từ Trung Thành Auto." />
-  <meta property="twitter:image" content="https://thamoto.vercel.app/assets/images/trung-thanh-logo.png" />
-
-  <!-- Dynamic JSON-LD Structured Data Schema Holder -->
   <script type="application/ld+json" id="article-schema"></script>
-
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            luxury: {
-              bg: '#09090B',
-              card: '#121214',
-              border: '#27272A',
-              gold: '#CC7A00',
-              orange: '#F97316',
-              text: '#FFFFFF',
-              textMuted: '#A1A1AA'
-            }
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="/assets/css/index.css">
 </head>
-<body class="bg-luxury-bg text-white pt-24 pb-20 md:pb-0">
+<body class="bg-[#F4F6F9] text-[#0F172A]" data-subpage="true" data-page-title="TIN TỨC">
 
-  <!-- Header -->
   <include src="partials/header.html"></include>
 
-  <!-- Main Container -->
-  <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    
-    <!-- Breadcrumb -->
-    <nav class="flex text-xs text-zinc-500 mb-6 gap-2">
-      <a href="/index.html" class="hover:text-luxury-gold transition">Trang chủ</a>
-      <span>/</span>
-      <a href="/tin-tuc.html" class="hover:text-luxury-gold transition">Tin tức</a>
-      <span>/</span>
-      <span id="breadcrumb-title" class="text-zinc-300 line-clamp-1">Chi tiết bài viết</span>
+  <main id="main-content" class="container-app py-5 md:py-8 space-y-6">
+    <nav aria-label="Breadcrumb" class="breadcrumb hidden lg:flex">
+      <a href="/index.html">Trang chủ</a>
+      <span>&gt;</span>
+      <a href="/tin-tuc.html">Tin tức</a>
+      <span>&gt;</span>
+      <span id="breadcrumb-title" class="font-semibold text-[#0D2C54] line-clamp-1">Chi tiết bài viết</span>
     </nav>
 
-    <!-- Layout Columns -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      
-      <!-- Left Column: Article Body (2/3 width) -->
-      <article class="lg:col-span-2 space-y-6">
-        
-        <!-- Header Info -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-3 text-xs text-zinc-500 font-bold uppercase">
-            <span id="article-category" class="text-luxury-gold">Danh mục</span>
-            <span>•</span>
-            <span id="article-date">Ngày đăng</span>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <article class="lg:col-span-2 card-surface p-5 sm:p-7 space-y-5">
+        <div class="space-y-2.5">
+          <div class="flex items-center gap-2 text-xs font-bold text-[#C81E2B] uppercase">
+            <span id="article-category">KINH NGHIỆM</span>
+            <span>·</span>
+            <span id="article-date" class="text-slate-500">15/06/2026</span>
           </div>
-          
-          <h1 id="article-title" class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
-            Tiêu đề bài viết
-          </h1>
-          
-          <p id="article-summary" class="text-sm text-zinc-400 leading-relaxed italic border-l-2 border-luxury-gold/50 pl-4 py-1">
-            Tóm tắt bài viết.
-          </p>
+          <h1 id="article-title" class="text-xl sm:text-2xl font-extrabold text-[#0D2C54] leading-snug m-0">Tiêu đề bài viết</h1>
+          <p id="article-summary" class="text-sm text-slate-600 italic border-l-2 border-[#0D2C54] pl-3 m-0"></p>
         </div>
 
-        <!-- Featured Image -->
-        <div class="aspect-[21/9] rounded-xl overflow-hidden border border-luxury-border bg-[#1E1E1F]">
-          <img id="article-hero-image" src="/assets/images/news-featured.png" alt="Featured Article Hero" width="800" height="343" loading="eager" class="w-full h-full object-cover">
+        <div class="aspect-[16/9] rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
+          <img id="article-hero-image" src="/assets/images/news-featured.png" alt="Ảnh bài viết" width="800" height="450" loading="eager" class="w-full h-full object-cover">
         </div>
 
-        <!-- Dynamic Body Content -->
-        <div id="article-body-content" class="text-sm text-zinc-300 leading-relaxed space-y-4 font-light">
-          <!-- Populated dynamically via JS -->
-        </div>
+        <div id="article-body-content" class="text-sm text-slate-700 leading-relaxed space-y-4"></div>
 
-        <!-- Tags List -->
-        <div class="pt-6 border-t border-luxury-border/60 flex flex-wrap items-center gap-2" id="article-tags">
-          <!-- Populated dynamically -->
+        <div class="pt-5 border-t border-slate-200">
+          <h2 class="text-sm font-extrabold uppercase text-[#0D2C54] mb-3">Bài viết liên quan</h2>
+          <div id="related-articles-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
-
-        <!-- Related Articles Section -->
-        <div class="pt-10 border-t border-luxury-border/60 space-y-6">
-          <h3 class="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-            <i data-lucide="sparkles" class="w-5 h-5 text-luxury-gold"></i> Bài viết liên quan
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="related-articles-container">
-            <!-- Dynamic related articles grid -->
-          </div>
-        </div>
-
       </article>
 
-      <!-- Right Column: Sidebar (1/3 width) -->
-      <aside class="space-y-6">
-        
-        <!-- Search bar widget -->
-        <div class="bg-luxury-card border border-luxury-border rounded-xl p-5 space-y-3">
-          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Tìm kiếm tin tức</h4>
-          <div class="relative">
-            <input type="text" id="sidebar-search" placeholder="Nhập từ khóa tìm kiếm..." 
-              class="w-full bg-luxury-bg border border-luxury-border rounded-md py-2 px-3 pl-9 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-luxury-gold">
-            <i data-lucide="search" class="w-4 h-4 text-zinc-600 absolute left-3 top-2.5"></i>
-          </div>
+      <aside class="space-y-4">
+        <div class="card-surface p-5 space-y-3 text-center">
+          <h3 class="text-sm font-extrabold uppercase text-[#0D2C54] m-0">Tìm thảm chuẩn cho xe của bạn</h3>
+          <p class="text-xs text-slate-600 m-0 leading-relaxed">Chọn đúng hãng xe, dòng xe và đời xe chỉ trong 3 bước.</p>
+          <a href="/index.html" class="btn-cta w-full text-xs">TÌM THẢM NGAY</a>
         </div>
-
-        <!-- Category categories cloud widget -->
-        <div class="bg-luxury-card border border-luxury-border rounded-xl p-5 space-y-3">
-          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Danh mục chuyên mục</h4>
-          <div class="flex flex-col gap-2">
-            <a href="/tin-tuc.html?cat=all" class="text-xs text-zinc-400 hover:text-luxury-gold flex items-center justify-between py-1 transition border-b border-zinc-800/30">
-              <span>Tất cả bài viết</span>
-              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </a>
-            <a href="/tin-tuc.html?cat=kinh-nghiem" class="text-xs text-zinc-400 hover:text-luxury-gold flex items-center justify-between py-1 transition border-b border-zinc-800/30">
-              <span>Kinh nghiệm chọn thảm</span>
-              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </a>
-            <a href="/tin-tuc.html?cat=xu-huong" class="text-xs text-zinc-400 hover:text-luxury-gold flex items-center justify-between py-1 transition border-b border-zinc-800/30">
-              <span>Xu hướng & Công nghệ</span>
-              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </a>
-            <a href="/tin-tuc.html?cat=su-kien" class="text-xs text-zinc-400 hover:text-luxury-gold flex items-center justify-between py-1 transition border-b border-zinc-800/30">
-              <span>Sự kiện & Khai trương</span>
-              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Bespoke Product CTA widget -->
-        <div class="relative bg-gradient-to-br from-luxury-card to-[#1A1A1D] border border-luxury-border rounded-xl p-6 text-center space-y-4 overflow-hidden group">
-          <div class="absolute inset-0 bg-radial-gradient from-luxury-gold/5 via-transparent to-transparent pointer-events-none"></div>
-          <div class="w-12 h-12 rounded-full bg-luxury-gold/10 border border-luxury-gold/20 flex items-center justify-center mx-auto">
-            <i data-lucide="car" class="w-6 h-6 text-luxury-gold"></i>
-          </div>
-          <div class="space-y-2">
-            <h4 class="font-extrabold text-white text-sm uppercase">May đo theo hãng xe của bạn</h4>
-            <p class="text-xs text-zinc-400 leading-relaxed">
-              Quét laser 3D ôm khít từng milimet sàn xe. Chọn màu sắc & chất liệu cao cấp riêng biệt.
-            </p>
-          </div>
-          <a href="/index.html#vehicle-selector-section" class="block w-full bg-gradient-to-r from-luxury-gold to-luxury-orange hover:from-white hover:to-white text-black font-bold py-2 rounded text-xs transition duration-300">
-            CHỌN DÒNG XE NGAY
-          </a>
-        </div>
-
       </aside>
-
     </div>
-
   </main>
 
-  <!-- Footer -->
   <include src="partials/footer.html"></include>
-
-  <!-- Cart Drawer -->
   <include src="partials/cart-drawer.html"></include>
-
-  <!-- Bottom Mobile Nav -->
   <include src="partials/mobile-nav.html"></include>
 
-  <!-- Main scripts module -->
   <script type="module" src="/assets/js/main.js"></script>
-
-  <!-- Hydrate page details -->
   <script type="module">
     const articlesData = [
       {
         id: 1,
         title: "Bí quyết chọn thảm lót sàn ô tô phù hợp cho mùa mưa gió bão bùng",
-        category: "kinh-nghiem",
-        tags: ["ve-sinh", "tpe", "6d"],
         date: "15 Tháng 6, 2026",
-        desc: "Mùa mưa bão sắp tới mang theo nỗi lo bùn đất bám vào nỉ sàn xe hơi gây nấm mốc, bốc mùi hôi thối khó chịu. Khám phá ngay các dòng thảm đúc khuôn nhựa TPE nguyên sinh hoặc thảm rối da 6D chống thấm, dễ xịt rửa vệ sinh tốt nhất cho chiếc xe hơi của bạn.",
+        desc: "Mùa mưa bão sắp tới mang theo nỗi lo bùn đất bám vào nỉ sàn xe hơi gây nấm mốc, bốc mùi hôi thối khó chịu.",
         categoryLabel: "KINH NGHIỆM",
         image: "./assets/images/news-featured.png",
-        body: `
-          <p>Mùa mưa bão tại Việt Nam luôn là nỗi cực hình đối với bất kỳ chủ xe ô tô nào. Việc thường xuyên bước lên xuống xe với đôi giày dính nước bẩn, bùn đất sẽ nhanh chóng làm lớp sàn nỉ nguyên bản bị ẩm ướt, tạo môi trường thuận lợi cho nấm mốc và vi khuẩn sinh sôi. Nếu không được bảo vệ bằng thảm lót sàn chất lượng, cabin xe sẽ nhanh chóng bốc mùi ẩm mốc cực kỳ khó chịu và khó xử lý triệt để.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">1. Thảm Nhựa TPE Đúc Khuôn - Sự Lựa Chọn Vàng Cho Mùa Mưa</h2>
-          <p>Đối với điều kiện thời tiết mưa nhiều, thảm lót sàn làm từ nhựa TPE nguyên sinh đúc khuôn là giải pháp hoàn hảo nhất. Nhựa TPE có đặc tính kỵ nước hoàn toàn, không thấm hút và dễ lau chùi nhanh chóng.</p>
-          <ul class="list-disc list-inside space-y-1.5 my-3 pl-2 text-zinc-400">
-            <li><strong>Mép viền dựng cao:</strong> Thiết kế khuôn quét 3D tạo mép viền cao từ 3-5cm, giúp giữ toàn bộ nước bẩn, bùn cát không bị tràn ra nỉ sàn gốc.</li>
-            <li><strong>Khô ráo cực nhanh:</strong> Bạn chỉ cần mang thảm ra xịt nước, lau nhẹ bằng khăn là thảm đã khô ráo hoàn toàn và có thể lắp lại xe ngay lập tức.</li>
-            <li><strong>Không mùi:</strong> Đạt tiêu chuẩn kiểm định SGS không mùi độc hại ngay cả khi xe đóng kín cửa đỗ dưới nắng nóng gay gắt.</li>
-          </ul>
-
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">2. Thảm Da 6D Rối Đa Tầng - Sang Trọng & Êm Ái</h2>
-          <p>Nếu bạn yêu thích sự sang trọng, ấm cúng và êm chân, thảm da 6D rối đa tầng là sự thay thế tuyệt vời. Thảm có cấu trúc 2 lớp tháo rời:</p>
-          <p class="border-l-2 border-luxury-gold/40 pl-3 italic my-4 text-zinc-400">
-            Lớp thảm da PU bên dưới tạo phom ôm khít sàn xe, kết hợp lớp thảm rối chống bụi bẩn bám chân phía trên bằng khóa cúc xoay tiện dụng.
-          </p>
-          <p>Khi trời mưa, các sợi rối đan xen sẽ giữ lại bùn đất bẩn cực kỳ tốt, ngăn nước bẩn loang lổ ra khoang chân. Khi cần vệ sinh, bạn chỉ cần mở chốt xoay tháo riêng lớp thảm rối để giặt rửa và phơi khô, giữ nguyên lớp thảm da bên dưới sạch sẽ.</p>
-
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">3. Lời Khuyên Từ Chuyên Gia May Đo Trung Thành Auto</h2>
-          <p>Mỗi loại thảm đều có những ưu thế riêng biệt. Nếu bạn sử dụng xe gia đình chạy hàng ngày hoặc xe dịch vụ, hãy ưu tiên chọn nhựa TPE đúc khuôn để tối ưu khả năng bảo dưỡng. Với dòng xe sedan sang trọng hoặc SUV phục vụ công việc ngoại giao, thảm da Carbon phối rối sẽ mang lại không gian nội thất đẳng cấp tương xứng nhất.</p>
-        `
+        body: `<p>Mùa mưa tại Việt Nam khiến giày dép mang theo bùn đất làm ẩm sàn nỉ nguyên bản, dễ gây nấm mốc và mùi hôi khó chịu.</p><h2 class="text-base font-bold text-[#0D2C54]">1. Thảm Nhựa TPE Đúc Khuôn</h2><p>Kỵ nước hoàn toàn, có mép viền dựng cao giữ nước và bùn đất không tràn xuống sàn nỉ.</p><h2 class="text-base font-bold text-[#0D2C54]">2. Thảm Da 6D Kèm Thảm Rối</h2><p>Lớp rối phía trên giữ bụi bẩn và tháo rời giặt rửa dễ dàng, lớp da bên dưới giữ khoang xe luôn sạch sẽ sang trọng.</p>`
       },
       {
         id: 2,
         title: "Tại sao thảm lót sàn nhựa TPE lại trở thành xu hướng năm 2026?",
-        category: "xu-huong",
-        tags: ["tpe", "khu-mui"],
         date: "10 Tháng 6, 2026",
-        desc: "Lý giải sức hút từ vật liệu nhựa TPE nguyên sinh đúc khuôn tràn viền: Độ bền vượt trội trên 10 năm, hoàn toàn không sinh mùi hôi độc hại khi đỗ xe nắng và chống nước tuyệt đối.",
+        desc: "Lý giải sức hút từ vật liệu nhựa TPE nguyên sinh đúc khuôn tràn viền: Độ bền vượt trội, không mùi, chống nước tuyệt đối.",
         categoryLabel: "XU HƯỚNG",
         image: "./assets/images/news-featured.png",
-        body: `
-          <p>Xu hướng thiết kế và nâng cấp nội thất ô tô trong những năm gần đây đang dịch chuyển mạnh mẽ sang các vật liệu sinh thái, an toàn cho sức khỏe và dễ dàng tái chế. Trong số đó, thảm lót sàn nhựa TPE (Thermoplastic Elastomer) nổi lên như một tiêu chuẩn mới cho phân khúc xe hiện đại.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">An Toàn Tuyệt Đối Cho Sức Khỏe Gia Đình</h2>
-          <p>Không giống như các dòng cao su tự cắt giá rẻ hay nhựa tái chế chứa nhiều tạp chất lưu huỳnh dễ bốc mùi hôi khó chịu khi cabin nóng lên, nhựa TPE nguyên sinh hoàn toàn không có mùi độc hại. Sản phẩm đã đạt chứng nhận an toàn SGS quốc tế, đảm bảo an toàn cho hệ hô hấp của trẻ nhỏ và phụ nữ mang thai.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Công Nghệ Quét Laser 3D Chuẩn Xác</h2>
-          <p>Mỗi bộ thảm TPE tại Trung Thành Auto đều được đúc từ khuôn mẫu thép chế tạo chính xác theo file quét Laser 3D của từng mẫu xe cụ thể tại Việt Nam. Độ bám khít sàn xe đạt 99.9%, không bị xê dịch gây kẹt chân ga chân phanh nguy hiểm khi di chuyển.</p>
-        `
+        body: `<p>Nhựa TPE nguyên sinh an toàn cho sức khỏe, không sinh mùi hôi khi đỗ xe dưới trời nắng nóng và ôm khít sàn xe theo file quét Laser 3D.</p>`
       },
       {
         id: 3,
         title: "Sự khác biệt vượt trội giữa thảm da carbon và thảm da 6D truyền thống",
-        category: "kinh-nghiem",
-        tags: ["carbon", "6d"],
         date: "08 Tháng 6, 2026",
-        desc: "So sánh chi tiết về tính thẩm mỹ, độ bền chỉ may và khả năng chống bám bụi của hai dòng thảm da bán chạy nhất thị trường hiện nay. Nên lựa chọn loại nào cho phân khúc xế sang?",
+        desc: "So sánh chi tiết về tính thẩm mỹ, độ bền chỉ may và khả năng chống bám bụi của hai dòng thảm da bán chạy nhất.",
         categoryLabel: "KINH NGHIỆM",
         image: "./assets/images/news-featured.png",
-        body: `
-          <p>Thảm da luôn là lựa chọn hàng đầu cho các chủ xe yêu thích phong cách sang trọng và cá nhân hóa. Tuy nhiên, sự phát triển của công nghệ vật liệu da PU vân carbon đã tạo ra một cuộc cách mạng so với các dòng thảm da 6D họa tiết quả trám truyền thống.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">1. Da PU Vân Carbon - Tinh Thể Thao Đầy Cuốn Hút</h2>
-          <p>Bề mặt da Carbon được phủ một lớp màng bảo vệ dập nổi vân carbon 3D sắc sảo. Họa tiết này tạo cảm giác cứng cáp, thể thao và hiện đại tương tự như khoang lái của các siêu xe thể thao hiệu năng cao. Lớp phủ này chống trầy xước từ giày gót nhọn cực kỳ tốt và không bị thấm ẩm.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">2. Thảm Da 6D Họa Tiết Quả Trám - Cổ Điển Lịch Lãm</h2>
-          <p>Thảm 6D truyền thống sử dụng đường chỉ khâu chéo đan hình quả trám tạo độ phồng êm ái. Đây là kiểu dáng mang đậm nét hoàng gia, ấm cúng. Tuy nhiên, điểm hạn chế là các kẽ chỉ may khâu chéo rất dễ bám bụi bẩn li ti và tốn nhiều thời gian lau chùi hơn so với da vân carbon trơn láng.</p>
-        `
+        body: `<p>Da vân Carbon mang phong cách thể thao hiện đại và dễ lau chùi; thảm 6D họa tiết quả trám mang lại cảm giác êm ái, ấm cúng cho khoang xe.</p>`
       },
       {
         id: 4,
         title: "Trung Thành Auto khai trương showroom trưng bày và dịch vụ lắp đặt mới tại Quận 7",
-        category: "su-kien",
-        tags: ["su-kien"],
         date: "01 Tháng 6, 2026",
-        desc: "Không gian showroom mới rộng rãi với đầy đủ bộ phom mẫu thảm thực tế giúp khách hàng dễ dàng sờ thử chất liệu da vân carbon, thảm rối và trải nghiệm quy trình quét 3D laser trực quan.",
+        desc: "Không gian showroom mới rộng rãi với đầy đủ bộ phom mẫu thảm thực tế giúp khách hàng dễ dàng sờ thử chất liệu.",
         categoryLabel: "SỰ KIỆN",
         image: "./assets/images/about-workshop.png",
-        body: `
-          <p>Nhằm đáp ứng nhu cầu trải nghiệm thực tế sản phẩm thảm lót sàn cao cấp ngày càng tăng cao của khách hàng tại khu vực TP. Hồ Chí Minh, Trung Thành Auto chính thức khai trương showroom trải nghiệm dịch vụ mới tại Quận 7.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Sờ Thử Chất Liệu Thực Tế & Nhận Tư Vấn Trực Tiếp</h2>
-          <p>Showroom mới trưng bày hàng chục mẫu da PU carbon thể thao, thảm rối chống bụi, thảm nhựa TPE đúc khuôn của đầy đủ các thương hiệu xe phổ biến như VinFast, Mercedes, Ford, Hyundai... Khách hàng có thể trực tiếp so sánh chất lượng bề mặt da, độ dày xốp đàn hồi và các tùy chọn may chỉ viền bespoke.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Dịch Vụ Quét Laser Phom Xe Miễn Phí</h2>
-          <p>Nhân dịp khai trương, chúng tôi áp dụng chương trình quét Laser 3D sàn xe miễn phí cho các dòng xe đời mới độc lạ chưa có phom mẫu trên thị trường, giảm ngay 15% tổng giá trị đơn hàng may đo lắp đặt trọn gói tại showroom.</p>
-        `
+        body: `<p>Showroom mới tại Quận 7 trưng bày đầy đủ mẫu thảm 6D, 360 độ và nhựa TPE, hỗ trợ đo phom và lắp đặt trực tiếp cho khách hàng khu vực TP.HCM.</p>`
       },
       {
         id: 5,
         title: "Hướng dẫn tự vệ sinh thảm da 5D tại nhà cực nhanh trong 10 phút",
-        category: "kinh-nghiem",
-        tags: ["ve-sinh"],
         date: "24 Tháng 5, 2026",
-        desc: "Mẹo nhỏ sử dụng khăn ẩm vi sợi và dung dịch vệ sinh nội thất da chuyên dụng giúp làm sạch nhanh bụi đất dính kẹt trong các đường chỉ trám chéo mà không làm nổ da thảm.",
+        desc: "Mẹo nhỏ sử dụng khăn ẩm vi sợi và dung dịch vệ sinh nội thất da chuyên dụng giúp làm sạch nhanh bụi đất.",
         categoryLabel: "KINH NGHIỆM",
         image: "./assets/images/news-featured.png",
-        body: `
-          <p>Lớp thảm lót sàn da 5D/6D sau một thời gian sử dụng sẽ khó tránh khỏi tình trạng bám bụi bẩn, bùn đất bám vào kẽ chỉ may. Bạn hoàn toàn có thể tự vệ sinh làm sạch thảm tại nhà nhanh chóng theo quy trình 3 bước chuyên nghiệp dưới đây:</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Bước 1: Hút bụi và giũ thảm rối</h2>
-          <p>Mở chốt xoay tháo riêng lớp thảm rối phía trên ra ngoài, dùng vòi nước xịt mạnh để đất cát trong khe rối trôi hết. Sử dụng máy hút bụi cầm tay hút sạch bụi cát trên bề mặt thảm da 5D bên dưới.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Bước 2: Lau sạch bằng dung dịch vệ sinh da chuyên dụng</h2>
-          <p>Xịt một lượng vừa phải dung dịch vệ sinh nội thất da hoặc xà phòng loãng lên khăn ẩm vi sợi (microfiber). Tránh xịt nước trực tiếp lên thảm da để ngăn ẩm thấm sâu qua kẽ chỉ may. Lau nhẹ tay theo các thớ da quả trám.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Bước 3: Phơi gió tự nhiên</h2>
-          <p>Phơi thảm ở nơi bóng râm mát, có gió lưu thông để khô tự nhiên. Tuyệt đối không phơi trực tiếp dưới trời nắng gắt hoặc dùng máy sấy nhiệt độ cao vì sẽ làm da PU bị khô cứng, nổ da bong tróc mất thẩm mỹ.</p>
-        `
+        body: `<p>Tháo lớp thảm rối để xịt rửa riêng, dùng máy hút bụi và khăn ẩm lau nhẹ bề mặt da rồi phơi nơi thoáng gió tự nhiên.</p>`
       },
       {
         id: 6,
         title: "Đánh giá của các chuyên gia ô tô về chất lượng thảm đúc khuôn TPE Trung Thành Auto",
-        category: "xu-huong",
-        tags: ["tpe", "phom"],
         date: "15 Tháng 5, 2026",
-        desc: "Các reviewer đánh giá cao độ ôm khít chân phanh, mép thành thảm dựng đứng giữ nước đổ nghiêng, bảo vệ tuyệt hảo lớp nỉ sàn của dòng xe Toyota Camry và Ford Everest đời mới.",
+        desc: "Các reviewer đánh giá cao độ ôm khít chân phanh, mép thành thảm dựng đứng giữ nước đổ nghiêng.",
         categoryLabel: "XU HƯỚNG",
         image: "./assets/images/news-featured.png",
-        body: `
-          <p>Trong các cộng đồng ô tô lớn tại Việt Nam như Otosaigon, Otofun hay Xe Hay, dòng sản phẩm thảm lót sàn nhựa TPE đúc khuôn quét phom 3D của Trung Thành Auto luôn nhận được những phản hồi đánh giá vô cùng tích cực.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Độ Ôn Định & An Toàn Vận Hành Tuyệt Đối</h2>
-          <p>Chuyên gia kỹ thuật ô tô chia sẻ: "Một trong những rủi ro lớn nhất của thảm sàn giá rẻ là bị xê dịch tiến về phía trước gây đè lên chân phanh hoặc kẹt cứng chân ga. Thảm TPE của Trung Thành Auto được định hình chốt khóa cố định khớp 100% với chốt nguyên bản trên sàn nỉ của xe, loại bỏ hoàn toàn rủi ro an toàn này."</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Thiết Kế Khay Chứa Nước Thông Minh</h2>
-          <p>Lớp viền dựng cao ôm khít thành vách sàn xe hoạt động như một khay giữ nước. Khi bạn đổ nước ngọt hay nước mưa từ ô, khay nước này giữ trọn chất lỏng không để rò rỉ xuống lớp sàn nỉ bên dưới, bảo vệ tuyệt đối giá trị nguyên bản của xe.</p>
-        `
+        body: `<p>Thảm TPE có chốt khóa cố định khớp sàn xe, loại bỏ nguy cơ kẹt chân ga phanh và dễ vệ sinh hàng ngày.</p>`
       },
       {
         id: 7,
         title: "Cách bảo quản thảm lót sàn da luôn bền đẹp sáng bóng như ngày đầu",
-        category: "kinh-nghiem",
-        tags: ["ve-sink", "carbon"],
         date: "05 Tháng 5, 2026",
-        desc: "Tránh phơi thảm trực tiếp dưới trời nắng gắt nhiệt độ cao, hạn chế giặt ngâm nước toàn bộ đối với các dòng thảm da PU có lõi đệm mút xốp xơ bông để tránh rã keo bên trong.",
+        desc: "Tránh phơi thảm trực tiếp dưới trời nắng gắt nhiệt độ cao, hạn chế giặt ngâm nước toàn bộ thảm da.",
         categoryLabel: "KINH NGHIỆM",
         image: "./assets/images/news-featured.png",
-        body: `
-          <p>Một bộ thảm lót sàn da cao cấp Carbon hay da 6D có thể sử dụng bền bỉ từ 5-7 năm nếu được bảo dưỡng và chăm sóc đúng cách. Dưới đây là những nguyên tắc cốt lưu ý:</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Tránh Ngập Nước Hoặc Giặt Ngâm Toàn Bộ</h2>
-          <p>Thảm da 5D/6D cấu tạo từ nhiều lớp liên kết nhiệt (lớp da, lớp xốp XPE, màng chống thấm PE, mút EVA). Việc ngâm thảm toàn bộ trong nước xà phòng hoặc xịt rửa áp lực cao vào kẽ chỉ khâu sẽ khiến nước đọng lại bên trong các lớp mút đệm, lâu ngày gây rã keo liên kết và sinh mùi ẩm mốc âm ỉ.</p>
-          
-          <h2 class="text-base font-bold text-luxury-gold mt-6 mb-2">Hạn Chế Đỗ Xe Nắng Nóng Gắt Không Che Chắn</h2>
-          <p>Nhiệt độ bên trong cabin khi đỗ ngoài trời nắng có thể lên tới 60-70°C. Hãy sử dụng tấm chắn nắng kính lái hoặc dán phim cách nhiệt chất lượng để bảo vệ bề mặt da PU của thảm không bị khô giòn, bạc màu theo thời gian.</p>
-        `
+        body: `<p>Không ngâm toàn bộ thảm da trong nước và không phơi dưới nắng gắt để giữ bề mặt da luôn mềm mịn, bền màu trên 5 năm.</p>`
       }
     ];
 
-    const toSlug = str => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
-    articlesData.forEach(a => a.slug = toSlug(a.title));
-
-    const getArticleLink = a => `/tin-tuc/${a.slug}.html`;
+    const toSlug = (str) => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
+    articlesData.forEach((a) => { a.slug = toSlug(a.title); });
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Parse global window ID, URL slug, or query ID parameter
       const params = new URLSearchParams(window.location.search);
       let article = null;
 
       if (window.ACTIVE_ARTICLE_ID) {
-        article = articlesData.find(a => a.id === window.ACTIVE_ARTICLE_ID);
+        article = articlesData.find((a) => a.id === window.ACTIVE_ARTICLE_ID);
       } else {
-        const path = window.location.pathname;
-        const slugMatch = path.match(/\/tin-tuc\/([^/]+)\.html/);
-        if (slugMatch) {
-          const slug = slugMatch[1];
-          article = articlesData.find(a => a.slug === slug);
-        }
+        const slugMatch = window.location.pathname.match(/\/tin-tuc\/([^/]+)\.html/);
+        if (slugMatch) article = articlesData.find((a) => a.slug === slugMatch[1]);
       }
 
       if (!article) {
-        const idParam = parseInt(params.get('id'));
-        if (idParam) {
-          article = articlesData.find(a => a.id === idParam);
-          if (article) {
-            window.location.replace(`/tin-tuc/${article.slug}.html`);
-            return;
-          }
-        }
+        const idParam = parseInt(params.get('id'), 10);
+        if (idParam) article = articlesData.find((a) => a.id === idParam);
       }
+      if (!article) article = articlesData[0];
 
-      if (!article) {
-        article = articlesData[0];
-      }
+      document.getElementById('page-title').textContent = `${article.title} - Trung Thành Auto`;
+      document.getElementById('breadcrumb-title').textContent = article.title;
+      document.getElementById('article-category').textContent = article.categoryLabel;
+      document.getElementById('article-date').textContent = article.date;
+      document.getElementById('article-title').textContent = article.title;
+      document.getElementById('article-summary').textContent = article.desc;
 
-      // Hydrate Content
-      if (article) {
-        document.getElementById('page-title').textContent = `${article.title} - Trung Thành Auto`;
-        document.getElementById('breadcrumb-title').textContent = article.title;
-        document.getElementById('article-category').textContent = article.categoryLabel;
-        document.getElementById('article-date').textContent = article.date;
-        document.getElementById('article-title').textContent = article.title;
-        document.getElementById('article-summary').textContent = article.desc;
-        
-        const heroImg = document.getElementById('article-hero-image');
-        if (heroImg && article.image) {
-          heroImg.src = article.image.startsWith('./') ? article.image.substring(1) : article.image;
-          heroImg.alt = article.title;
-        }
+      const heroImg = document.getElementById('article-hero-image');
+      heroImg.src = article.image.startsWith('./') ? article.image.substring(1) : article.image;
+      heroImg.alt = article.title;
+      document.getElementById('article-body-content').innerHTML = article.body;
 
-        document.getElementById('article-body-content').innerHTML = article.body;
-
-        // Render Tags
-        const tagsContainer = document.getElementById('article-tags');
-        if (tagsContainer) {
-          tagsContainer.innerHTML = `
-            <span class="text-xs text-zinc-500 flex items-center gap-1 mr-2"><i data-lucide="tag" class="w-3.5 h-3.5"></i> Tags:</span>
-            ${article.tags.map(t => `<span class="bg-[#1E1E1F] border border-luxury-border text-zinc-400 text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">#${t}</span>`).join('')}
-          `;
-        }
-
-        // Populate dynamic NewsArticle JSON-LD Schema
-        try {
-          const schema = {
-            "@context": "https://schema.org",
-            "@type": "NewsArticle",
-            "headline": article.title,
-            "image": [
-              window.location.origin + article.image.substring(1)
-            ],
-            "datePublished": "2026-06-15T08:00:00+07:00",
-            "author": {
-              "@type": "Organization",
-              "name": "Trung Thành Auto",
-              "url": "https://thamoto.vercel.app/"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Trung Thành Auto",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://thamoto.vercel.app/assets/images/trung-thanh-logo.png"
-              }
-            },
-            "description": article.desc
-          };
-          const schemaScript = document.getElementById('article-schema');
-          if (schemaScript) {
-            schemaScript.textContent = JSON.stringify(schema, null, 2);
-          }
-        } catch (err) {
-          console.error('Failed to inject article schema', err);
-        }
-
-        // Render Related Articles (exclude current article, pick 2)
-        const relatedArticles = articlesData.filter(a => a.id !== article.id).slice(0, 2);
-        const relatedContainer = document.getElementById('related-articles-container');
-        if (relatedContainer) {
-          relatedContainer.innerHTML = relatedArticles.map(a => {
-            const rawImg = a.image || '/assets/images/news-featured.png';
-            const absoluteImg = rawImg.startsWith('./') ? rawImg.substring(1) : rawImg;
-            return `
-              <a href="${getArticleLink(a)}" class="bg-luxury-card border border-luxury-border rounded-xl overflow-hidden group flex flex-col transition hover:scale-[1.01]">
-                <div class="aspect-[16/10] overflow-hidden border-b border-luxury-border bg-[#1E1E1F]">
-                  <img src="${absoluteImg}" alt="${a.title}" width="400" height="250" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100">
-                </div>
-                <div class="p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div class="flex items-center gap-2 text-[9px] text-zinc-500 font-bold uppercase mb-2">
-                      <span class="text-luxury-gold">${a.categoryLabel}</span>
-                      <span>•</span>
-                      <span>${a.date}</span>
-                    </div>
-                    <h4 class="font-extrabold text-white text-xs sm:text-sm group-hover:text-luxury-gold transition leading-tight line-clamp-2">
-                      ${a.title}
-                    </h4>
-                  </div>
-                  <span class="text-[10px] font-bold text-luxury-gold mt-4 inline-flex items-center gap-1">Đọc tiếp <i data-lucide="arrow-right" class="w-3 h-3"></i></span>
-                </div>
-              </a>
-            `;
-          }).join('');
-        }
-
-      } else {
-        // Error / Article not found state
-        document.getElementById('article-title').textContent = "Không Tìm Thấy Bài Viết";
-        document.getElementById('article-summary').textContent = "Bài viết bạn yêu cầu không tồn tại hoặc đã bị xóa.";
-        document.getElementById('article-body-content').innerHTML = `
-          <div class="text-center py-12 space-y-4">
-            <i data-lucide="alert-circle" class="w-12 h-12 text-luxury-gold mx-auto"></i>
-            <p class="text-zinc-400">Vui lòng quay lại danh sách tin tức để tìm kiếm bài viết khác.</p>
-            <a href="/tin-tuc.html" class="inline-block bg-luxury-gold hover:bg-white text-black font-bold py-2.5 px-6 rounded text-xs transition duration-300">
-              QUAY LẠI DANH SÁCH TIN TỨC
-            </a>
-          </div>
-        `;
-        document.getElementById('article-tags').innerHTML = '';
-      }
-
-      // Sidebar Search event listener
-      const sidebarSearch = document.getElementById('sidebar-search');
-      if (sidebarSearch) {
-        sidebarSearch.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            const query = sidebarSearch.value.trim();
-            if (query) {
-              window.location.href = `/tin-tuc.html?q=${encodeURIComponent(query)}`;
-            }
-          }
-        });
-      }
-
-      // Re-create icons
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
+      const related = articlesData.filter((a) => a.id !== article.id).slice(0, 2);
+      document.getElementById('related-articles-container').innerHTML = related.map((a) => `
+        <a href="/tin-tuc/${a.slug}.html" class="border border-slate-200 rounded-xl p-3.5 bg-[#F4F6F9] hover:border-[#0D2C54] transition no-underline block">
+          <span class="text-[10px] font-bold text-[#C81E2B] uppercase">${a.categoryLabel}</span>
+          <h4 class="text-xs font-bold text-[#0D2C54] mt-1 mb-0 leading-snug line-clamp-2">${a.title}</h4>
+        </a>
+      `).join('');
     });
   </script>
 </body>

@@ -3,848 +3,417 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chi Tiết Sản Phẩm - Trung Thành Auto Premium Car Mats</title>
-  <meta name="description" content="Chi tiết thảm lót sàn ô tô cao cấp Trung Thành Auto. May đo ôm khít sàn xe, tùy chọn màu sắc, chất liệu và phối hợp xế cưng chuẩn chỉ.">
-  
-  <!-- Canonical Link -->
+  <title>Cấu Hình Thảm Theo Đời Xe | Trung Thành Auto</title>
+  <meta name="description" content="Chọn đúng đời xe, chất liệu thảm 6D hoặc 360 độ, màu sắc và ưu đãi kèm theo. Tính giá trực tiếp, đặt mua nhanh tại Trung Thành Auto.">
   <link rel="canonical" href="https://thamoto.vercel.app/chi-tiet.html" />
-
-  <!-- Preconnect/Preload Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="/favicon.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://thamoto.vercel.app/chi-tiet.html" />
-  <meta property="og:title" content="Chi Tiết Sản Phẩm - Trung Thành Auto Premium Car Mats" />
-  <meta property="og:description" content="Chi tiết thảm lót sàn ô tô cao cấp Trung Thành Auto. May đo ôm khít sàn xe, tùy chọn màu sắc, chất liệu và phối hợp xế cưng chuẩn chỉ." />
-  <meta property="og:image" content="https://thamoto.vercel.app/assets/images/trung-thanh-logo.png" />
-  <meta property="og:site_name" content="Trung Thành Auto" />
+  <meta property="og:title" content="Chọn Đời Xe & Cấu Hình Thảm - Trung Thành Auto" />
+  <meta property="og:description" content="Chọn đúng đời xe, chất liệu thảm 6D hoặc 360 độ, màu sắc và ưu đãi kèm theo." />
+  <meta property="og:image" content="https://thamoto.vercel.app/assets/images/floor-after.png" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://thamoto.vercel.app/chi-tiet.html" />
-  <meta property="twitter:title" content="Chi Tiết Sản Phẩm - Trung Thành Auto Premium Car Mats" />
-  <meta property="twitter:description" content="Chi tiết thảm lót sàn ô tô cao cấp Trung Thành Auto. May đo ôm khít sàn xe, tùy chọn màu sắc, chất liệu và phối hợp xế cưng chuẩn chỉ." />
-  <meta property="twitter:image" content="https://thamoto.vercel.app/assets/images/trung-thanh-logo.png" />
-
-  <!-- Dynamic JSON-LD Structured Data Schema Holder -->
-  <script type="application/ld+json" id="product-schema"></script>
-
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            luxury: {
-              bg: '#09090B',
-              card: '#121214',
-              border: '#27272A',
-              gold: '#CC7A00',
-              orange: '#F97316',
-              text: '#FFFFFF',
-              textMuted: '#A1A1AA'
-            }
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="/assets/css/index.css">
 </head>
-<body class="bg-luxury-bg text-white pt-24 pb-20 md:pb-0">
+<body class="bg-[#F4F6F9] text-[#0F172A] pb-24 lg:pb-0" data-subpage="true" data-page-title="CẤU HÌNH THẢM">
 
-  <!-- Header -->
   <include src="partials/header.html"></include>
 
-  <!-- Product Detail Container -->
-  <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Breadcrumb -->
-    <nav class="flex text-xs text-zinc-500 mb-6 gap-2">
-      <a href="/index.html" class="hover:text-luxury-gold">Trang chủ</a>
-      <span>/</span>
-      <a href="/san-pham.html" class="hover:text-luxury-gold">Sản phẩm</a>
-      <span>/</span>
-      <span id="breadcrumb-product-name" class="text-zinc-300">Chi tiết thảm xe</span>
+  <main id="main-content" class="container-app py-4 md:py-7 space-y-5">
+
+    <!-- Desktop Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="breadcrumb hidden lg:flex">
+      <a href="/index.html">Trang chủ</a>
+      <span>&gt;</span>
+      <a id="breadcrumb-brand-link" href="/san-pham.html?hang=toyota">Toyota</a>
+      <span>&gt;</span>
+      <span id="breadcrumb-vehicle-name" class="font-semibold text-[#0D2C54]">Toyota Fortuner</span>
     </nav>
 
-    <!-- Product Intro Details -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-      
-      <!-- Gallery Column -->
-      <div>
-        <!-- Main Image with hover zoom container -->
-        <div id="main-image-container" class="relative aspect-[4/3] rounded-xl border border-luxury-border bg-luxury-card overflow-hidden group select-none cursor-zoom-in">
-          <img id="product-main-image" src="/assets/images/mat-carbon-gold.png" alt="Thảm Lót Sàn" width="600" height="450" loading="eager" class="w-full h-full object-cover transition-transform duration-300 origin-center group-hover:scale-125">
-          <div class="absolute bottom-3 right-3 bg-black/60 text-white rounded-full p-2 text-xs backdrop-blur-xs flex items-center justify-center pointer-events-none">
-            <i data-lucide="zoom-in" class="w-4 h-4"></i>
+    <!-- 2-Column Product Configurator -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+
+      <!-- Left Column: Sticky Gallery -->
+      <div class="lg:col-span-6 lg:sticky lg:top-20 space-y-3">
+        <div class="card-surface overflow-hidden bg-white">
+          <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
+            <img id="detail-main-image" src="/assets/images/floor-after.png" alt="Ảnh thực tế thảm lót sàn ô tô" width="720" height="540" loading="eager" class="w-full h-full object-cover transition-opacity duration-200">
           </div>
         </div>
 
-        <!-- Thumbnails Gallery -->
-        <div class="grid grid-cols-4 gap-3 mt-4" id="gallery-thumbnails">
-          <!-- Dynamic thumbnails injected by script -->
+        <div id="detail-thumbnails" class="grid grid-cols-4 gap-2.5">
+          <!-- Injected by JS -->
         </div>
       </div>
 
-      <!-- Config & Purchase Options Column -->
-      <div class="flex flex-col gap-6">
-        <!-- Title & Status -->
-        <div>
-          <span id="product-badge" class="inline-block bg-[#F97316] text-black font-bold text-[9px] tracking-wider py-1 px-2.5 rounded-full mb-3 shadow">BÁN CHẠY</span>
-          <h1 id="product-title" class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">Thảm Da Carbon Cao Cấp</h1>
-          
-          <div class="flex flex-wrap items-center gap-4 mt-3 text-xs text-zinc-400">
-            <span class="flex items-center gap-1"><i data-lucide="tag" class="w-3.5 h-3.5 text-luxury-gold"></i> Mã sản phẩm: <span id="product-sku" class="text-white">TM-001</span></span>
-            <span class="text-zinc-700">|</span>
-            <span class="flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500"></i> Tình trạng: <span class="text-white">May đo sẵn phom xe</span></span>
-          </div>
-        </div>
+      <!-- Right Column: Configuration Panel -->
+      <div class="lg:col-span-6 space-y-5">
+        <div class="card-surface p-4 sm:p-6 space-y-6">
 
-        <!-- Price -->
-        <div class="p-4 rounded-xl bg-luxury-card border border-luxury-border flex items-baseline gap-3">
-          <span id="product-price" class="text-2xl sm:text-3xl font-extrabold text-luxury-gold">1.490.000 đ</span>
-          <span class="text-xs text-zinc-500 line-through">1.950.000 đ</span>
-          <span class="text-xs text-green-500 font-bold bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded">TIẾT KIỆM 24%</span>
-        </div>
-
-        <!-- Vehicle Selection config -->
-        <div class="p-4 rounded-xl border border-luxury-border bg-[#09090B] space-y-4">
-          <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="car" class="w-4 h-4 text-luxury-gold"></i> Cấu hình dòng xe lắp thảm
-          </h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <select id="detail-brand" class="luxury-select w-full bg-luxury-card border border-luxury-border rounded-md px-3 py-2.5 text-xs text-white focus:outline-none focus:border-luxury-gold cursor-pointer transition">
-              <option value="">-- Chọn Hãng xe --</option>
-            </select>
-            <select id="detail-model" disabled class="luxury-select w-full bg-luxury-card border border-luxury-border rounded-md px-3 py-2.5 text-xs text-white focus:outline-none focus:border-luxury-gold disabled:opacity-50 cursor-pointer transition">
-              <option value="">-- Chọn Dòng xe --</option>
-            </select>
-            <select id="detail-year" disabled class="luxury-select w-full bg-luxury-card border border-luxury-border rounded-md px-3 py-2.5 text-xs text-white focus:outline-none focus:border-luxury-gold disabled:opacity-50 cursor-pointer transition">
-              <option value="">-- Năm sản xuất --</option>
-            </select>
-          </div>
-          <p class="text-[10px] text-zinc-500 leading-normal">
-            * Thảm sẽ được xưởng may riêng chuẩn khớp phom sàn xe đúng theo cấu hình bạn đã chọn.
-          </p>
-        </div>
-
-        <!-- Color & Material Options -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <!-- Material -->
-          <div class="flex flex-col gap-2.5">
-            <div class="flex justify-between items-center">
-              <label class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest font-sans-luxury">Chất liệu thảm da</label>
-              <span id="selected-material-label" class="text-[11px] text-luxury-gold font-semibold">Da Carbon Premium</span>
-            </div>
-            
-            <!-- Hidden Select for form compatibility -->
-            <select id="detail-material" class="hidden">
-              <option value="Carbon" selected>Da Carbon Premium</option>
-              <option value="TPE">Nhựa TPE Nguyên Sinh</option>
-              <option value="5D">Da 5D Quả Trám</option>
-              <option value="6D">Da 6D Rối Đa Tầng</option>
-              <option value="CaoSu">Cao Su Tự Nhiên</option>
-            </select>
-
-            <!-- Swatches Container -->
-            <div class="flex flex-wrap gap-2" id="material-swatches">
-              <button type="button" class="swatch-chip active" data-value="Carbon" title="Da Carbon Premium">
-                <div class="swatch-chip-color" style="background-color: #1a1a1a; background-image: radial-gradient(circle, #2b2b2b 20%, transparent 20%), radial-gradient(circle, #2b2b2b 20%, transparent 20%); background-size: 4px 4px; background-position: 0 0, 2px 2px;"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">Carbon</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="TPE" title="Nhựa TPE Nguyên Sinh">
-                <div class="swatch-chip-color" style="background-color: #0b0b0c;"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">TPE</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="5D" title="Da 5D Quả Trám">
-                <div class="swatch-chip-color" style="background-color: #583c27; background-image: linear-gradient(45deg, #442d1c 25%, transparent 25%), linear-gradient(-45deg, #442d1c 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #442d1c 75%), linear-gradient(-45deg, transparent 75%, #442d1c 75%); background-size: 8px 8px; background-position: 0 0, 0 4px, 4px -4px, -4px 0px;"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">5D</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="6D" title="Da 6D Rối Đa Tầng">
-                <div class="swatch-chip-color" style="background-color: #7f1d1d; background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, #991b1b 1px, #991b1b 2px);"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">6D</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="CaoSu" title="Cao Su Tự Nhiên">
-                <div class="swatch-chip-color" style="background-color: #3f3f46;"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">Cao Su</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Color -->
-          <div class="flex flex-col gap-2.5">
-            <div class="flex justify-between items-center">
-              <label class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest font-sans-luxury">Màu sắc & Chỉ viền</label>
-              <span id="selected-color-label" class="text-[11px] text-luxury-gold font-semibold">Đen chỉ vàng Gold</span>
-            </div>
-
-            <!-- Hidden Select for form compatibility -->
-            <select id="detail-color" class="hidden">
-              <option value="Đen chỉ vàng" selected>Đen chỉ vàng Gold</option>
-              <option value="Nâu Cafe">Nâu Cafe sang trọng</option>
-              <option value="Kem sáng">Kem sáng lịch lãm</option>
-              <option value="Đỏ Đen">Đỏ phối đen thể thao</option>
-              <option value="Ghi xám">Ghi xám tinh tế</option>
-            </select>
-
-            <!-- Color Swatches Container -->
-            <div class="flex flex-wrap gap-2" id="color-swatches">
-              <button type="button" class="swatch-chip active" data-value="Đen chỉ vàng" title="Đen chỉ vàng Gold">
-                <div class="swatch-chip-color" style="background-color: #121214; border: 1.5px dashed var(--color-luxury-gold);"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">Đen Vàng</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="Nâu Cafe" title="Nâu Cafe">
-                <div class="swatch-chip-color" style="background-color: #4c3228;"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">Nâu</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="Kem sáng" title="Kem sáng">
-                <div class="swatch-chip-color" style="background-color: #e5d3b3;"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">Kem</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="Đỏ Đen" title="Đỏ Đen">
-                <div class="swatch-chip-color" style="background: linear-gradient(135deg, #991b1b 50%, #121214 50%);"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">Đỏ Đen</span>
-              </button>
-              <button type="button" class="swatch-chip" data-value="Ghi xám" title="Ghi xám">
-                <div class="swatch-chip-color" style="background-color: #71717a;"></div>
-                <span class="text-[9px] font-bold text-white uppercase tracking-wider">Ghi Xám</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bespoke Engraving Options -->
-        <div class="flex flex-col gap-2.5 border-t border-luxury-border/50 pt-4">
-          <div class="flex justify-between items-center">
-            <label class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest font-sans-luxury">Khắc chữ kim loại cá nhân hóa (Bespoke)</label>
-            <span class="text-[9px] text-zinc-500 uppercase tracking-wider font-semibold">Miễn Phí</span>
-          </div>
-          <div class="relative">
-            <input type="text" id="detail-engraving" placeholder="Ví dụ: CƯỜNG ĐÔ LA, LEXUS 350, TRUNG ANH..." maxlength="30"
-              class="w-full bg-[#121214] border border-[#27272A] rounded-md px-3 py-2.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-luxury-gold/30 transition-all duration-300 font-sans-luxury uppercase tracking-wider">
-            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-zinc-500 pointer-events-none font-sans-luxury">
-              0/30 ký tự
-            </div>
-          </div>
-          <p class="text-[9px] text-zinc-500 leading-relaxed">
-            * Chữ khắc cá nhân hóa được sản xuất bằng tấm kim loại mạ Titanium mờ, đóng tán cố định tinh tế ở mép ngoài thảm.
-          </p>
-          
-          <!-- Metal Plate Live Preview -->
-          <div class="engraving-plate-container mt-2 hidden" id="engraving-preview-box">
-            <div class="text-[9px] text-zinc-500 mb-1.5 uppercase tracking-wider font-semibold">Xem trước bảng khắc kim loại:</div>
-            <div class="engraving-metal-plate w-full py-4 px-8 flex items-center justify-center relative min-h-[50px]">
-              <!-- Screws at corners -->
-              <div class="engraving-screw engraving-screw-tl"></div>
-              <div class="engraving-screw engraving-screw-tr"></div>
-              <div class="engraving-screw engraving-screw-bl"></div>
-              <div class="engraving-screw engraving-screw-br"></div>
-              
-              <!-- Embossed text -->
-              <div class="engraving-text text-sm sm:text-base tracking-widest text-center" id="engraving-preview-text">
-                YOUR TEXT HERE
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quantity and Action Buttons -->
-        <div class="flex flex-col sm:flex-row items-center gap-4 mt-2">
-          <!-- Quantity picker -->
-          <div class="flex items-center border border-luxury-border rounded-md bg-luxury-card w-full sm:w-auto shrink-0 justify-between">
-            <button id="btn-qty-minus" class="px-4 py-2.5 text-zinc-400 hover:text-white font-bold">-</button>
-            <span id="qty-text" class="px-4 text-sm font-bold text-white">1</span>
-            <button id="btn-qty-plus" class="px-4 py-2.5 text-zinc-400 hover:text-white font-bold">+</button>
-          </div>
-
-          <!-- Actions -->
-          <div class="grid grid-cols-2 gap-3 w-full">
-            <button id="btn-add-to-cart" class="btn btn-secondary text-white font-bold text-xs py-3.5 rounded-full transition flex items-center justify-center gap-2 w-full">
-              <i data-lucide="shopping-bag" class="w-4 h-4"></i> THÊM GIỎ HÀNG
-            </button>
-            <button id="btn-buy-now" class="btn btn-accent text-black font-bold text-xs py-3.5 rounded-full transition flex items-center justify-center gap-2 w-full">
-              MUA NGAY
-            </button>
-          </div>
-        </div>
-
-        <!-- Guarantees list -->
-        <div class="grid grid-cols-3 gap-3 border-t border-luxury-border pt-4 text-[10px] text-zinc-500">
-          <span class="flex items-center gap-1"><i data-lucide="shield-check" class="text-luxury-gold w-4.5 h-4.5"></i> Bảo hành 2 năm</span>
-          <span class="flex items-center gap-1"><i data-lucide="truck" class="text-luxury-gold w-4.5 h-4.5"></i> FreeShip toàn quốc</span>
-          <span class="flex items-center gap-1"><i data-lucide="rotate-ccw" class="text-luxury-gold w-4.5 h-4.5"></i> Đổi trả trong 7 ngày</span>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- Details description tabs -->
-    <div class="mt-16 bg-[#121214] border border-luxury-border rounded-xl overflow-hidden">
-      <!-- Tabs header -->
-      <div class="flex border-b border-luxury-border bg-[#09090B]/50 overflow-x-auto">
-        <button class="tab-btn px-6 py-4 text-xs font-bold uppercase tracking-wider text-luxury-gold border-b-2 border-luxury-gold whitespace-nowrap focus:outline-none" data-tab="tab-desc">
-          Mô tả sản phẩm
-        </button>
-        <button class="tab-btn px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-white border-b-2 border-transparent whitespace-nowrap focus:outline-none" data-tab="tab-specs">
-          Thông số kỹ thuật
-        </button>
-        <button class="tab-btn px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-white border-b-2 border-transparent whitespace-nowrap focus:outline-none" data-tab="tab-guide">
-          Hướng dẫn lắp đặt
-        </button>
-        <button class="tab-btn px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-white border-b-2 border-transparent whitespace-nowrap focus:outline-none" data-tab="tab-reviews">
-          Đánh giá (3)
-        </button>
-      </div>
-
-      <!-- Tab content -->
-      <div class="p-6 sm:p-8 text-zinc-300 text-xs leading-relaxed space-y-4">
-        <!-- Tab: Description -->
-        <div id="tab-desc" class="tab-content space-y-4">
-          <h3 class="text-base font-bold text-white mb-2">Thảm lót sàn ô tô Thamoto Premium</h3>
-          <p>
-            Thảm lót sàn ô tô cao cấp Thamoto là dòng sản phẩm thảm lót chuyên biệt được đo đạc chính xác riêng theo khuôn của từng chiếc xe ô tô. Với công nghệ đo quét 3D laser tiên tiến và cắt tấm da nguyên bản bằng máy cắt tự động CNC, sản phẩm đảm bảo độ ăn khớp hoàn hảo tuyệt đối trên mép góc xe hơi, không lo xộc xệch hay kẹt phanh.
-          </p>
-          <p>
-            Cấu trúc thảm da 5 lớp chịu tải chịu nhiệt bao gồm: Lớp bề mặt da PU vân carbon cao cấp chống trầy xước chống cháy; Lớp bọt biển đàn hồi tạo độ êm ái khi đặt gót chân; Lớp màng bán thấm không dột nước; Lớp đệm mút cách âm tiêu giảm tiếng ồn dội từ gầm xe; và Lớp đáy gai nhám nhung chống ma sát trượt bám chặt mặt nỉ sàn xe.
-          </p>
-        </div>
-
-        <!-- Tab: Specs -->
-        <div id="tab-specs" class="tab-content hidden space-y-3">
-          <div class="grid grid-cols-2 border-b border-luxury-border/50 py-2.5">
-            <span class="font-bold text-white">Chất liệu bề mặt</span>
-            <span>Da PU / Carbon hoặc nhựa TPE nguyên sinh đúc khuôn</span>
-          </div>
-          <div class="grid grid-cols-2 border-b border-luxury-border/50 py-2.5">
-            <span class="font-bold text-white">Số lớp cấu thành</span>
-            <span>5 lớp hoặc 6 lớp (đối với thảm rối)</span>
-          </div>
-          <div class="grid grid-cols-2 border-b border-luxury-border/50 py-2.5">
-            <span class="font-bold text-white">Độ dày thảm da</span>
-            <span>12 mm - 15 mm</span>
-          </div>
-          <div class="grid grid-cols-2 border-b border-luxury-border/50 py-2.5">
-            <span class="font-bold text-white">Mùi chất liệu</span>
-            <span>Không mùi độc hại, an toàn sức khỏe</span>
-          </div>
-          <div class="grid grid-cols-2 py-2.5">
-            <span class="font-bold text-white">Thời hạn bảo hành</span>
-            <span>24 tháng chính hãng (Lỗi keo, nổ da, bong chỉ)</span>
-          </div>
-        </div>
-
-        <!-- Tab: Installation Guide -->
-        <div id="tab-guide" class="tab-content hidden space-y-4">
-          <h3 class="text-base font-bold text-white mb-2">Quy trình tự lắp đặt thảm trong 5 phút</h3>
-          <ol class="list-decimal list-inside space-y-2.5">
-            <li>Dọn dẹp sạch sàn xe, tháo bỏ thảm cũ nỉ cao su rời và hút bụi bề mặt nỉ nguyên bản.</li>
-            <li>Đặt thảm lót sàn ghế tài trước: Đẩy ghế lái lùi sau hết cỡ, đặt thảm lái nhẹ nhàng vào, căn chỉnh mép ga phanh và cài khuy nhựa vào viền nhựa xe.</li>
-            <li>Đặt thảm lót ghế phụ: Đẩy ghế phụ lùi sau, đặt thảm vào vừa khít, cài chốt cố định.</li>
-            <li>Đặt thảm hàng ghế thứ 2: Đặt tấm thảm băng 2 (thường thiết kế liền dải ngựa) trải thẳng, miết sát góc hai bên và vách giữa ngựa.</li>
-            <li>Kiểm tra lại xem khuy cài đã kẹp chắc chưa, di chuyển ghế lên xuống và thử đạp chân ga chân phanh đảm bảo không có bất kỳ kẹt vướng gì.</li>
-          </ol>
-        </div>
-
-        <!-- Tab: Reviews -->
-        <div id="tab-reviews" class="tab-content hidden space-y-6">
-          <div class="flex items-center gap-6 pb-4 border-b border-luxury-border">
-            <div class="text-center">
-              <span class="text-4xl font-extrabold text-luxury-gold block">5.0</span>
-              <span class="text-[10px] text-zinc-500 uppercase tracking-widest block mt-1">Điểm trung bình</span>
-            </div>
-            <div class="flex flex-col gap-1">
-              <div class="flex text-luxury-gold gap-0.5">
+          <!-- Vehicle Title & Trust Summary -->
+          <div class="space-y-1.5 border-b border-slate-200 pb-4">
+            <div class="flex items-center gap-2">
+              <div class="star-rating text-xs" aria-label="Đánh giá 5 sao">
                 <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
                 <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
                 <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
                 <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
                 <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
               </div>
-              <span class="text-xs text-zinc-400">100% đánh giá 5 sao từ khách hàng mua thảm xe sang.</span>
+              <span class="text-xs font-semibold text-slate-500">Chuẩn phom Laser 3D</span>
+            </div>
+            <h1 id="detail-vehicle-title" class="text-xl sm:text-2xl font-extrabold text-[#0D2C54] m-0 leading-tight">
+              Thảm Lót Sàn Toyota Fortuner
+            </h1>
+            <p class="text-xs text-slate-600 m-0">Vừa vặn 100% · Lắp đặt tại nhà · Bảo hành 24 tháng</p>
+          </div>
+
+          <!-- BƯỚC 1: CHỌN ĐÚNG ĐỜI XE / NĂM SẢN XUẤT (FORM XE) -->
+          <section aria-labelledby="step1-heading" class="space-y-3">
+            <h2 id="step1-heading" class="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#0D2C54] m-0">
+              BƯỚC 1: CHỌN ĐÚNG ĐỜI XE / NĂM SẢN XUẤT (FORM XE)
+            </h2>
+            <div id="step1-forms-grid" class="grid grid-cols-2 gap-3">
+              <!-- Injected by JS -->
+            </div>
+          </section>
+
+          <!-- BƯỚC 2: CHỌN CHẤT LIỆU & MÀU SẮC -->
+          <section aria-labelledby="step2-heading" class="space-y-4">
+            <h2 id="step2-heading" class="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#0D2C54] m-0">
+              BƯỚC 2: CHỌN CHẤT LIỆU & MÀU SẮC
+            </h2>
+
+            <!-- Material Pills -->
+            <div class="space-y-2">
+              <span class="text-xs font-semibold text-slate-600 block">Chất liệu thảm:</span>
+              <div id="step2-materials" class="flex flex-wrap gap-2.5">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+
+            <!-- Color Swatches -->
+            <div class="space-y-2">
+              <span class="text-xs font-semibold text-slate-600 block">Màu sắc:</span>
+              <div id="step2-colors" class="flex flex-wrap gap-2.5">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+          </section>
+
+          <!-- ƯU ĐÃI KÈM THEO -->
+          <section aria-labelledby="addons-heading" class="space-y-2.5">
+            <h2 id="addons-heading" class="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#0D2C54] m-0">
+              ƯU ĐÃI KÈM THEO
+            </h2>
+            <div id="addons-list" class="space-y-2">
+              <!-- Injected by JS -->
+            </div>
+          </section>
+
+          <!-- Desktop Summary & CTA -->
+          <div class="hidden lg:block pt-4 border-t border-slate-200 space-y-3">
+            <div class="flex items-baseline justify-between">
+              <span class="text-sm font-bold text-slate-700 uppercase">TỔNG TIỀN:</span>
+              <span id="desktop-total-price" class="text-2xl font-extrabold text-[#C81E2B] tabular-nums">1.500.000 đ</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <button type="button" id="btn-add-to-cart" class="btn-outline col-span-1 text-xs">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                <span>Thêm giỏ</span>
+              </button>
+              <button type="button" id="btn-buy-now" class="btn-cta col-span-2 text-sm">
+                ĐẶT MUA NGAY
+              </button>
             </div>
           </div>
 
-          <div class="space-y-4">
-            <!-- Review 1 -->
-            <div class="border-b border-luxury-border/30 pb-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-bold text-white">Lê Minh Châu</span>
-                <span class="text-[10px] text-zinc-500">2 ngày trước</span>
-              </div>
-              <p class="text-zinc-400">May chuẩn xác khít khịt cho Mazda CX5 đời 2023. Giao hàng ở Đà Nẵng mất có 2 ngày mà đóng gói rất kỹ lưỡng. Thảm rối nằm êm, dễ hút bụi sạch sẽ.</p>
-            </div>
-            <!-- Review 2 -->
-            <div class="border-b border-luxury-border/30 pb-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-bold text-white">Vương Quốc Thịnh</span>
-                <span class="text-[10px] text-zinc-500">1 tuần trước</span>
-              </div>
-              <p class="text-zinc-400">Hôm trước lắp bộ TPE cho con Camry 2020 xong đi mưa đất bùn lấm lem dội nước xịt xà phòng rửa phát là khô ráo, không bị ẩm như mấy loại thảm cỏ.</p>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Related Products -->
-    <div class="mt-16">
-      <h2 class="text-xl font-bold text-white mb-8">Sản phẩm liên quan bạn có thể thích</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="related-products-grid">
-        <!-- Dyn Related injected by JS -->
-      </div>
     </div>
 
   </main>
 
-  <!-- Mobile Sticky Bottom Purchase Bar -->
-  <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-[#121214] border-t border-luxury-border p-3 grid grid-cols-4 gap-2 shadow-2xl items-center">
-    <a href="https://zalo.me/0968288288" target="_blank" class="flex flex-col items-center justify-center text-zinc-400 hover:text-luxury-gold py-1">
-      <i data-lucide="message-circle" class="w-5 h-5 text-luxury-gold"></i>
-      <span class="text-[8px] mt-0.5">Zalo</span>
-    </a>
-    <a href="tel:0968288288" class="flex flex-col items-center justify-center text-zinc-400 hover:text-luxury-gold py-1 border-r border-luxury-border">
-      <i data-lucide="phone" class="w-5 h-5 text-luxury-gold"></i>
-      <span class="text-[8px] mt-0.5">Hotline</span>
-    </a>
-    <button id="mobile-sticky-add" class="btn btn-accent col-span-2 text-[10px] py-3">
-      MUA NGAY / THÊM GIỎ
-    </button>
+  <!-- Mobile Sticky Bottom Bar (< 1024px) -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-slate-200 px-4 pt-2.5 pb-[max(10px,env(safe-area-inset-bottom))] shadow-[0_-4px_16px_rgba(13,44,84,0.12)]">
+    <div class="flex items-center justify-between gap-3">
+      <div>
+        <span class="text-[11px] font-bold text-slate-500 uppercase block leading-tight">TỔNG TIỀN</span>
+        <span id="mobile-total-price" class="text-lg font-extrabold text-[#C81E2B] tabular-nums leading-tight">1.500.000 đ</span>
+      </div>
+      <button type="button" id="mobile-sticky-buy" class="btn-cta px-6 text-sm shrink-0">
+        ĐẶT MUA NGAY
+      </button>
+    </div>
   </div>
 
-  <!-- Footer -->
   <include src="partials/footer.html"></include>
-
-  <!-- Cart Drawer -->
   <include src="partials/cart-drawer.html"></include>
 
-  <!-- Bottom Mobile Nav is hidden on detail page to allow sticky bottom purchase bar, or we can co-exist -->
-
-  <!-- Main scripts module -->
   <script type="module" src="/assets/js/main.js"></script>
-
-  <!-- Detail page execution logic -->
   <script type="module">
     import { Cart } from '/assets/js/cart.js';
-    import { VehicleSelector } from '/assets/js/selector.js';
-
-    // 12 Products Mock Database
-    const productsData = [
-      { id: 1, name: "Thảm Da Carbon Cao Cấp", price: 1490000, material: "Carbon", colors: ["Đen"], image: "/assets/images/mat-carbon-gold.png", isBestSeller: true, isNew: false, sku: "TM-001" },
-      { id: 2, name: "Thảm Nhựa TPE Đúc Khuôn", price: 1890000, material: "TPE", colors: ["Đen"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, sku: "TM-002" },
-      { id: 3, name: "Thảm Da 5D Quả Trám", price: 1250000, material: "5D", colors: ["Nâu"], image: "/assets/images/mat-5d-brown.png", isBestSeller: true, isNew: false, sku: "TM-003" },
-      { id: 4, name: "Thảm Da 6D Rối Đa Tầng", price: 1650000, material: "6D", colors: ["Đỏ"], image: "/assets/images/mat-6d-red.png", isBestSeller: false, isNew: true, sku: "TM-004" },
-      { id: 5, name: "Thảm Da Carbon Sport Red", price: 1490000, material: "Carbon", colors: ["Đen", "Đỏ"], image: "/assets/images/mat-carbon-gold.png", isBestSeller: false, isNew: true, sku: "TM-005" },
-      { id: 6, name: "Thảm Nhựa TPE Eco Beige", price: 1990000, material: "TPE", colors: ["Kem"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: true, sku: "TM-006" },
-      { id: 7, name: "Thảm Da 5D Royal Cream", price: 1250000, material: "5D", colors: ["Kem"], image: "/assets/images/mat-5d-brown.png", isBestSeller: true, isNew: false, sku: "TM-007" },
-      { id: 8, name: "Thảm Da 6D Nâu Hoàng Gia", price: 1650000, material: "6D", colors: ["Nâu"], image: "/assets/images/mat-6d-red.png", isBestSeller: false, isNew: false, sku: "TM-008" },
-      { id: 9, name: "Thảm Cao Su Tự Nhiên Fit", price: 690000, material: "CaoSu", colors: ["Đen"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, sku: "TM-009" },
-      { id: 10, name: "Thảm Cao Su Tổ Ong Grey", price: 750000, material: "CaoSu", colors: ["Xám"], image: "/assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, sku: "TM-010" },
-      { id: 11, name: "Thảm Da Carbon Luxury Grey", price: 1590000, material: "Carbon", colors: ["Xám"], image: "/assets/images/mat-carbon-gold.png", isBestSeller: false, isNew: true, sku: "TM-011" },
-      { id: 12, name: "Thảm Da 6D Full 360 độ", price: 2490000, material: "6D", colors: ["Đen"], image: "/assets/images/mat-6d-red.png", isBestSeller: false, isNew: false, sku: "TM-012" }
-    ];
-
-    const toSlug = str => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
-    productsData.forEach(p => p.slug = toSlug(p.name));
-
-    const getProductLink = p => `/san-pham/${p.slug}.html`;
+    import { VehicleSelector, MAT_PRICING, calculateMatPrice } from '/assets/js/selector.js';
 
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Fetch Product details from global window ID, URL slug, or query ID parameter
       const urlParams = new URLSearchParams(window.location.search);
-      let product = null;
-      
-      if (window.ACTIVE_PRODUCT_ID) {
-        product = productsData.find(p => p.id === window.ACTIVE_PRODUCT_ID);
-      } else {
-        const path = window.location.pathname;
-        const slugMatch = path.match(/\/san-pham\/([^/]+)\.html/);
-        if (slugMatch) {
-          const slug = slugMatch[1];
-          product = productsData.find(p => p.slug === slug);
-        }
+      const hangParam = urlParams.get('hang');
+      const xeParam = urlParams.get('xe');
+      const namParam = urlParams.get('nam');
+      const idParam = parseInt(urlParams.get('id'), 10);
+
+      // Resolve active vehicle (from URL params -> localStorage -> default Toyota Fortuner)
+      const savedVehicle = VehicleSelector.getSelectedVehicle();
+      let resolved = VehicleSelector.findVehicleByParams(hangParam, xeParam);
+      if (!resolved && savedVehicle) {
+        resolved = VehicleSelector.findVehicleByParams(savedVehicle.brand, savedVehicle.model);
       }
-      
-      if (!product) {
-        const idParam = parseInt(urlParams.get('id'));
-        if (idParam) {
-          product = productsData.find(p => p.id === idParam);
-          if (product) {
-            window.location.replace(`/san-pham/${product.slug}.html`);
-            return;
-          }
-        }
-      }
-      
-      if (!product) {
-        product = productsData[0];
+      if (!resolved) {
+        resolved = VehicleSelector.findVehicleByParams('toyota', 'fortuner');
       }
 
-      // Update UI elements
-      document.title = `${product.name} - Trung Thành Auto`;
-      document.getElementById('breadcrumb-product-name').textContent = product.name;
-      document.getElementById('product-title').textContent = product.name;
-      document.getElementById('product-price').textContent = Cart.formatCurrency(product.price);
-      document.getElementById('product-sku').textContent = product.sku;
-      document.getElementById('product-main-image').src = product.image;
+      const activeYear = namParam || (savedVehicle && savedVehicle.model === resolved.model ? savedVehicle.year : '');
+      VehicleSelector.setSelectedVehicle(resolved.brand, resolved.model, activeYear || resolved.years[0]);
 
-      // Update dynamic JSON-LD Schema
-      try {
-        const schema = {
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": product.name,
-          "image": window.location.origin + product.image.substring(1),
-          "description": `${product.name} may đo thiết kế cao cấp chuẩn khít phom xe.`,
-          "sku": product.sku,
-          "brand": {
-            "@type": "Brand",
-            "name": "Trung Thành Auto"
-          },
-          "offers": {
-            "@type": "Offer",
-            "url": window.location.href,
-            "priceCurrency": "VND",
-            "price": product.price,
-            "priceValidUntil": "2027-12-31",
-            "availability": "https://schema.org/InStock",
-            "itemCondition": "https://schema.org/NewCondition"
-          }
-        };
-        const schemaScript = document.getElementById('product-schema');
-        if (schemaScript) {
-          schemaScript.textContent = JSON.stringify(schema, null, 2);
-        }
-      } catch (err) {
-        console.error('Failed to inject product schema', err);
-      }
-      
-      const badge = document.getElementById('product-badge');
-      if (product.isBestSeller) {
-        badge.textContent = 'BÁN CHẠY';
-        badge.classList.remove('hidden');
-      } else if (product.isNew) {
-        badge.textContent = 'MỚI';
-        badge.classList.remove('hidden');
-      } else {
-        badge.classList.add('hidden');
-      }
+      // Update Header / Breadcrumb / Title
+      const fullName = `${resolved.brand} ${resolved.model}`;
+      document.title = `Thảm Lót Sàn ${fullName} - Trung Thành Auto`;
+      const appbarTitle = document.getElementById('mobile-appbar-title');
+      if (appbarTitle) appbarTitle.textContent = fullName.toUpperCase();
 
-      // Helper function to update active swatch button
-       const updateSwatches = (containerId, selectId, labelId, value) => {
-        const container = document.getElementById(containerId);
-        const select = document.getElementById(selectId);
-        const label = document.getElementById(labelId);
-        
-        if (select) select.value = value;
-        
-        if (container) {
-          const buttons = container.querySelectorAll('.swatch-chip');
-          buttons.forEach(btn => {
-            if (btn.getAttribute('data-value') === value) {
-              btn.classList.add('active');
-              if (label) label.textContent = btn.title || value;
-            } else {
-              btn.classList.remove('active');
-            }
-          });
-        }
+      const brandLink = document.getElementById('breadcrumb-brand-link');
+      if (brandLink) {
+        brandLink.textContent = resolved.brand;
+        brandLink.href = `/san-pham.html?hang=${resolved.brandSlug}`;
+      }
+      const crumbVehicle = document.getElementById('breadcrumb-vehicle-name');
+      if (crumbVehicle) crumbVehicle.textContent = fullName;
+
+      const titleEl = document.getElementById('detail-vehicle-title');
+      if (titleEl) titleEl.textContent = `Thảm Lót Sàn ${fullName}`;
+
+      // Gallery
+      const galleryImages = [
+        { src: '/assets/images/floor-after.png', alt: `Thảm lắp thực tế trên ${fullName}` },
+        { src: '/assets/images/mat-6d-red.png', alt: 'Cận cảnh chất liệu Thảm 6D Cao Cấp' },
+        { src: '/assets/images/mat-carbon-gold.png', alt: 'Cận cảnh Thảm 360 Full Xe' },
+        { src: '/assets/images/mat-5d-brown.png', alt: 'Mẫu màu Nâu cafe sang trọng' }
+      ];
+
+      const mainImg = document.getElementById('detail-main-image');
+      const thumbsEl = document.getElementById('detail-thumbnails');
+
+      const setMainImage = (src) => {
+        mainImg.style.opacity = '0.5';
+        setTimeout(() => {
+          mainImg.src = src;
+          mainImg.style.opacity = '1';
+        }, 100);
       };
 
-      // Set initial material and color swatches
-      updateSwatches('material-swatches', 'detail-material', 'selected-material-label', product.material);
-      updateSwatches('color-swatches', 'detail-color', 'selected-color-label', document.getElementById('detail-color').value);
+      thumbsEl.innerHTML = galleryImages.map((img, idx) => `
+        <button type="button" data-idx="${idx}" class="rounded-lg overflow-hidden border-2 ${idx === 0 ? 'border-[#0D2C54]' : 'border-slate-200'} bg-white aspect-[4/3] p-0 cursor-pointer transition js-thumb-btn">
+          <img src="${img.src}" alt="${img.alt}" width="160" height="120" loading="lazy" class="w-full h-full object-cover">
+        </button>
+      `).join('');
 
-      // Add click listeners to material swatches
-      const matButtons = document.querySelectorAll('#material-swatches .swatch-chip');
-      matButtons.forEach(btn => {
+      thumbsEl.querySelectorAll('.js-thumb-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          const val = btn.getAttribute('data-value');
-          updateSwatches('material-swatches', 'detail-material', 'selected-material-label', val);
-          
-          // Dynamically change main product image if we match another product in productsData with that material
-          const matchedProduct = productsData.find(p => p.material === val);
-          if (matchedProduct) {
-            const mainImg = document.getElementById('product-main-image');
-            if (mainImg) {
-              mainImg.style.opacity = 0.5;
-              setTimeout(() => {
-                const imgPath = matchedProduct.image;
-                mainImg.src = imgPath.startsWith('./') ? imgPath.substring(1) : imgPath;
-                mainImg.style.opacity = 1;
-              }, 100);
-            }
-          }
+          const idx = parseInt(btn.dataset.idx, 10);
+          thumbsEl.querySelectorAll('.js-thumb-btn').forEach((b) => {
+            b.classList.remove('border-[#0D2C54]');
+            b.classList.add('border-slate-200');
+          });
+          btn.classList.remove('border-slate-200');
+          btn.classList.add('border-[#0D2C54]');
+          setMainImage(galleryImages[idx].src);
         });
       });
 
-      // Add click listeners to color swatches
-      const colorButtons = document.querySelectorAll('#color-swatches .swatch-chip');
-      colorButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const val = btn.getAttribute('data-value');
-          updateSwatches('color-swatches', 'detail-color', 'selected-color-label', val);
-        });
-      });
+      // Configuration State
+      const forms = VehicleSelector.getFormsForVehicle(resolved.brand, resolved.model);
+      let selectedForm = forms[0];
+      if (activeYear) {
+        const yr = parseInt(activeYear, 10);
+        const match = forms.find((f) => yr >= f.minYear && yr <= f.maxYear);
+        if (match) selectedForm = match;
+      }
 
-      // Render Thumbnails
-      const thumbsContainer = document.getElementById('gallery-thumbnails');
-      if (thumbsContainer) {
-        // Reuse main image and some details representation
-        const imagesList = [product.image, product.image, product.image, product.image];
-        thumbsContainer.innerHTML = imagesList.map((img, index) => {
-          const absoluteImg = img.startsWith('./') ? img.substring(1) : img;
+      const materialNames = Object.keys(MAT_PRICING.materials);
+      const idMaterialMap = {
+        4: 'Thảm 6D Cao Cấp',
+        12: 'Thảm 360 Full Xe',
+        2: 'Thảm Nhựa TPE Đúc Khuôn',
+        3: 'Thảm Da 5D Quả Trám'
+      };
+      const resolvedId = idParam || window.ACTIVE_PRODUCT_ID;
+      let selectedMaterial = idMaterialMap[resolvedId] || materialNames[0];
+      let selectedColor = MAT_PRICING.colors[0].name;
+      let selectedAddonIds = MAT_PRICING.addons.filter((a) => a.defaultChecked).map((a) => a.id);
+
+      // Step 1: Render Forms
+      const formsGrid = document.getElementById('step1-forms-grid');
+      const renderForms = () => {
+        formsGrid.innerHTML = forms.map((f) => {
+          const isActive = f.id === selectedForm.id;
           return `
-            <button class="gallery-thumb border ${index === 0 ? 'border-luxury-gold' : 'border-luxury-border'} rounded-md overflow-hidden aspect-[4/3] bg-luxury-card hover:border-luxury-gold transition duration-300 focus:outline-none">
-              <img src="${absoluteImg}" width="120" height="90" loading="lazy" class="w-full h-full object-cover">
+            <button type="button" data-form-id="${f.id}" aria-pressed="${isActive}" class="step-form-card ${isActive ? 'is-active' : ''}">
+              <span class="step-form-card__check" aria-hidden="true">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </span>
+              <div class="aspect-[16/10] bg-slate-100 overflow-hidden">
+                <img src="${f.image}" alt="${f.label}" width="240" height="150" loading="lazy" class="w-full h-full object-cover">
+              </div>
+              <div class="p-2.5 sm:p-3">
+                <span class="text-xs font-extrabold text-[#0D2C54] block leading-snug tabular-nums">${f.label}</span>
+              </div>
             </button>
           `;
         }).join('');
 
-        // Thumbnail click bindings
-        const thumbs = thumbsContainer.querySelectorAll('.gallery-thumb');
-        const mainImg = document.getElementById('product-main-image');
-        thumbs.forEach((t, idx) => {
-          t.addEventListener('click', () => {
-            thumbs.forEach(btn => btn.classList.remove('border-luxury-gold'));
-            thumbs.forEach(btn => btn.classList.add('border-luxury-border'));
-            t.classList.add('border-luxury-gold');
-            t.classList.remove('border-luxury-border');
-            
-            // Set slight opacity transition animation
-            mainImg.style.opacity = 0.5;
-            setTimeout(() => {
-              const selectedImg = imagesList[idx];
-              mainImg.src = selectedImg.startsWith('./') ? selectedImg.substring(1) : selectedImg;
-              mainImg.style.opacity = 1;
-            }, 100);
+        formsGrid.querySelectorAll('.step-form-card').forEach((card) => {
+          card.addEventListener('click', () => {
+            selectedForm = forms.find((f) => f.id === card.dataset.formId) || forms[0];
+            renderForms();
+            if (window.lucide) window.lucide.createIcons();
           });
         });
-      }
+      };
 
-      // 2. Tab switching logic
-      const tabs = document.querySelectorAll('.tab-btn');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => {
-            t.classList.remove('text-luxury-gold', 'border-luxury-gold');
-            t.classList.add('text-zinc-500', 'border-transparent');
+      // Step 2: Render Materials & Colors
+      const materialsEl = document.getElementById('step2-materials');
+      const renderMaterials = () => {
+        materialsEl.innerHTML = materialNames.map((name) => {
+          const isActive = name === selectedMaterial;
+          return `
+            <button type="button" data-material="${name}" aria-pressed="${isActive}" class="material-pill ${isActive ? 'is-active' : ''}">
+              <span>${name}</span>
+            </button>
+          `;
+        }).join('');
+
+        materialsEl.querySelectorAll('.material-pill').forEach((pill) => {
+          pill.addEventListener('click', () => {
+            selectedMaterial = pill.dataset.material;
+            setMainImage(MAT_PRICING.materials[selectedMaterial].image);
+            renderMaterials();
+            updatePriceUI();
           });
-          tab.classList.add('text-luxury-gold', 'border-luxury-gold');
-          tab.classList.remove('text-zinc-500', 'border-transparent');
-
-          document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-          const targetId = tab.getAttribute('data-tab');
-          const targetContent = document.getElementById(targetId);
-          if (targetContent) targetContent.classList.remove('hidden');
         });
-      });
+      };
 
-      // 3. Vehicle Selector Sync
-      const selectBrand = document.getElementById('detail-brand');
-      const selectModel = document.getElementById('detail-model');
-      const selectYear = document.getElementById('detail-year');
+      const colorsEl = document.getElementById('step2-colors');
+      const renderColors = () => {
+        colorsEl.innerHTML = MAT_PRICING.colors.map((c) => {
+          const isActive = c.name === selectedColor;
+          return `
+            <button type="button" data-color="${c.name}" aria-pressed="${isActive}" class="color-swatch-btn ${isActive ? 'is-active' : ''}">
+              <span class="color-swatch-dot" style="background-color: ${c.hex}; border-color: ${c.ring};"></span>
+              <span>${c.name}</span>
+            </button>
+          `;
+        }).join('');
 
-      const brands = VehicleSelector.getBrands();
-      brands.forEach(brand => {
-        const opt = document.createElement('option');
-        opt.value = brand;
-        opt.textContent = brand;
-        selectBrand.appendChild(opt);
-      });
-
-      selectBrand.addEventListener('change', () => {
-        const brand = selectBrand.value;
-        selectModel.innerHTML = '<option value="">-- Chọn Dòng xe --</option>';
-        selectYear.innerHTML = '<option value="">-- Năm sản xuất --</option>';
-        selectModel.disabled = true;
-        selectYear.disabled = true;
-
-        if (brand) {
-          const models = VehicleSelector.getModels(brand);
-          models.forEach(model => {
-            const opt = document.createElement('option');
-            opt.value = model;
-            opt.textContent = model;
-            selectModel.appendChild(opt);
+        colorsEl.querySelectorAll('.color-swatch-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            selectedColor = btn.dataset.color;
+            renderColors();
           });
-          selectModel.disabled = false;
-        }
-      });
+        });
+      };
 
-      selectModel.addEventListener('change', () => {
-        const brand = selectBrand.value;
-        const model = selectModel.value;
-        selectYear.innerHTML = '<option value="">-- Năm sản xuất --</option>';
-        selectYear.disabled = true;
+      // Addons
+      const addonsEl = document.getElementById('addons-list');
+      const renderAddons = () => {
+        addonsEl.innerHTML = MAT_PRICING.addons.map((addon) => {
+          const isChecked = selectedAddonIds.includes(addon.id);
+          return `
+            <label class="addon-row ${isChecked ? 'is-checked' : ''}">
+              <span class="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-800">
+                <input type="checkbox" value="${addon.id}" ${isChecked ? 'checked' : ''} class="w-4 h-4 accent-[#0D2C54] rounded cursor-pointer js-addon-checkbox">
+                <span>${addon.label}</span>
+              </span>
+              <span class="text-xs font-extrabold text-[#C81E2B] tabular-nums shrink-0">+${Cart.formatCurrency(addon.price)}</span>
+            </label>
+          `;
+        }).join('');
 
-        if (brand && model) {
-          const years = VehicleSelector.getYears(brand, model);
-          years.forEach(year => {
-            const opt = document.createElement('option');
-            opt.value = year;
-            opt.textContent = year;
-            selectYear.appendChild(opt);
+        addonsEl.querySelectorAll('.js-addon-checkbox').forEach((cb) => {
+          cb.addEventListener('change', () => {
+            if (cb.checked) {
+              if (!selectedAddonIds.includes(cb.value)) selectedAddonIds.push(cb.value);
+            } else {
+              selectedAddonIds = selectedAddonIds.filter((id) => id !== cb.value);
+            }
+            renderAddons();
+            updatePriceUI();
           });
-          selectYear.disabled = false;
-        }
-      });
+        });
+      };
 
-      // Load selected vehicle from LocalStorage if present
-      const savedVehicle = VehicleSelector.getSelectedVehicle();
-      if (savedVehicle) {
-        selectBrand.value = savedVehicle.brand;
-        // Trigger selectBrand change event manually to populate models
-        selectBrand.dispatchEvent(new Event('change'));
-        selectModel.value = savedVehicle.model;
-        selectModel.dispatchEvent(new Event('change'));
-        selectYear.value = savedVehicle.year;
-      }
+      // Price Calculation (Single source of truth)
+      const desktopPriceEl = document.getElementById('desktop-total-price');
+      const mobilePriceEl = document.getElementById('mobile-total-price');
 
-      // 4. Quantity picker buttons
-      let qty = 1;
-      const qtyText = document.getElementById('qty-text');
-      const btnQtyMinus = document.getElementById('btn-qty-minus');
-      const btnQtyPlus = document.getElementById('btn-qty-plus');
+      const updatePriceUI = () => {
+        const total = calculateMatPrice({
+          materialName: selectedMaterial,
+          selectedAddonIds
+        });
+        const formatted = Cart.formatCurrency(total);
+        if (desktopPriceEl) desktopPriceEl.textContent = formatted;
+        if (mobilePriceEl) mobilePriceEl.textContent = formatted;
+        return total;
+      };
 
-      btnQtyMinus.addEventListener('click', () => {
-        if (qty > 1) {
-          qty--;
-          qtyText.textContent = qty;
-        }
-      });
-
-      btnQtyPlus.addEventListener('click', () => {
-        qty++;
-        qtyText.textContent = qty;
-      });
-
-      // Bespoke Engraving Live Preview
-      const engravingInput = document.getElementById('detail-engraving');
-      const engravingPreviewBox = document.getElementById('engraving-preview-box');
-      const engravingPreviewText = document.getElementById('engraving-preview-text');
-      
-      if (engravingInput) {
-        const counterEl = engravingInput.nextElementSibling;
-        
-        const updateEngravingPreview = () => {
-          let val = engravingInput.value.toUpperCase();
-          engravingInput.value = val; // auto-uppercase
-          
-          if (counterEl) {
-            counterEl.textContent = `${val.length}/30 ký tự`;
-          }
-          
-          if (val.trim()) {
-            engravingPreviewText.textContent = val;
-            engravingPreviewBox.classList.remove('hidden');
-          } else {
-            engravingPreviewBox.classList.add('hidden');
-          }
-        };
-        
-        engravingInput.addEventListener('input', updateEngravingPreview);
-        // Initial call
-        updateEngravingPreview();
-      }
-
-      // 5. Add to Cart and Buy Now logic
-      const getSelectedConfig = () => {
-        const brand = selectBrand.value;
-        const model = selectModel.value;
-        const year = selectYear.value;
-        const material = document.getElementById('detail-material').value;
-        const color = document.getElementById('detail-color').value;
-        const engraving = document.getElementById('detail-engraving') ? document.getElementById('detail-engraving').value.trim() : '';
-
-        // Validation: Must select vehicle
-        if (!brand || !model || !year) {
-          alert('Vui lòng hoàn thành chọn cấu hình dòng xe trước khi mua hàng!');
-          return null;
-        }
-
-        // Save selected vehicle configuration globally just in case they bought/changed it
-        VehicleSelector.setSelectedVehicle(brand, model, year);
+      const buildCartPayload = (silent = false) => {
+        const finalPrice = updatePriceUI();
+        const chosenAddons = MAT_PRICING.addons
+          .filter((a) => selectedAddonIds.includes(a.id))
+          .map((a) => ({ id: a.id, label: a.shortLabel, price: a.price }));
 
         return {
-          productId: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          color: color,
-          material: material,
-          vehicle: { brand, model, year },
-          engraving: engraving,
-          quantity: qty
+          productId: `${resolved.brandSlug}-${resolved.modelSlug}`,
+          name: `Thảm Lót Sàn ${fullName}`,
+          price: finalPrice,
+          image: MAT_PRICING.materials[selectedMaterial].image,
+          color: selectedColor,
+          material: selectedMaterial,
+          vehicle: { brand: resolved.brand, model: resolved.model, year: activeYear || '' },
+          formLabel: selectedForm.label,
+          addons: chosenAddons,
+          quantity: 1,
+          silent
         };
       };
 
-      document.getElementById('btn-add-to-cart').addEventListener('click', () => {
-        const item = getSelectedConfig();
-        if (item) {
-          Cart.addToCart(item);
-        }
+      document.getElementById('btn-add-to-cart')?.addEventListener('click', () => {
+        Cart.addToCart(buildCartPayload(false));
       });
 
-      document.getElementById('btn-buy-now').addEventListener('click', () => {
-        const item = getSelectedConfig();
-        if (item) {
-          Cart.addToCart(item);
-          window.location.href = '/gio-hang.html';
-        }
-      });
+      const handleBuyNow = () => {
+        Cart.addToCart(buildCartPayload(true));
+        window.location.href = '/gio-hang.html';
+      };
 
-      // Mobile sticky bottom button triggers Buy Now action
-      const mobileStickyBtn = document.getElementById('mobile-sticky-add');
-      if (mobileStickyBtn) {
-        mobileStickyBtn.addEventListener('click', () => {
-          const item = getSelectedConfig();
-          if (item) {
-            Cart.addToCart(item);
-            window.location.href = '/gio-hang.html';
-          }
-        });
-      }
+      document.getElementById('btn-buy-now')?.addEventListener('click', handleBuyNow);
+      document.getElementById('mobile-sticky-buy')?.addEventListener('click', handleBuyNow);
 
-      // 6. Render Related Products
-      const relatedGrid = document.getElementById('related-products-grid');
-      if (relatedGrid) {
-        // filter out current product and pick 4
-        const relatedList = productsData.filter(p => p.id !== product.id).slice(0, 4);
-        relatedGrid.innerHTML = relatedList.map(p => {
-          const absoluteImg = p.image.startsWith('./') ? p.image.substring(1) : p.image;
-          return `
-            <div class="luxury-card-glow bg-luxury-card rounded-xl overflow-hidden flex flex-col group">
-              <a href="${getProductLink(p)}" class="block overflow-hidden relative aspect-[4/3] border-b border-luxury-border">
-                <img src="${absoluteImg}" alt="${p.name}" width="300" height="225" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-              </a>
-              <div class="p-4 flex-1 flex flex-col">
-                <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">${p.material}</span>
-                <a href="${getProductLink(p)}">
-                  <h3 class="font-bold text-white text-xs group-hover:text-luxury-gold transition mt-0.5 truncate">${p.name}</h3>
-                </a>
-                <div class="flex items-center justify-between mt-4">
-                  <span class="font-bold text-luxury-gold text-sm">${Cart.formatCurrency(p.price)}</span>
-                  <a href="${getProductLink(p)}" class="text-[10px] font-bold text-white hover:text-luxury-gold transition">XEM THÊM</a>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
-
+      // Initial render
+      renderForms();
+      renderMaterials();
+      renderColors();
+      renderAddons();
+      updatePriceUI();
+      if (window.lucide) window.lucide.createIcons();
     });
   </script>
 </body>
