@@ -1,0 +1,62 @@
+<!-- Cart Drawer Overlay -->
+<div id="cart-drawer-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden transition-opacity duration-300"></div>
+
+<!-- Cart Drawer Panel -->
+<div id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full sm:w-[400px] bg-[#121214] border-l border-[#27272A] z-50 translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+  
+  <!-- Drawer Header -->
+  <div class="p-5 border-b border-[#27272A] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <i data-lucide="shopping-bag" class="w-5 h-5 text-luxury-gold"></i>
+      <h3 class="font-bold text-white text-base">Giỏ hàng của bạn</h3>
+    </div>
+    <button id="cart-drawer-close" class="text-zinc-400 hover:text-white p-1 hover:bg-[#1E1E1F] rounded-md transition" aria-label="Đóng giỏ hàng">
+      <i data-lucide="x" class="w-5 h-5"></i>
+    </button>
+  </div>
+
+  <!-- Drawer Body -->
+  <div class="flex-1 overflow-y-auto p-5 custom-scrollbar">
+    
+    <!-- Empty State -->
+    <div id="cart-drawer-empty" class="h-full flex flex-col items-center justify-center text-center gap-4 hidden animate-fade-in-up">
+      <div class="w-16 h-16 rounded-full bg-[#1E1E1F] flex items-center justify-center text-zinc-600 border border-[#27272A]">
+        <i data-lucide="shopping-cart" class="w-8 h-8"></i>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white text-sm">Giỏ hàng đang trống</h4>
+        <p class="text-xs text-zinc-500 mt-1 max-w-[200px] mx-auto">Vui lòng chọn thảm xe phù hợp để thêm vào giỏ hàng của bạn.</p>
+      </div>
+      <a href="/san-pham.html" class="btn btn-accent text-black text-xs font-bold py-2.5 px-6 transition duration-300">
+        MUA SẮM NGAY
+      </a>
+    </div>
+
+    <!-- Filled State Items Container -->
+    <div id="cart-drawer-items" class="space-y-4">
+      <!-- Dynamic cart items will be injected here by main.js -->
+    </div>
+
+  </div>
+
+  <!-- Drawer Footer (Only visible when filled) -->
+  <div id="cart-drawer-filled" class="p-5 border-t border-[#27272A] bg-[#09090B] flex flex-col gap-4 hidden">
+    <!-- Subtotal -->
+    <div class="flex items-center justify-between text-sm">
+      <span class="text-zinc-400">Tạm tính:</span>
+      <span id="cart-drawer-total" class="font-bold text-lg text-luxury-gold">0 đ</span>
+    </div>
+    
+    <!-- Action buttons -->
+    <div class="grid grid-cols-2 gap-3">
+      <a href="/gio-hang.html" class="btn btn-secondary w-full text-center text-zinc-300 hover:text-white text-xs font-bold py-3.5 transition flex items-center justify-center">
+        XEM GIỎ HÀNG
+      </a>
+      <a href="/thanh-toan.html" class="btn btn-accent w-full text-center text-black text-xs font-bold py-3.5 transition flex items-center justify-center">
+        THANH TOÁN
+      </a>
+    </div>
+    <p class="text-[10px] text-zinc-500 text-center">Miễn phí giao hàng toàn quốc - Bảo hành chính hãng 2 năm</p>
+  </div>
+
+</div>
