@@ -16,14 +16,14 @@ const BRAND_CATALOG = [
     code: 'TOYOTA',
     logo: '/assets/images/brands/toyota.png',
     models: [
-      { name: 'Fortuner', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'], image: '/assets/images/floor-after.png' },
-      { name: 'Corolla Cross', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'Innova', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016'], image: '/assets/images/mat-5d-brown.png' },
-      { name: 'Raize', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021'], image: '/assets/images/mat-tpe-black.png' },
-      { name: 'Veloz Cross', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/mat-6d-red.png' },
-      { name: 'Vios', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016'], image: '/assets/images/mat-5d-brown.png' },
-      { name: 'Camry', segment: 'SEDAN / HATCHBACK', years: ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'Corolla Altis', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-tpe-black.png' }
+      { name: 'Fortuner', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'], image: '/assets/images/cars/fortuner.webp' },
+      { name: 'Corolla Cross', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/corolla-cross.webp' },
+      { name: 'Innova', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016'], image: '/assets/images/cars/innova.webp' },
+      { name: 'Raize', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021'], image: '/assets/images/cars/raize.webp' },
+      { name: 'Veloz Cross', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/cars/veloz-cross.webp' },
+      { name: 'Vios', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016'], image: '/assets/images/cars/vios.webp' },
+      { name: 'Camry', segment: 'SEDAN / HATCHBACK', years: ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/camry.webp' },
+      { name: 'Corolla Altis', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/corolla-altis.webp' }
     ]
   },
   {
@@ -32,12 +32,12 @@ const BRAND_CATALOG = [
     code: 'HONDA',
     logo: '/assets/images/brands/honda.png',
     models: [
-      { name: 'CR-V', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/floor-after.png' },
-      { name: 'HR-V', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'BR-V', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023'], image: '/assets/images/mat-tpe-black.png' },
-      { name: 'City', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-5d-brown.png' },
-      { name: 'Civic', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017'], image: '/assets/images/mat-6d-red.png' },
-      { name: 'Accord', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-carbon-gold.png' }
+      { name: 'CR-V', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/cr-v.webp' },
+      { name: 'HR-V', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/hr-v.webp' },
+      { name: 'BR-V', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023'], image: '/assets/images/cars/br-v.webp' },
+      { name: 'City', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/city.webp' },
+      { name: 'Civic', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017'], image: '/assets/images/cars/civic.webp' },
+      { name: 'Accord', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/accord.webp' }
     ]
   },
   {
@@ -46,11 +46,11 @@ const BRAND_CATALOG = [
     code: 'MAZDA',
     logo: '/assets/images/brands/mazda.png',
     models: [
-      { name: 'CX-5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/floor-after.png' },
-      { name: 'CX-8', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/mat-5d-brown.png' },
-      { name: 'CX-30', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021'], image: '/assets/images/mat-tpe-black.png' },
-      { name: 'Mazda 3', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-6d-red.png' },
-      { name: 'Mazda 6', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-carbon-gold.png' }
+      { name: 'CX-5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/cx-5.webp' },
+      { name: 'CX-8', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/cx-8.webp' },
+      { name: 'CX-30', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021'], image: '/assets/images/cars/cx-30.webp' },
+      { name: 'Mazda 3', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/mazda-3.webp' },
+      { name: 'Mazda 6', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/mazda-6.webp' }
     ]
   },
   {
@@ -59,11 +59,11 @@ const BRAND_CATALOG = [
     code: 'HYUNDAI',
     logo: '/assets/images/brands/hyundai.png',
     models: [
-      { name: 'SantaFe', segment: 'SUV / CUV / MPV', years: ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/floor-after.png' },
-      { name: 'Tucson', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'Creta', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-tpe-black.png' },
-      { name: 'Accent', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-5d-brown.png' },
-      { name: 'Elantra', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-6d-red.png' }
+      { name: 'SantaFe', segment: 'SUV / CUV / MPV', years: ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/santafe.webp' },
+      { name: 'Tucson', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/tucson.webp' },
+      { name: 'Creta', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/creta.webp' },
+      { name: 'Accent', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/accent.webp' },
+      { name: 'Elantra', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/elantra.webp' }
     ]
   },
   {
@@ -72,11 +72,11 @@ const BRAND_CATALOG = [
     code: 'KIA',
     logo: '/assets/images/brands/kia.png',
     models: [
-      { name: 'Seltos', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'Sorento', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/floor-after.png' },
-      { name: 'Carnival', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021'], image: '/assets/images/mat-5d-brown.png' },
-      { name: 'K3', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/mat-6d-red.png' },
-      { name: 'Morning', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016'], image: '/assets/images/mat-tpe-black.png' }
+      { name: 'Seltos', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/seltos.webp' },
+      { name: 'Sorento', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/sorento.webp' },
+      { name: 'Carnival', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021'], image: '/assets/images/cars/carnival.webp' },
+      { name: 'K3', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/cars/k3.webp' },
+      { name: 'Morning', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016'], image: '/assets/images/cars/morning.webp' }
     ]
   },
   {
@@ -85,9 +85,9 @@ const BRAND_CATALOG = [
     code: 'FORD',
     logo: '/assets/images/brands/ford.png',
     models: [
-      { name: 'Everest', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/floor-after.png' },
-      { name: 'Territory', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'Ranger', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-tpe-black.png' }
+      { name: 'Everest', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/everest.webp' },
+      { name: 'Territory', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/cars/territory.webp' },
+      { name: 'Ranger', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/ranger.webp' }
     ]
   },
   {
@@ -96,11 +96,11 @@ const BRAND_CATALOG = [
     code: 'VINFAST',
     logo: '/assets/images/brands/vinfast.png',
     models: [
-      { name: 'VF 8', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/floor-after.png' },
-      { name: 'VF 7', segment: 'SUV / CUV / MPV', years: ['2025', '2024'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'VF 6', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023'], image: '/assets/images/mat-tpe-black.png' },
-      { name: 'VF 5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023'], image: '/assets/images/mat-6d-red.png' },
-      { name: 'Lux A2.0', segment: 'SEDAN / HATCHBACK', years: ['2022', '2021', '2020', '2019'], image: '/assets/images/mat-5d-brown.png' }
+      { name: 'VF 8', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/cars/vf-8.webp' },
+      { name: 'VF 7', segment: 'SUV / CUV / MPV', years: ['2025', '2024'], image: '/assets/images/cars/vf-7.webp' },
+      { name: 'VF 6', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023'], image: '/assets/images/cars/vf-6.webp' },
+      { name: 'VF 5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023'], image: '/assets/images/cars/vf-5.webp' },
+      { name: 'Lux A2.0', segment: 'SEDAN / HATCHBACK', years: ['2022', '2021', '2020', '2019'], image: '/assets/images/cars/lux-a20.webp' }
     ]
   },
   {
@@ -109,10 +109,10 @@ const BRAND_CATALOG = [
     code: 'MITSU',
     logo: '/assets/images/brands/mitsubishi.png',
     models: [
-      { name: 'Xpander', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/floor-after.png' },
-      { name: 'Xforce', segment: 'SUV / CUV / MPV', years: ['2025', '2024'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'Outlander', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-tpe-black.png' },
-      { name: 'Attrage', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-5d-brown.png' }
+      { name: 'Xpander', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/xpander.webp' },
+      { name: 'Xforce', segment: 'SUV / CUV / MPV', years: ['2025', '2024'], image: '/assets/images/cars/xforce.webp' },
+      { name: 'Outlander', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/outlander.webp' },
+      { name: 'Attrage', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/attrage.webp' }
     ]
   },
   {
@@ -121,9 +121,9 @@ const BRAND_CATALOG = [
     code: 'MERCEDES',
     logo: '/assets/images/brands/mercedes-benz.png',
     models: [
-      { name: 'GLC 200 / 300', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/floor-after.png' },
-      { name: 'C-Class (C200 / C300)', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'E-Class (E200 / E300)', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/mat-5d-brown.png' }
+      { name: 'GLC 200 / 300', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/glc-200-300.webp' },
+      { name: 'C-Class (C200 / C300)', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'], image: '/assets/images/cars/c-class-c200-c300.webp' },
+      { name: 'E-Class (E200 / E300)', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/e-class-e200-e300.webp' }
     ]
   },
   {
@@ -132,9 +132,9 @@ const BRAND_CATALOG = [
     code: 'BMW',
     logo: '/assets/images/brands/bmw.png',
     models: [
-      { name: 'X3', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/floor-after.png' },
-      { name: 'X5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-tpe-black.png' },
-      { name: '3 Series (320i / 330i)', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/mat-6d-red.png' }
+      { name: 'X3', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/x3.webp' },
+      { name: 'X5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/x5.webp' },
+      { name: '3 Series (320i / 330i)', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/3-series-320i-330i.webp' }
     ]
   },
   {
@@ -143,9 +143,9 @@ const BRAND_CATALOG = [
     code: 'LEXUS',
     logo: '/assets/images/brands/lexus.png',
     models: [
-      { name: 'RX 350', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/floor-after.png' },
-      { name: 'NX 350', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/mat-carbon-gold.png' },
-      { name: 'ES 250', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-5d-brown.png' }
+      { name: 'RX 350', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/rx-350.webp' },
+      { name: 'NX 350', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022'], image: '/assets/images/cars/nx-350.webp' },
+      { name: 'ES 250', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/es-250.webp' }
     ]
   },
   {
@@ -154,9 +154,9 @@ const BRAND_CATALOG = [
     code: 'AUDI',
     logo: '/assets/images/brands/audi.png',
     models: [
-      { name: 'Q5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/floor-after.png' },
-      { name: 'Q7', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-tpe-black.png' },
-      { name: 'A4 / A6', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/mat-carbon-gold.png' }
+      { name: 'Q5', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020', '2019'], image: '/assets/images/cars/q5.webp' },
+      { name: 'Q7', segment: 'SUV / CUV / MPV', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/q7.webp' },
+      { name: 'A4 / A6', segment: 'SEDAN / HATCHBACK', years: ['2025', '2024', '2023', '2022', '2021', '2020'], image: '/assets/images/cars/a4-a6.webp' }
     ]
   }
 ];
@@ -171,10 +171,10 @@ BRAND_CATALOG.forEach((b) => {
 
 export const MAT_PRICING = {
   materials: {
-    'Thảm 6D Cao Cấp': { basePrice: 1350000, image: '/assets/images/mat-6d-red.png' },
-    'Thảm 360 Full Xe': { basePrice: 2200000, image: '/assets/images/mat-carbon-gold.png' },
-    'Thảm Nhựa TPE Đúc Khuôn': { basePrice: 1890000, image: '/assets/images/mat-tpe-black.png' },
-    'Thảm Da 5D Quả Trám': { basePrice: 1250000, image: '/assets/images/mat-5d-brown.png' }
+    'Thảm 6D Cao Cấp': { basePrice: 1350000, image: '/assets/images/mat-6d-red.webp' },
+    'Thảm 360 Full Xe': { basePrice: 2200000, image: '/assets/images/mat-carbon-gold.webp' },
+    'Thảm Nhựa TPE Đúc Khuôn': { basePrice: 1890000, image: '/assets/images/mat-tpe-black.webp' },
+    'Thảm Da 5D Quả Trám': { basePrice: 1250000, image: '/assets/images/mat-5d-brown.webp' }
   },
   addons: [
     { id: 'tham-roi', label: 'Tặng thảm rối chống bẩn (+150k)', shortLabel: 'Thảm rối chống bẩn', price: 150000, defaultChecked: true },
@@ -258,14 +258,14 @@ export const VehicleSelector = {
         label: `ĐỜI ${splitYear} - ${maxYear} (Form Mới)`,
         minYear: splitYear,
         maxYear,
-        image: '/assets/images/floor-after.png'
+        image: '/assets/images/floor-after.webp'
       },
       {
         id: 'form-cu',
         label: `ĐỜI ${Math.min(2009, minYear)} - ${splitYear - 1} (Form Cũ)`,
         minYear: Math.min(2009, minYear),
         maxYear: splitYear - 1,
-        image: '/assets/images/mat-5d-brown.png'
+        image: '/assets/images/mat-5d-brown.webp'
       }
     ];
   },

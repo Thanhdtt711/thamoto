@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isHome = (currentPath === '/' || currentPath.endsWith('/index.html')) && href === '/index.html';
     const isMatch = href && !href.startsWith('tel:') && (currentPath === href || currentPath.endsWith(href));
     if (isHome || isMatch) {
-      link.classList.add('text-[#C81E2B]', 'font-bold');
+      link.classList.add('text-[#C81E2B]', 'font-semibold');
       link.classList.remove('text-slate-500');
       link.setAttribute('aria-current', 'page');
     }
@@ -147,19 +147,19 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="bg-white border border-slate-200 rounded-xl p-3 flex items-start gap-3">
             <img src="${item.image}" alt="${item.name}" width="64" height="64" loading="lazy" class="w-16 h-16 object-cover rounded-lg border border-slate-200 shrink-0">
             <div class="flex-1 min-w-0">
-              <h4 class="text-xs font-bold text-slate-900 truncate m-0">${item.name}</h4>
+              <h4 class="text-xs font-semibold text-slate-900 truncate m-0">${item.name}</h4>
               ${vehicleInfo}
               ${formInfo}
               <p class="text-[11px] text-slate-500 mt-0.5">${item.material} · ${item.color}</p>
               ${addonsInfo}
               <div class="flex items-center justify-between mt-2.5">
                 <div class="inline-flex items-center border border-slate-300 rounded-lg bg-slate-50">
-                  <button type="button" class="w-11 h-11 flex items-center justify-center text-slate-600 hover:text-slate-900 font-bold btn-qty-minus" data-id="${item.id}" aria-label="Giảm số lượng">-</button>
-                  <span class="px-2 text-xs font-bold text-slate-900 tabular-nums">${item.quantity}</span>
-                  <button type="button" class="w-11 h-11 flex items-center justify-center text-slate-600 hover:text-slate-900 font-bold btn-qty-plus" data-id="${item.id}" aria-label="Tăng số lượng">+</button>
+                  <button type="button" class="w-11 h-11 flex items-center justify-center text-slate-600 hover:text-slate-900 font-semibold btn-qty-minus" data-id="${item.id}" aria-label="Giảm số lượng">-</button>
+                  <span class="px-2 text-xs font-semibold text-slate-900 tabular-nums">${item.quantity}</span>
+                  <button type="button" class="w-11 h-11 flex items-center justify-center text-slate-600 hover:text-slate-900 font-semibold btn-qty-plus" data-id="${item.id}" aria-label="Tăng số lượng">+</button>
                 </div>
                 <div class="flex items-center gap-1">
-                  <span class="text-xs font-extrabold text-[#C81E2B] tabular-nums">${Cart.formatCurrency(item.price * item.quantity)}</span>
+                  <span class="text-xs font-bold text-[#15803D] tabular-nums">${Cart.formatCurrency(item.price * item.quantity)}</span>
                   <button type="button" class="w-11 h-11 flex items-center justify-center text-slate-400 hover:text-[#C81E2B] transition btn-remove-item" data-id="${item.id}" aria-label="Xóa sản phẩm">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                   </button>

@@ -42,18 +42,18 @@ function optimizeHtml(html) {
 
 // 12 Products Database
 const productsData = [
-  { id: 1, name: "Thảm Da Carbon Cao Cấp", price: 1490000, material: "Carbon", colors: ["Đen"], image: "./assets/images/mat-carbon-gold.png", isBestSeller: true, isNew: false, sku: "TM-001" },
-  { id: 2, name: "Thảm Nhựa TPE Đúc Khuôn", price: 1890000, material: "TPE", colors: ["Đen"], image: "./assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, sku: "TM-002" },
-  { id: 3, name: "Thảm Da 5D Quả Trám", price: 1250000, material: "5D", colors: ["Nâu"], image: "./assets/images/mat-5d-brown.png", isBestSeller: true, isNew: false, sku: "TM-003" },
-  { id: 4, name: "Thảm Da 6D Rối Đa Tầng", price: 1650000, material: "6D", colors: ["Đỏ"], image: "./assets/images/mat-6d-red.png", isBestSeller: false, isNew: true, sku: "TM-004" },
-  { id: 5, name: "Thảm Da Carbon Sport Red", price: 1490000, material: "Carbon", colors: ["Đen", "Đỏ"], image: "./assets/images/mat-carbon-gold.png", isBestSeller: false, isNew: true, sku: "TM-005" },
-  { id: 6, name: "Thảm Nhựa TPE Eco Beige", price: 1990000, material: "TPE", colors: ["Kem"], image: "./assets/images/mat-tpe-black.png", isBestSeller: false, isNew: true, sku: "TM-006" },
-  { id: 7, name: "Thảm Da 5D Royal Cream", price: 1250000, material: "5D", colors: ["Kem"], image: "./assets/images/mat-5d-brown.png", isBestSeller: true, isNew: false, sku: "TM-007" },
-  { id: 8, name: "Thảm Da 6D Nâu Hoàng Gia", price: 1650000, material: "6D", colors: ["Nâu"], image: "./assets/images/mat-6d-red.png", isBestSeller: false, isNew: false, sku: "TM-008" },
-  { id: 9, name: "Thảm Cao Su Tự Nhiên Fit", price: 690000, material: "CaoSu", colors: ["Đen"], image: "./assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, sku: "TM-009" },
-  { id: 10, name: "Thảm Cao Su Tổ Ong Grey", price: 750000, material: "CaoSu", colors: ["Xám"], image: "./assets/images/mat-tpe-black.png", isBestSeller: false, isNew: false, sku: "TM-010" },
-  { id: 11, name: "Thảm Da Carbon Luxury Grey", price: 1590000, material: "Carbon", colors: ["Xám"], image: "./assets/images/mat-carbon-gold.png", isBestSeller: false, isNew: true, sku: "TM-011" },
-  { id: 12, name: "Thảm Da 6D Full 360 độ", price: 2490000, material: "6D", colors: ["Đen"], image: "./assets/images/mat-6d-red.png", isBestSeller: false, isNew: false, sku: "TM-012" }
+  { id: 1, name: "Thảm Da Carbon Cao Cấp", price: 1490000, material: "Carbon", colors: ["Đen"], image: "./assets/images/mat-carbon-gold.webp", isBestSeller: true, isNew: false, sku: "TM-001" },
+  { id: 2, name: "Thảm Nhựa TPE Đúc Khuôn", price: 1890000, material: "TPE", colors: ["Đen"], image: "./assets/images/mat-tpe-black.webp", isBestSeller: false, isNew: false, sku: "TM-002" },
+  { id: 3, name: "Thảm Da 5D Quả Trám", price: 1250000, material: "5D", colors: ["Nâu"], image: "./assets/images/mat-5d-brown.webp", isBestSeller: true, isNew: false, sku: "TM-003" },
+  { id: 4, name: "Thảm Da 6D Rối Đa Tầng", price: 1650000, material: "6D", colors: ["Đỏ"], image: "./assets/images/mat-6d-red.webp", isBestSeller: false, isNew: true, sku: "TM-004" },
+  { id: 5, name: "Thảm Da Carbon Sport Red", price: 1490000, material: "Carbon", colors: ["Đen", "Đỏ"], image: "./assets/images/mat-carbon-gold.webp", isBestSeller: false, isNew: true, sku: "TM-005" },
+  { id: 6, name: "Thảm Nhựa TPE Eco Beige", price: 1990000, material: "TPE", colors: ["Kem"], image: "./assets/images/mat-tpe-black.webp", isBestSeller: false, isNew: true, sku: "TM-006" },
+  { id: 7, name: "Thảm Da 5D Royal Cream", price: 1250000, material: "5D", colors: ["Kem"], image: "./assets/images/mat-5d-brown.webp", isBestSeller: true, isNew: false, sku: "TM-007" },
+  { id: 8, name: "Thảm Da 6D Nâu Hoàng Gia", price: 1650000, material: "6D", colors: ["Nâu"], image: "./assets/images/mat-6d-red.webp", isBestSeller: false, isNew: false, sku: "TM-008" },
+  { id: 9, name: "Thảm Cao Su Tự Nhiên Fit", price: 690000, material: "CaoSu", colors: ["Đen"], image: "./assets/images/mat-tpe-black.webp", isBestSeller: false, isNew: false, sku: "TM-009" },
+  { id: 10, name: "Thảm Cao Su Tổ Ong Grey", price: 750000, material: "CaoSu", colors: ["Xám"], image: "./assets/images/mat-tpe-black.webp", isBestSeller: false, isNew: false, sku: "TM-010" },
+  { id: 11, name: "Thảm Da Carbon Luxury Grey", price: 1590000, material: "Carbon", colors: ["Xám"], image: "./assets/images/mat-carbon-gold.webp", isBestSeller: false, isNew: true, sku: "TM-011" },
+  { id: 12, name: "Thảm Da 6D Full 360 độ", price: 2490000, material: "6D", colors: ["Đen"], image: "./assets/images/mat-6d-red.webp", isBestSeller: false, isNew: false, sku: "TM-012" }
 ];
 
 // 7 Articles Database
@@ -62,49 +62,49 @@ const articlesData = [
     id: 1,
     title: "Bí quyết chọn thảm lót sàn ô tô phù hợp cho mùa mưa gió bão bùng",
     desc: "Mùa mưa bão sắp tới mang theo nỗi lo bùn đất bám vào nỉ sàn xe hơi gây nấm mốc, bốc mùi hôi thối khó chịu. Khám phá ngay các dòng thảm đúc khuôn nhựa TPE nguyên sinh hoặc thảm rối da 6D chống thấm, dễ xịt rửa vệ sinh tốt nhất cho chiếc xe hơi của bạn.",
-    image: "./assets/images/news-featured.png",
+    image: "./assets/images/news-featured.webp",
     slug: "bi-quyet-chon-tham-lot-san-o-to-phu-hop-cho-mua-mua-gio-bao-bung"
   },
   {
     id: 2,
     title: "Tại sao thảm lót sàn nhựa TPE lại trở thành xu hướng năm 2026?",
     desc: "Lý giải sức hút từ vật liệu nhựa TPE nguyên sinh đúc khuôn tràn viền: Độ bền vượt trội trên 10 năm, hoàn toàn không sinh mùi hôi độc hại khi đỗ xe nắng và chống nước tuyệt đối.",
-    image: "./assets/images/news-featured.png",
+    image: "./assets/images/news-featured.webp",
     slug: "tai-sao-tham-lot-san-nhua-tpe-la-xu-huong"
   },
   {
     id: 3,
     title: "Sự khác biệt vượt trội giữa thảm da carbon và thảm da 6D truyền thống",
     desc: "So sánh chi tiết về tính thẩm mỹ, độ bền chỉ may và khả năng chống bám bụi của hai dòng thảm da bán chạy nhất thị trường hiện nay. Nên lựa chọn loại nào cho phân khúc xế sang?",
-    image: "./assets/images/news-featured.png",
+    image: "./assets/images/news-featured.webp",
     slug: "su-khac-biet-vuot-troi-giua-tham-da-carbon-va-tham-da-6d-truyen-thong"
   },
   {
     id: 4,
     title: "Trung Thành Auto khai trương showroom trưng bày và dịch vụ lắp đặt mới tại Quận 7",
     desc: "Không gian showroom mới rộng rãi với đầy đủ bộ phom mẫu thảm thực tế giúp khách hàng dễ dàng sờ thử chất liệu da vân carbon, thảm rối và trải nghiệm quy trình quét 3D laser trực quan.",
-    image: "./assets/images/about-workshop.png",
+    image: "./assets/images/about-workshop.webp",
     slug: "trung-thanh-auto-khai-truong-showroom-quan-7"
   },
   {
     id: 5,
     title: "Hướng dẫn tự vệ sinh thảm da 5D tại nhà cực nhanh trong 10 phút",
     desc: "Mẹo nhỏ sử dụng khăn ẩm vi sợi và dung dịch vệ sinh nội thất da chuyên dụng giúp làm sạch nhanh bụi đất dính kẹt trong các đường chỉ trám chéo mà không làm nổ da thảm.",
-    image: "./assets/images/news-featured.png",
+    image: "./assets/images/news-featured.webp",
     slug: "huong-dan-tu-ve-sinh-tham-da-5d-tai-nha"
   },
   {
     id: 6,
     title: "Đánh giá của các chuyên gia ô tô về chất lượng thảm đúc khuôn TPE Trung Thành Auto",
     desc: "Các reviewer đánh giá cao độ ôm khít chân phanh, mép thành thảm dựng đứng giữ nước đổ nghiêng, bảo vệ tuyệt hảo lớp nỉ sàn của dòng xe Toyota Camry và Ford Everest đời mới.",
-    image: "./assets/images/news-featured.png",
+    image: "./assets/images/news-featured.webp",
     slug: "danh-gia-chuyen-gia-chat-luong-tham-tpe"
   },
   {
     id: 7,
     title: "Cách bảo quản thảm lót sàn da luôn bền đẹp sáng bóng như ngày đầu",
     desc: "Tránh phơi thảm trực tiếp dưới trời nắng gắt nhiệt độ cao, hạn chế giặt ngâm nước toàn bộ đối với các dòng thảm da PU có lõi đệm mút xốp xơ bông để tránh rã keo bên trong.",
-    image: "./assets/images/news-featured.png",
+    image: "./assets/images/news-featured.webp",
     slug: "cach-bao-quan-tham-lot-san-da-luon-ben-dep"
   }
 ];

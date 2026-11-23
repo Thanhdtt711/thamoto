@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   /* Core Palette (AGENTS.md Design System) */
@@ -21,7 +23,7 @@
   --red-tint: #FEF2F2;
 
   /* Typography */
-  --font-sans: 'Be Vietnam Pro', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Radii & Shadows */
   --radius-card: 12px;
@@ -100,7 +102,7 @@ body {
   padding: 10px 16px;
   border-radius: var(--radius-btn);
   z-index: 1000;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 13px;
   text-decoration: none;
   transition: top 0.2s ease;
@@ -178,7 +180,7 @@ body[data-subpage="true"] .mobile-header-subpage {
   padding: 10px 20px;
   background-color: var(--red);
   color: #FFFFFF;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -303,15 +305,13 @@ body[data-subpage="true"] .mobile-header-subpage {
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.brand-circle-card:hover .brand-circle-badge,
-.brand-circle-card.is-active .brand-circle-badge {
+.brand-circle-card:hover .brand-circle-badge {
   border-color: var(--red);
   box-shadow: 0 4px 12px rgba(200, 30, 43, 0.16);
 }
 
-.brand-circle-card.is-active .brand-circle-name {
+.brand-circle-card:hover .brand-circle-name {
   color: var(--red);
-  font-weight: 700;
 }
 
 @media (min-width: 768px) {
@@ -326,14 +326,10 @@ body[data-subpage="true"] .mobile-header-subpage {
   }
 
   .brand-circle-card:hover {
-    border-color: var(--navy);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .brand-circle-card.is-active {
     border-color: var(--red);
     background-color: var(--red-tint);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
 
   .brand-circle-badge {
@@ -343,8 +339,7 @@ body[data-subpage="true"] .mobile-header-subpage {
     box-shadow: none;
   }
 
-  .brand-circle-card:hover .brand-circle-badge,
-  .brand-circle-card.is-active .brand-circle-badge {
+  .brand-circle-card:hover .brand-circle-badge {
     transform: none;
     box-shadow: none;
     background-color: var(--surface);
@@ -365,16 +360,28 @@ body[data-subpage="true"] .mobile-header-subpage {
 }
 
 .model-card__footer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #F8FAFC;
   color: var(--navy);
-  padding: 12px 10px;
+  padding: 10px 8px;
   text-align: center;
-  font-weight: 800;
-  font-size: 0.875rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.3;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   border-top: 1px solid var(--border);
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .model-card__footer {
+    font-size: 0.8125rem;
+    padding: 11px 10px;
+  }
 }
 
 .model-card:hover,
@@ -415,7 +422,7 @@ body[data-subpage="true"] .mobile-header-subpage {
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 0.65625rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
   white-space: nowrap;
@@ -587,7 +594,7 @@ body[data-subpage="true"] .mobile-header-subpage {
   border-color: var(--navy);
   background-color: var(--navy-tint);
   color: var(--navy);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .color-swatch-dot {
