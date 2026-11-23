@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Search, Car } from 'lucide-vue-next';
+import { Search, LayoutGrid } from 'lucide-vue-next';
 
 const route = useRoute();
 const router = useRouter();
@@ -58,32 +58,36 @@ const segments = ['SUV / CUV / MPV', 'SEDAN / HATCHBACK'] as const;
     </nav>
 
     <!-- Brand Quick-Switch Bar -->
-    <div id="brand-tabs-bar" class="flex flex-wrap gap-2">
-      <button
-        type="button"
-        class="inline-flex items-center gap-1.5 min-h-[40px] px-3.5 rounded-lg text-xs font-semibold cursor-pointer transition"
-        :class="activeBrandSlug === 'all'
-          ? 'bg-[#FEF2F2] text-[#C81E2B] border-2 border-[#C81E2B] shadow-sm'
-          : 'bg-white text-slate-700 border border-slate-200 hover:border-[#0D2C54] hover:text-[#0D2C54]'"
-        @click="selectBrand('all')"
-      >
-        <Car class="w-4 h-4 shrink-0" />
-        <span>Tất cả</span>
-      </button>
+    <div class="card-surface p-3.5 sm:p-4">
+      <div id="brand-tabs-bar">
+        <button
+          type="button"
+          data-brand-slug="all"
+          class="cursor-pointer transition"
+          :class="activeBrandSlug === 'all'
+            ? 'bg-[#FEF2F2] text-[#C81E2B] border-2 border-[#C81E2B] shadow-sm'
+            : 'bg-white text-slate-700 border border-slate-200 hover:border-[#0D2C54] hover:text-[#0D2C54]'"
+          @click="selectBrand('all')"
+        >
+          <LayoutGrid class="w-4 h-4 shrink-0" />
+          <span>Tất cả</span>
+        </button>
 
-      <button
-        v-for="b in BRAND_CATALOG"
-        :key="b.slug"
-        type="button"
-        class="inline-flex items-center gap-1.5 min-h-[40px] px-3 rounded-lg text-xs font-semibold cursor-pointer transition"
-        :class="activeBrandSlug === b.slug
-          ? 'bg-[#FEF2F2] text-[#C81E2B] border-2 border-[#C81E2B] shadow-sm'
-          : 'bg-white text-slate-700 border border-slate-200 hover:border-[#0D2C54] hover:text-[#0D2C54]'"
-        @click="selectBrand(b.slug)"
-      >
-        <img :src="b.logo" :alt="b.name" width="22" height="22" class="w-5 h-5 object-contain shrink-0">
-        <span>{{ b.name }}</span>
-      </button>
+        <button
+          v-for="b in BRAND_CATALOG"
+          :key="b.slug"
+          type="button"
+          :data-brand-slug="b.slug"
+          class="cursor-pointer transition"
+          :class="activeBrandSlug === b.slug
+            ? 'bg-[#FEF2F2] text-[#C81E2B] border-2 border-[#C81E2B] shadow-sm'
+            : 'bg-white text-slate-700 border border-slate-200 hover:border-[#0D2C54] hover:text-[#0D2C54]'"
+          @click="selectBrand(b.slug)"
+        >
+          <img :src="b.logo" :alt="b.name" width="24" height="24" class="w-6 h-6 object-contain shrink-0">
+          <span>{{ b.name }}</span>
+        </button>
+      </div>
     </div>
 
     <!-- Custom-Fit Banner (placed above heading as requested) -->
