@@ -42,8 +42,8 @@ const handleRegister = async () => {
     errorMsg.value = 'Email không hợp lệ.';
     return;
   }
-  if (password.value.length < 6) {
-    errorMsg.value = 'Mật khẩu phải có ít nhất 6 ký tự.';
+  if (password.value.length < 8) {
+    errorMsg.value = 'Mật khẩu phải có ít nhất 8 ký tự.';
     return;
   }
   if (!isConfigured || !supabase) {
@@ -67,7 +67,19 @@ const handleRegister = async () => {
       }
     });
     if (error) throw error;
-    registeredInfo.value = { code, needConfirm: !data.session };
+
+    // Đọc lại mã thực tế trong DB nếu có session (tránh lệch mã do trigger đổi khi trùng - V11/T34)
+    let actualCode = code;
+    if (data.session && data.user) {
+      const { data: prof } = await supabase
+        .from('affiliates')
+        .select('code')
+        .eq('user_id', data.user.id)
+        .maybeSingle();
+      if (prof?.code) actualCode = prof.code;
+    }
+
+    registeredInfo.value = { code: actualCode, needConfirm: !data.session };
   } catch (err: any) {
     errorMsg.value = err?.message || 'Đăng ký thất bại. Vui lòng thử lại sau.';
   } finally {
@@ -188,8 +200,8 @@ const handleRegister = async () => {
               <input id="ctv-email" v-model="email" type="email" required placeholder="email@domain.com" class="field-input">
             </div>
             <div class="space-y-1">
-              <label for="ctv-password" class="text-xs font-semibold text-slate-700 block">Mật khẩu (tối thiểu 6 ký tự) *</label>
-              <input id="ctv-password" v-model="password" type="password" required minlength="6" placeholder="Nhập mật khẩu..." class="field-input">
+              <label for="ctv-password" class="text-xs font-semibold text-slate-700 block">Mật khẩu (tối thiểu 8 ký tự) *</label>
+              <input id="ctv-password" v-model="password" type="password" required minlength="8" placeholder="Nhập mật khẩu..." class="field-input">
             </div>
           </div>
 

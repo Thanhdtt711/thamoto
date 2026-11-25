@@ -46,7 +46,6 @@ Thumbs.db
 Desktop.ini
 
 # AI / Local Agent Tooling caches
-.agents/
 .codex/
 .gemini/
 .impeccable/

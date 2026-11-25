@@ -41,18 +41,18 @@ const handleSubmit = async () => {
   try {
     if (isConfigured && supabase) {
       const vehicleStr = [brand.value, model.value, year.value].filter(Boolean).join(' ');
-      const { error } = await supabase.from('leads').insert({
-        customer_name: name.value.trim(),
-        phone: cleanPhone,
-        vehicle: vehicleStr || null,
-        message: message.value.trim() || null,
-        affiliate_code: getRefCode() || null
+      const { error } = await supabase.rpc('create_lead', {
+        p_customer_name: name.value.trim(),
+        p_phone: cleanPhone,
+        p_vehicle: vehicleStr || null,
+        p_message: message.value.trim() || null,
+        p_affiliate_code: getRefCode() || null
       });
       if (error) throw error;
     }
     showSuccess.value = true;
-  } catch {
-    formError.value = 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại hoặc nhắn Zalo 0963 294 492.';
+  } catch (err: any) {
+    formError.value = err?.message || 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại hoặc nhắn Zalo 0963 294 492.';
   } finally {
     isSubmitting.value = false;
   }

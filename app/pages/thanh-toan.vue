@@ -8,7 +8,7 @@ useSeoMeta({
 
 const router = useRouter();
 const { items, subtotal, clearCart } = useCart();
-const { getRefCode } = useAffiliate();
+const { getRefCode, refSource, refClickId } = useAffiliate();
 const { supabase, isConfigured } = useSupabase();
 
 const name = ref('');
@@ -16,12 +16,15 @@ const phone = ref('');
 const address = ref('');
 const notes = ref('');
 const refCode = ref('');
+const initialTrackedRef = ref('');
+const refValidationMsg = ref('');
+const refValid = ref<boolean | null>(null);
 const paymentMethod = ref<'COD' | 'BANK'>('COD');
 
 const formError = ref('');
 const isSubmitting = ref(false);
 const showQrModal = ref(false);
-const appliedCoupon = ref<{ code: string; type: 'fixed' | 'percent'; value: number } | null>(null);
+const appliedCoupon = ref<{ code: string; type: 'fixed' | 'percent'; value: number; discountAmount?: number } | null>(null);
 
 const completedOrder = ref<{
   orderCode: string;
@@ -30,10 +33,13 @@ const completedOrder = ref<{
   methodText: string;
   total: number;
   refCode: string;
+  warning?: string;
 } | null>(null);
 
 onMounted(() => {
-  refCode.value = getRefCode();
+  const tracked = getRefCode();
+  refCode.value = tracked;
+  initialTrackedRef.value = tracked;
   try {
     const saved = sessionStorage.getItem('thamoto_applied_coupon');
     if (saved) appliedCoupon.value = JSON.parse(saved);
@@ -47,54 +53,90 @@ onMounted(() => {
 
 const discountAmount = computed(() => {
   if (!appliedCoupon.value) return 0;
+  if (typeof appliedCoupon.value.discountAmount === 'number') {
+    return Math.min(appliedCoupon.value.discountAmount, subtotal.value);
+  }
   return appliedCoupon.value.type === 'percent'
-    ? Math.round(subtotal.value * appliedCoupon.value.value)
+    ? Math.floor((subtotal.value * appliedCoupon.value.value) / 100)
     : appliedCoupon.value.value;
 });
 
 const grandTotal = computed(() => Math.max(0, subtotal.value - discountAmount.value));
 
-const buildItemsSummary = () =>
-  items.value.map((item) => {
-    const vStr = item.vehicle ? `${item.vehicle.brand} ${item.vehicle.model}` : '';
-    const parts = [vStr, item.formLabel, item.material, item.color].filter(Boolean).join(' | ');
-    return `${item.quantity}x ${item.name} (${parts})`;
-  }).join('\n');
+const checkAffiliateCode = async () => {
+  const code = refCode.value.trim().toUpperCase();
+  if (!code) {
+    refValid.value = null;
+    refValidationMsg.value = '';
+    return;
+  }
+  if (!isConfigured || !supabase) return;
+  try {
+    const { data } = await supabase.rpc('validate_affiliate_code', { p_code: code });
+    refValid.value = Boolean(data?.valid);
+    refValidationMsg.value = data?.message || '';
+  } catch {
+    refValid.value = null;
+    refValidationMsg.value = '';
+  }
+};
 
 const submitOrder = async (methodKey: 'COD' | 'VietQR', methodText: string) => {
   if (isSubmitting.value) return;
   const cleanPhone = phone.value.replace(/\s+/g, '');
-  const cleanRef = refCode.value.trim().toUpperCase() || getRefCode();
-  const orderCode = `TT-${Math.floor(10000 + Math.random() * 90000)}`;
+  const cleanRef = refCode.value.trim().toUpperCase();
+  const effectiveSource = cleanRef
+    ? (cleanRef !== initialTrackedRef.value ? 'manual' : refSource.value)
+    : null;
 
   isSubmitting.value = true;
   formError.value = '';
 
   try {
+    let finalOrderCode = `TT-${Math.floor(10000 + Math.random() * 90000)}`;
+    let finalTotal = grandTotal.value;
+    let finalRefCode = cleanRef;
+    let warningMsg = '';
+
     if (isConfigured && supabase) {
-      const { error } = await supabase.from('orders').insert({
-        order_code: orderCode,
-        customer_name: name.value.trim(),
-        phone: cleanPhone,
-        address: address.value.trim(),
-        notes: notes.value.trim() || null,
-        payment_method: methodKey,
-        coupon_code: appliedCoupon.value?.code || null,
-        total_amount: grandTotal.value,
-        items: items.value,
-        items_summary: buildItemsSummary(),
-        affiliate_code: cleanRef || null
+      const payloadItems = items.value.map((i) => ({
+        name: i.name,
+        material: i.material,
+        color: i.color,
+        formLabel: i.formLabel || '',
+        addons: i.addons || [],
+        vehicle: i.vehicle || null,
+        quantity: i.quantity
+      }));
+
+      const { data, error } = await supabase.rpc('create_order', {
+        p_customer_name: name.value.trim(),
+        p_phone: cleanPhone,
+        p_address: address.value.trim(),
+        p_notes: notes.value.trim() || null,
+        p_payment_method: methodKey,
+        p_coupon_code: appliedCoupon.value?.code || null,
+        p_affiliate_code: cleanRef || null,
+        p_ref_source: effectiveSource,
+        p_items: payloadItems,
+        p_ref_click_id: effectiveSource === 'link' ? refClickId.value : null
       });
       if (error) throw error;
+
+      finalOrderCode = data?.order_code || finalOrderCode;
+      finalTotal = Number(data?.total_amount ?? finalTotal);
+      finalRefCode = data?.affiliate_code || '';
+      warningMsg = data?.warning || '';
     }
 
     completedOrder.value = {
-      orderCode,
+      orderCode: finalOrderCode,
       name: name.value.trim(),
       phone: cleanPhone,
       methodText,
-      total: grandTotal.value,
-      refCode: cleanRef
+      total: finalTotal,
+      refCode: finalRefCode,
+      warning: warningMsg
     };
 
     clearCart();
@@ -102,8 +144,8 @@ const submitOrder = async (methodKey: 'COD' | 'VietQR', methodText: string) => {
       sessionStorage.removeItem('thamoto_applied_coupon');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  } catch {
-    formError.value = `Không thể gửi đơn lúc này (mã tham chiếu #${orderCode}). Vui lòng thử lại hoặc nhắn Zalo 0963 294 492 để chốt đơn ngay.`;
+  } catch (err: any) {
+    formError.value = err?.message || 'Không thể gửi đơn lúc này. Vui lòng thử lại hoặc nhắn Zalo 0963 294 492 để chốt đơn ngay.';
   } finally {
     isSubmitting.value = false;
   }
@@ -159,6 +201,9 @@ const handleFormSubmit = () => {
         <div v-if="completedOrder.refCode" class="flex justify-between"><span class="text-slate-500">Mã giới thiệu (CTV):</span><span class="font-semibold text-[#0D2C54] uppercase">{{ completedOrder.refCode }}</span></div>
         <div class="flex justify-between pt-2 border-t border-slate-200"><span class="font-semibold text-slate-700">Tổng tiền:</span><span class="font-bold text-[#15803D] tabular-nums">{{ formatCurrency(completedOrder.total) }}</span></div>
       </div>
+      <p v-if="completedOrder.warning" role="status" class="text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3.5 py-2.5 m-0 text-left">
+        Lưu ý: {{ completedOrder.warning }}
+      </p>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
         <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="btn-outline text-xs px-6 no-underline">NHẮN ZALO XÁC NHẬN NHANH (0963 294 492)</a>
         <NuxtLink to="/" class="btn-cta text-xs px-8">QUAY LẠI TRANG CHỦ</NuxtLink>
@@ -200,7 +245,10 @@ const handleFormSubmit = () => {
 
           <div class="space-y-1.5">
             <label for="billing-ref" class="text-xs font-semibold text-slate-700 block">Mã CTV / Người giới thiệu (nếu có)</label>
-            <input id="billing-ref" v-model="refCode" type="text" placeholder="VD: CTV01 (tự động điền khi vào từ link giới thiệu)" class="field-input uppercase">
+            <input id="billing-ref" v-model="refCode" type="text" placeholder="VD: CTV01 (tự động điền khi vào từ link giới thiệu)" class="field-input uppercase" @blur="checkAffiliateCode">
+            <p v-if="refValidationMsg" class="text-[11px] font-semibold m-0" :class="refValid ? 'text-[#15803D]' : 'text-[#C81E2B]'">
+              {{ refValidationMsg }}
+            </p>
           </div>
         </div>
 

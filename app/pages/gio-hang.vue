@@ -7,16 +7,13 @@ useSeoMeta({
 });
 
 const { items, subtotal, updateQuantity, removeItem } = useCart();
+const { supabase, isConfigured } = useSupabase();
 
 const couponInput = ref('');
 const couponMsg = ref('');
 const couponError = ref(false);
-const appliedCoupon = ref<{ code: string; type: 'fixed' | 'percent'; value: number } | null>(null);
-
-const COUPONS: Record<string, { type: 'fixed' | 'percent'; value: number; msg: string }> = {
-  THAMOTO2026: { type: 'fixed', value: 150000, msg: 'Áp dụng mã giảm giá 150.000 đ thành công!' },
-  VIP10: { type: 'percent', value: 0.1, msg: 'Áp dụng mã giảm 10% thành công!' }
-};
+const isCheckingCoupon = ref(false);
+const appliedCoupon = ref<{ code: string; type: 'fixed' | 'percent'; value: number; discountAmount?: number } | null>(null);
 
 onMounted(() => {
   try {
@@ -29,26 +26,59 @@ onMounted(() => {
 
 const discountAmount = computed(() => {
   if (!appliedCoupon.value) return 0;
+  if (typeof appliedCoupon.value.discountAmount === 'number') {
+    return Math.min(appliedCoupon.value.discountAmount, subtotal.value);
+  }
   return appliedCoupon.value.type === 'percent'
-    ? Math.round(subtotal.value * appliedCoupon.value.value)
+    ? Math.floor((subtotal.value * appliedCoupon.value.value) / 100)
     : appliedCoupon.value.value;
 });
 
 const grandTotal = computed(() => Math.max(0, subtotal.value - discountAmount.value));
 
-const applyCoupon = () => {
+const applyCoupon = async () => {
   const code = couponInput.value.trim().toUpperCase();
-  const found = COUPONS[code];
-  if (!found) {
+  if (!code) {
     couponError.value = true;
-    couponMsg.value = 'Mã giảm giá không hợp lệ. Thử mã: THAMOTO2026';
+    couponMsg.value = 'Vui lòng nhập mã giảm giá.';
     return;
   }
-  couponError.value = false;
-  couponMsg.value = found.msg;
-  appliedCoupon.value = { code, type: found.type, value: found.value };
-  if (import.meta.client) {
-    sessionStorage.setItem('thamoto_applied_coupon', JSON.stringify(appliedCoupon.value));
+
+  isCheckingCoupon.value = true;
+  try {
+    if (isConfigured && supabase) {
+      const { data, error } = await supabase.rpc('validate_coupon', {
+        p_code: code,
+        p_subtotal: subtotal.value
+      });
+      if (error) throw error;
+      if (!data?.valid) {
+        couponError.value = true;
+        couponMsg.value = data?.message || 'Mã giảm giá không hợp lệ.';
+        appliedCoupon.value = null;
+        if (import.meta.client) sessionStorage.removeItem('thamoto_applied_coupon');
+        return;
+      }
+      couponError.value = false;
+      couponMsg.value = data.message || `Áp dụng mã ${data.code} thành công!`;
+      appliedCoupon.value = {
+        code: data.code,
+        type: data.discount_type,
+        value: Number(data.discount_value),
+        discountAmount: Number(data.discount_amount)
+      };
+      if (import.meta.client) {
+        sessionStorage.setItem('thamoto_applied_coupon', JSON.stringify(appliedCoupon.value));
+      }
+    } else {
+      couponError.value = true;
+      couponMsg.value = 'Chưa kết nối máy chủ để xác thực mã giảm giá.';
+    }
+  } catch {
+    couponError.value = true;
+    couponMsg.value = 'Không thể kiểm tra mã giảm giá lúc này. Vui lòng thử lại.';
+  } finally {
+    isCheckingCoupon.value = false;
   }
 };
 </script>
