@@ -1,6 +1,6 @@
-// Supabase Edge Function (Deno) — P1-10: Thông báo đơn hàng / chi trả qua Telegram hoặc Email
+// Supabase Edge Function (Deno) — P0-1 / P1-10: Thông báo đơn hàng / chi trả qua Telegram (fail-closed)
 // Deploy: supabase functions deploy notify-order
-// Cấu hình secrets trên Supabase (KHÔNG commit secret thật vào repo):
+// Cấu hình secrets trên Supabase (BẮT BUỘC đặt NOTIFY_WEBHOOK_SECRET):
 //   supabase secrets set TELEGRAM_BOT_TOKEN=xxx TELEGRAM_CHAT_ID=xxx NOTIFY_WEBHOOK_SECRET=xxx
 
 import { serve } from 'https://deno.land/std@0.224.0/http/server.ts';
@@ -11,17 +11,28 @@ interface NotifyPayload {
 }
 
 const formatVnd = (n: unknown) => `${Number(n || 0).toLocaleString('vi-VN')} đ`;
+const cleanText = (v: unknown) => String(v ?? '').replace(/[\r\n]+/g, ' ').trim();
 
 serve(async (req: Request) => {
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
   }
 
-  // Xác thực webhook secret từ Database Webhook của Supabase
+  // Fail-closed: từ chối mọi request nếu chưa cấu hình NOTIFY_WEBHOOK_SECRET hoặc sai header
   const expectedSecret = Deno.env.get('NOTIFY_WEBHOOK_SECRET');
-  const incomingSecret = req.headers.get('x-webhook-secret');
-  if (expectedSecret && incomingSecret !== expectedSecret) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  if (!expectedSecret || expectedSecret.trim().length < 12) {
+    return new Response(
+      JSON.stringify({ error: 'Webhook secret not configured on server' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  const incomingSecret = req.headers.get('x-webhook-secret') || '';
+  if (incomingSecret !== expectedSecret) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   let payload: NotifyPayload;
@@ -37,31 +48,34 @@ serve(async (req: Request) => {
   if (!botToken || !chatId) {
     return new Response(
       JSON.stringify({ ok: false, message: 'Chưa cấu hình TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID' }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 
   const r = payload.record || {};
   let text = '';
 
+  // Dùng plain text (không parse_mode Markdown) để ký tự đặc biệt trong tên/địa chỉ khách không làm lỗi Telegram (I-20)
   if (payload.type === 'order_created') {
     text = [
-      `🛒 *ĐƠN HÀNG MỚI* #${r.order_code || ''}`,
-      `Khách: ${r.customer_name || ''} · ${r.customer_phone || ''}`,
-      `Tổng tiền: ${formatVnd(r.total)}`,
-      r.affiliate_code ? `CTV: ${r.affiliate_code} (HH: ${formatVnd(r.commission_amount)})` : 'CTV: Không',
+      `ĐƠN HÀNG MỚI #${cleanText(r.order_code)}`,
+      `Khách: ${cleanText(r.customer_name)} · ${cleanText(r.phone || r.customer_phone)}`,
+      `Tổng tiền: ${formatVnd(r.total_amount ?? r.total)}`,
+      r.affiliate_code
+        ? `CTV: ${cleanText(r.affiliate_code)} (HH: ${formatVnd(r.commission_amount)})`
+        : 'CTV: Khách lẻ'
     ].join('\n');
   } else if (payload.type === 'payout_requested') {
     text = [
-      `💸 *YÊU CẦU RÚT TIỀN MỚI*`,
+      'YÊU CẦU RÚT TIỀN MỚI',
       `Số tiền: ${formatVnd(r.amount)}`,
-      `Trạng thái: ${r.status || 'requested'}`,
+      `Trạng thái: ${cleanText(r.status || 'requested')}`
     ].join('\n');
   } else if (payload.type === 'payout_paid') {
     text = [
-      `✅ *ĐÃ CHI TRẢ HOA HỒNG*`,
+      'ĐÃ CHI TRẢ HOA HỒNG',
       `Thực nhận: ${formatVnd(r.net_amount ?? r.amount)}`,
-      `Mã GD: ${r.transaction_ref || '—'}`,
+      `Mã GD: ${cleanText(r.transaction_ref || '—')}`
     ].join('\n');
   } else {
     return new Response(JSON.stringify({ ok: true, skipped: true }), { status: 200 });
@@ -72,9 +86,8 @@ serve(async (req: Request) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       chat_id: chatId,
-      text,
-      parse_mode: 'Markdown',
-    }),
+      text
+    })
   });
 
   if (!tgRes.ok) {
@@ -84,6 +97,6 @@ serve(async (req: Request) => {
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' }
   });
 });

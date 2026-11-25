@@ -3,7 +3,8 @@ import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-vue-next';
 
 useSeoMeta({
   title: 'Giỏ Hàng | Trung Thành Auto',
-  description: 'Xem lại cấu hình thảm lót sàn ô tô trong giỏ hàng trước khi thanh toán.'
+  description: 'Xem lại cấu hình thảm lót sàn ô tô trong giỏ hàng trước khi thanh toán.',
+  robots: 'noindex, nofollow'
 });
 
 const { items, subtotal, updateQuantity, removeItem } = useCart();

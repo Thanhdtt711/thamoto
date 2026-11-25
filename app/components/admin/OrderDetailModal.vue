@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { X, CreditCard, History, Package } from 'lucide-vue-next';
+import { X, CreditCard, History, Package, Truck, Printer } from 'lucide-vue-next';
 
 const props = defineProps<{ orderId: string | null }>();
 const emit = defineEmits<{ close: []; updated: [] }>();
@@ -11,6 +11,9 @@ const loading = ref(false);
 const errorMsg = ref('');
 const detail = ref<any>(null);
 const savingPayment = ref(false);
+const savingShipping = ref(false);
+const carrierInput = ref('');
+const trackingInput = ref('');
 
 const formatDate = (iso: string) =>
   iso ? new Date(iso).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
@@ -61,6 +64,30 @@ const loadDetail = async () => {
     return;
   }
   detail.value = data;
+  carrierInput.value = data?.order?.shipping_carrier || '';
+  trackingInput.value = data?.order?.tracking_code || '';
+};
+
+const saveShipping = async () => {
+  if (!supabase || !props.orderId) return;
+  savingShipping.value = true;
+  const { error } = await supabase.rpc('admin_update_shipping', {
+    p_order_id: props.orderId,
+    p_carrier: carrierInput.value.trim(),
+    p_tracking_code: trackingInput.value.trim()
+  });
+  savingShipping.value = false;
+  if (error) {
+    showToast(error.message || 'Không lưu được thông tin vận đơn.');
+    return;
+  }
+  showToast('Đã cập nhật đơn vị vận chuyển & mã vận đơn.');
+  await loadDetail();
+  emit('updated');
+};
+
+const printOrder = () => {
+  if (import.meta.client) window.print();
 };
 
 watch(() => props.orderId, (id) => {
@@ -98,9 +125,14 @@ const updatePaymentStatus = async (status: string) => {
             </h3>
             <p v-if="detail?.order" class="text-xs text-slate-500 m-0 mt-0.5">{{ formatDate(detail.order.created_at) }}</p>
           </div>
-          <button type="button" aria-label="Đóng" class="w-10 h-10 rounded-lg border border-slate-200 flex items-center justify-center bg-white cursor-pointer" @click="emit('close')">
-            <X class="w-5 h-5 text-slate-600" />
-          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" class="btn-outline text-xs px-3 min-h-[38px]" @click="printOrder">
+              <Printer class="w-4 h-4" /> In phiếu
+            </button>
+            <button type="button" aria-label="Đóng" class="w-10 h-10 rounded-lg border border-slate-200 flex items-center justify-center bg-white cursor-pointer" @click="emit('close')">
+              <X class="w-5 h-5 text-slate-600" />
+            </button>
+          </div>
         </div>
 
         <div v-if="loading" class="py-10 text-center text-sm text-slate-500">Đang tải chi tiết đơn hàng...</div>
@@ -141,6 +173,20 @@ const updatePaymentStatus = async (status: string) => {
               <p v-if="detail.order.cancel_reason" class="m-0 text-[#C81E2B] font-semibold">
                 Lý do hủy/hoàn: {{ detail.order.cancel_reason }}
               </p>
+            </div>
+          </div>
+
+          <!-- Shipping & Tracking Code (P1-2) -->
+          <div class="bg-slate-50 rounded-xl p-3.5 space-y-2 text-xs">
+            <p class="font-bold uppercase text-[#0D2C54] m-0 flex items-center gap-1.5">
+              <Truck class="w-3.5 h-3.5" /> Vận chuyển &amp; Mã vận đơn
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <input v-model="carrierInput" type="text" placeholder="ĐVVC (VD: GHTK, GHN, Lắp tại nhà)" class="field-input py-1.5 text-xs min-h-[38px]">
+              <input v-model="trackingInput" type="text" placeholder="Mã vận đơn (nếu có)" class="field-input py-1.5 text-xs min-h-[38px]">
+              <button type="button" :disabled="savingShipping" class="btn-outline text-xs min-h-[38px]" @click="saveShipping">
+                {{ savingShipping ? 'Đang lưu...' : 'Lưu vận đơn' }}
+              </button>
             </div>
           </div>
 

@@ -7,8 +7,8 @@ const { addItem, openDrawer } = useCart();
 const { showToast } = useToast();
 const { supabase, isConfigured } = useSupabase();
 
-interface MatOption { basePrice: number; image: string }
-interface AddonOption { id: string; label: string; shortLabel: string; price: number; defaultChecked: boolean }
+interface MatOption { basePrice: number; image: string; inStock: boolean; lowStock: boolean }
+interface AddonOption { id: string; label: string; shortLabel: string; price: number; defaultChecked: boolean; inStock: boolean }
 
 const ADDON_PREFIX: Record<string, string> = { 'tham-roi': 'Tặng ', 'lot-cop': 'Mua thêm ' };
 const FALLBACK_MAT_IMAGE = '/assets/images/mat-6d-red.webp';
@@ -20,9 +20,13 @@ const buildAddonLabel = (id: string, name: string, price: number) =>
 
 // Giá hiển thị lấy từ DB (RPC get_catalog_prices) — cùng nguồn với create_order.
 // MAT_PRICING chỉ là dữ liệu dự phòng khi chưa cấu hình / RPC lỗi.
-const materials = ref<Record<string, MatOption>>({ ...MAT_PRICING.materials });
+const materials = ref<Record<string, MatOption>>(
+  Object.fromEntries(
+    Object.entries(MAT_PRICING.materials).map(([k, v]) => [k, { ...v, inStock: true, lowStock: false }])
+  )
+);
 const addons = ref<AddonOption[]>(
-  MAT_PRICING.addons.map((a) => ({ ...a, label: buildAddonLabel(a.id, a.shortLabel, a.price) }))
+  MAT_PRICING.addons.map((a) => ({ ...a, label: buildAddonLabel(a.id, a.shortLabel, a.price), inStock: true }))
 );
 const pricesLoading = ref(isConfigured);
 
@@ -37,10 +41,14 @@ const loadCatalogPrices = async () => {
     const dbAddons: AddonOption[] = [];
     for (const p of data as any[]) {
       const price = Number(p.base_price) || 0;
+      const inStock = p.in_stock !== false;
+      const lowStock = Boolean(p.low_stock);
       if (p.product_type === 'mat') {
         dbMats[p.name] = {
           basePrice: price,
-          image: p.image_url || MAT_PRICING.materials[p.name]?.image || FALLBACK_MAT_IMAGE
+          image: p.image_url || MAT_PRICING.materials[p.name]?.image || FALLBACK_MAT_IMAGE,
+          inStock,
+          lowStock
         };
       } else if (p.product_type === 'addon') {
         const id = addonIdFromSku(p.sku);
@@ -49,7 +57,8 @@ const loadCatalogPrices = async () => {
           label: buildAddonLabel(id, p.name, price),
           shortLabel: p.name,
           price,
-          defaultChecked: MAT_PRICING.addons.find((a) => a.id === id)?.defaultChecked ?? false
+          defaultChecked: MAT_PRICING.addons.find((a) => a.id === id)?.defaultChecked ?? false,
+          inStock
         });
       }
     }
@@ -106,6 +115,8 @@ watch(selectedMaterial, (mat) => {
 });
 
 const selectedForm = computed(() => forms.value.find((f) => f.id === selectedFormId.value) || forms.value[0]!);
+
+const selectedInStock = computed(() => materials.value[selectedMaterial.value]?.inStock !== false);
 
 const totalPrice = computed(() => {
   const base = materials.value[selectedMaterial.value]?.basePrice ?? 0;
@@ -221,9 +232,16 @@ const handleAddToCart = (goCheckout = false) => {
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <button v-for="(info, matName) in materials" :key="matName" type="button"
                 class="p-3 rounded-xl border-2 text-left cursor-pointer transition flex items-center justify-between gap-2 bg-white"
-                :class="selectedMaterial === matName ? 'border-[#0D2C54] bg-[#EFF4FA]' : 'border-slate-200 hover:border-slate-400'"
+                :class="[
+                  selectedMaterial === matName ? 'border-[#0D2C54] bg-[#EFF4FA]' : 'border-slate-200 hover:border-slate-400',
+                  !info.inStock ? 'opacity-60' : ''
+                ]"
                 @click="selectedMaterial = String(matName)">
-                <span class="text-xs font-semibold text-slate-900">{{ matName }}</span>
+                <span class="min-w-0">
+                  <span class="text-xs font-semibold text-slate-900 block">{{ matName }}</span>
+                  <span v-if="!info.inStock" class="inline-block mt-0.5 text-[10px] font-bold text-[#C81E2B]">Tạm hết hàng</span>
+                  <span v-else-if="info.lowStock" class="inline-block mt-0.5 text-[10px] font-bold text-amber-700">Sắp hết hàng</span>
+                </span>
                 <span class="text-xs font-bold text-[#15803D] tabular-nums shrink-0">{{ formatCurrency(info.basePrice)
                   }}</span>
               </button>
@@ -266,12 +284,15 @@ const handleAddToCart = (goCheckout = false) => {
             <span class="text-sm font-semibold uppercase text-slate-600">TỔNG TIỀN:</span>
             <span class="text-2xl font-bold text-[#15803D] tabular-nums">{{ formatCurrency(totalPrice) }}</span>
           </div>
+          <p v-if="!selectedInStock" role="status" class="text-xs font-semibold text-[#C81E2B] bg-[#FEF2F2] border border-[#C81E2B]/25 rounded-lg px-3 py-2 m-0">
+            Chất liệu này hiện tạm hết hàng. Vui lòng chọn chất liệu khác hoặc liên hệ Zalo 0963 294 492.
+          </p>
           <div class="grid grid-cols-2 gap-3">
-            <button type="button" class="btn-outline text-xs" :disabled="pricesLoading" @click="handleAddToCart(false)">
+            <button type="button" class="btn-outline text-xs" :disabled="pricesLoading || !selectedInStock" @click="handleAddToCart(false)">
               <ShoppingBag class="w-4 h-4" /> THÊM VÀO GIỎ
             </button>
-            <button type="button" class="btn-cta text-xs" :disabled="pricesLoading" @click="handleAddToCart(true)">
-              ĐẶT MUA NGAY
+            <button type="button" class="btn-cta text-xs" :disabled="pricesLoading || !selectedInStock" @click="handleAddToCart(true)">
+              {{ selectedInStock ? 'ĐẶT MUA NGAY' : 'TẠM HẾT HÀNG' }}
             </button>
           </div>
         </div>

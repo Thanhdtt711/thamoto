@@ -543,7 +543,7 @@ begin
   end if;
 
   -- Sinh mã đơn khó đoán (V07): TT-YYMMDD-XXXXXX
-  v_order_code := 'TT-' || to_char(now(), 'YYMMDD') || '-' || upper(substr(encode(gen_random_bytes(4), 'hex'), 1, 6));
+  v_order_code := 'TT-' || to_char(now(), 'YYMMDD') || '-' || upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 6));
 
   -- Bước 4: Tạo bản ghi orders (ép status='new', payment_status='unpaid', commission_status='pending')
   insert into public.orders (

@@ -47,6 +47,7 @@ const hideMobileFloating = computed(() => ['/gio-hang', '/thanh-toan'].includes(
               <li><NuxtLink to="/tin-tuc" class="text-slate-300 hover:text-white no-underline transition">Tin tức</NuxtLink></li>
               <li><NuxtLink to="/gioi-thieu" class="text-slate-300 hover:text-white no-underline transition">Giới thiệu</NuxtLink></li>
               <li><NuxtLink to="/lien-he" class="text-slate-300 hover:text-white no-underline transition">Liên hệ</NuxtLink></li>
+              <li><NuxtLink to="/tra-cuu-don" class="text-slate-300 hover:text-white no-underline transition">Tra cứu đơn hàng</NuxtLink></li>
               <li><NuxtLink to="/cong-tac-vien" class="text-slate-300 hover:text-white no-underline transition">Đăng ký CTV</NuxtLink></li>
               <li><NuxtLink to="/ctv" class="text-slate-300 hover:text-white no-underline transition">Cổng CTV</NuxtLink></li>
             </ul>

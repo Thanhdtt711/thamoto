@@ -14,16 +14,19 @@ const phone = ref('');
 const brand = ref('');
 const model = ref('');
 const year = ref('');
+const customVehicle = ref('');
 const message = ref('');
 const formError = ref('');
 const isSubmitting = ref(false);
 const showSuccess = ref(false);
 
+const isOtherBrand = computed(() => brand.value === '__other__');
+const isOtherModel = computed(() => model.value === '__other__');
 const models = computed(() => BRAND_CATALOG.find((b) => b.name === brand.value)?.models || []);
 const years = computed(() => models.value.find((m) => m.name === model.value)?.years || []);
 
-watch(brand, () => { model.value = ''; year.value = ''; });
-watch(model, () => { year.value = ''; });
+watch(brand, () => { model.value = ''; year.value = ''; customVehicle.value = ''; });
+watch(model, () => { year.value = ''; if (!isOtherBrand.value) customVehicle.value = ''; });
 
 const handleSubmit = async () => {
   const cleanPhone = phone.value.replace(/\s+/g, '');
@@ -40,7 +43,14 @@ const handleSubmit = async () => {
 
   try {
     if (isConfigured && supabase) {
-      const vehicleStr = [brand.value, model.value, year.value].filter(Boolean).join(' ');
+      let vehicleStr = '';
+      if (isOtherBrand.value) {
+        vehicleStr = customVehicle.value.trim();
+      } else if (isOtherModel.value) {
+        vehicleStr = [brand.value, customVehicle.value.trim()].filter(Boolean).join(' ');
+      } else {
+        vehicleStr = [brand.value, model.value, year.value].filter(Boolean).join(' ');
+      }
       const { error } = await supabase.rpc('create_lead', {
         p_customer_name: name.value.trim(),
         p_phone: cleanPhone,
@@ -65,6 +75,7 @@ const closeSuccess = () => {
   brand.value = '';
   model.value = '';
   year.value = '';
+  customVehicle.value = '';
   message.value = '';
 };
 </script>
@@ -122,19 +133,36 @@ const closeSuccess = () => {
             </div>
           </div>
 
-          <div class="grid grid-cols-3 gap-2">
-            <select v-model="brand" class="ymm-select text-xs" aria-label="Hãng xe">
-              <option value="">Hãng xe</option>
-              <option v-for="b in BRAND_CATALOG" :key="b.slug" :value="b.name">{{ b.name }}</option>
-            </select>
-            <select v-model="model" :disabled="!brand" class="ymm-select text-xs" aria-label="Dòng xe">
-              <option value="">Dòng xe</option>
-              <option v-for="m in models" :key="m.name" :value="m.name">{{ m.name }}</option>
-            </select>
-            <select v-model="year" :disabled="!model" class="ymm-select text-xs" aria-label="Năm sản xuất">
-              <option value="">Năm SX</option>
-              <option v-for="y in years" :key="y" :value="y">{{ y }}</option>
-            </select>
+          <div class="space-y-2">
+            <div class="grid grid-cols-3 gap-2">
+              <select v-model="brand" class="ymm-select text-xs" aria-label="Hãng xe">
+                <option value="">Hãng xe</option>
+                <option v-for="b in BRAND_CATALOG" :key="b.slug" :value="b.name">{{ b.name }}</option>
+                <option value="__other__">Khác (tự nhập)</option>
+              </select>
+              <select v-model="model" :disabled="!brand || isOtherBrand" class="ymm-select text-xs" aria-label="Dòng xe">
+                <option value="">Dòng xe</option>
+                <option v-for="m in models" :key="m.name" :value="m.name">{{ m.name }}</option>
+                <option v-if="brand && !isOtherBrand" value="__other__">Dòng xe khác (tự nhập)</option>
+              </select>
+              <select v-model="year" :disabled="!model || isOtherBrand || isOtherModel" class="ymm-select text-xs" aria-label="Năm sản xuất">
+                <option value="">Năm SX</option>
+                <option v-for="y in years" :key="y" :value="y">{{ y }}</option>
+              </select>
+            </div>
+
+            <div v-if="isOtherBrand || isOtherModel">
+              <label for="contact-custom-vehicle" class="text-xs font-semibold text-slate-700 block mb-1">
+                {{ isOtherBrand ? 'Nhập hãng xe, dòng xe & năm sản xuất' : `Nhập dòng xe ${brand} & năm sản xuất` }}
+              </label>
+              <input
+                id="contact-custom-vehicle"
+                v-model="customVehicle"
+                type="text"
+                :placeholder="isOtherBrand ? 'VD: Subaru Forester 2024, Peugeot 3008 2022...' : `VD: ${brand} Land Cruiser 2023...`"
+                class="field-input text-xs"
+              >
+            </div>
           </div>
 
           <div>

@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /ctv
+Disallow: /gio-hang
+Disallow: /thanh-toan
 
 Sitemap: https://thamoto.vercel.app/sitemap.xml

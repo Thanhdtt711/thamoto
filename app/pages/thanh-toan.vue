@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Check, MapPin, CreditCard } from 'lucide-vue-next';
+import { Check, MapPin, CreditCard, Search, MessageCircle, Home } from 'lucide-vue-next';
 
 useSeoMeta({
   title: 'Thanh Toán Đơn Hàng | Trung Thành Auto',
-  description: 'Thanh toán đơn hàng thảm lót sàn ô tô Trung Thành Auto. Hỗ trợ COD nhận hàng kiểm tra lắp đặt mới trả tiền hoặc chuyển khoản VietQR.'
+  description: 'Thanh toán đơn hàng thảm lót sàn ô tô Trung Thành Auto. Hỗ trợ COD nhận hàng kiểm tra lắp đặt mới trả tiền hoặc chuyển khoản VietQR.',
+  robots: 'noindex, nofollow'
 });
 
 const router = useRouter();
@@ -22,19 +23,89 @@ const refValid = ref<boolean | null>(null);
 const paymentMethod = ref<'COD' | 'BANK'>('COD');
 
 const formError = ref('');
+const priceChangedNotice = ref('');
 const isSubmitting = ref(false);
-const showQrModal = ref(false);
 const appliedCoupon = ref<{ code: string; type: 'fixed' | 'percent'; value: number; discountAmount?: number } | null>(null);
+
+// Cấu hình ngân hàng & phí ship từ app_settings (RPC get_storefront_config) — không hardcode
+const storeConfig = ref({
+  bank_name: 'VietinBank',
+  bank_bin: '970415',
+  bank_account: '109876543210',
+  bank_holder: 'CT CO PHAN TRUNG THANH',
+  shipping_base_fee: 0,
+  free_ship_threshold: 1500000
+});
 
 const completedOrder = ref<{
   orderCode: string;
   name: string;
   phone: string;
+  methodKey: 'COD' | 'VietQR';
   methodText: string;
   total: number;
   refCode: string;
   warning?: string;
 } | null>(null);
+
+const vietQrUrl = computed(() => {
+  if (!completedOrder.value || completedOrder.value.methodKey !== 'VietQR') return '';
+  const bin = encodeURIComponent(storeConfig.value.bank_bin);
+  const acc = encodeURIComponent(storeConfig.value.bank_account);
+  const amt = Math.max(0, Math.round(completedOrder.value.total));
+  const info = encodeURIComponent(completedOrder.value.orderCode);
+  const holder = encodeURIComponent(storeConfig.value.bank_holder);
+  return `https://img.vietqr.io/image/${bin}-${acc}-compact2.png?amount=${amt}&addInfo=${info}&accountName=${holder}`;
+});
+
+const loadStorefrontAndSyncCart = async () => {
+  if (!isConfigured || !supabase) return;
+  try {
+    const [cfgRes, catRes] = await Promise.all([
+      supabase.rpc('get_storefront_config'),
+      supabase.rpc('get_catalog_prices')
+    ]);
+    if (!cfgRes.error && cfgRes.data) {
+      const c = cfgRes.data as Record<string, any>;
+      storeConfig.value = {
+        bank_name: String(c.bank_name || storeConfig.value.bank_name),
+        bank_bin: String(c.bank_bin || storeConfig.value.bank_bin),
+        bank_account: String(c.bank_account || storeConfig.value.bank_account),
+        bank_holder: String(c.bank_holder || storeConfig.value.bank_holder),
+        shipping_base_fee: Number(c.shipping_base_fee ?? 0),
+        free_ship_threshold: Number(c.free_ship_threshold ?? 1500000)
+      };
+    }
+    if (!catRes.error && Array.isArray(catRes.data)) {
+      const matPrices = new Map<string, number>();
+      const addonPrices = new Map<string, number>();
+      for (const p of catRes.data as any[]) {
+        if (p.product_type === 'mat') matPrices.set(String(p.name), Number(p.base_price) || 0);
+        if (p.product_type === 'addon') addonPrices.set(String(p.name).toLowerCase(), Number(p.base_price) || 0);
+      }
+      let changed = false;
+      for (const item of items.value) {
+        const dbBase = matPrices.get(item.material);
+        if (dbBase !== undefined) {
+          const addonSum = (item.addons || []).reduce((sum, a) => {
+            const matched = Array.from(addonPrices.entries()).find(([k]) => a.toLowerCase().includes(k));
+            return sum + (matched ? matched[1] : 0);
+          }, 0);
+          const freshPrice = dbBase + addonSum;
+          if (freshPrice > 0 && freshPrice !== item.price) {
+            item.price = freshPrice;
+            changed = true;
+          }
+        }
+      }
+      if (changed) {
+        priceChangedNotice.value = 'Giá sản phẩm vừa được cập nhật theo bảng giá mới nhất từ hệ thống.';
+      }
+    }
+  } catch {
+    // Fallback an toàn
+  }
+};
 
 onMounted(() => {
   const tracked = getRefCode();
@@ -48,7 +119,9 @@ onMounted(() => {
   }
   if (items.value.length === 0) {
     router.replace('/gio-hang');
+    return;
   }
+  loadStorefrontAndSyncCart();
 });
 
 const discountAmount = computed(() => {
@@ -61,7 +134,15 @@ const discountAmount = computed(() => {
     : appliedCoupon.value.value;
 });
 
-const grandTotal = computed(() => Math.max(0, subtotal.value - discountAmount.value));
+const shippingFee = computed(() => {
+  const base = Number(storeConfig.value.shipping_base_fee || 0);
+  const threshold = Number(storeConfig.value.free_ship_threshold || 0);
+  if (base <= 0) return 0;
+  if (threshold > 0 && subtotal.value >= threshold) return 0;
+  return base;
+});
+
+const grandTotal = computed(() => Math.max(0, subtotal.value - discountAmount.value + shippingFee.value));
 
 const checkAffiliateCode = async () => {
   const code = refCode.value.trim().toUpperCase();
@@ -83,6 +164,11 @@ const checkAffiliateCode = async () => {
 
 const submitOrder = async (methodKey: 'COD' | 'VietQR', methodText: string) => {
   if (isSubmitting.value) return;
+  if (!isConfigured || !supabase) {
+    formError.value = 'Hệ thống đặt hàng đang bảo trì kết nối. Vui lòng nhắn Zalo 0963 294 492 để được lên đơn ngay.';
+    return;
+  }
+
   const cleanPhone = phone.value.replace(/\s+/g, '');
   const cleanRef = refCode.value.trim().toUpperCase();
   const effectiveSource = cleanRef
@@ -93,50 +179,39 @@ const submitOrder = async (methodKey: 'COD' | 'VietQR', methodText: string) => {
   formError.value = '';
 
   try {
-    let finalOrderCode = `TT-${Math.floor(10000 + Math.random() * 90000)}`;
-    let finalTotal = grandTotal.value;
-    let finalRefCode = cleanRef;
-    let warningMsg = '';
+    const payloadItems = items.value.map((i) => ({
+      name: i.name,
+      material: i.material,
+      color: i.color,
+      formLabel: i.formLabel || '',
+      addons: i.addons || [],
+      vehicle: i.vehicle || null,
+      quantity: i.quantity
+    }));
 
-    if (isConfigured && supabase) {
-      const payloadItems = items.value.map((i) => ({
-        name: i.name,
-        material: i.material,
-        color: i.color,
-        formLabel: i.formLabel || '',
-        addons: i.addons || [],
-        vehicle: i.vehicle || null,
-        quantity: i.quantity
-      }));
-
-      const { data, error } = await supabase.rpc('create_order', {
-        p_customer_name: name.value.trim(),
-        p_phone: cleanPhone,
-        p_address: address.value.trim(),
-        p_notes: notes.value.trim() || null,
-        p_payment_method: methodKey,
-        p_coupon_code: appliedCoupon.value?.code || null,
-        p_affiliate_code: cleanRef || null,
-        p_ref_source: effectiveSource,
-        p_items: payloadItems,
-        p_ref_click_id: effectiveSource === 'link' ? refClickId.value : null
-      });
-      if (error) throw error;
-
-      finalOrderCode = data?.order_code || finalOrderCode;
-      finalTotal = Number(data?.total_amount ?? finalTotal);
-      finalRefCode = data?.affiliate_code || '';
-      warningMsg = data?.warning || '';
-    }
+    const { data, error } = await supabase.rpc('create_order', {
+      p_customer_name: name.value.trim(),
+      p_phone: cleanPhone,
+      p_address: address.value.trim(),
+      p_notes: notes.value.trim() || null,
+      p_payment_method: methodKey,
+      p_coupon_code: appliedCoupon.value?.code || null,
+      p_affiliate_code: cleanRef || null,
+      p_ref_source: effectiveSource,
+      p_items: payloadItems,
+      p_ref_click_id: effectiveSource === 'link' ? refClickId.value : null
+    });
+    if (error) throw error;
 
     completedOrder.value = {
-      orderCode: finalOrderCode,
+      orderCode: String(data?.order_code || ''),
       name: name.value.trim(),
       phone: cleanPhone,
+      methodKey,
       methodText,
-      total: finalTotal,
-      refCode: finalRefCode,
-      warning: warningMsg
+      total: Number(data?.total_amount ?? grandTotal.value),
+      refCode: data?.affiliate_code || '',
+      warning: data?.warning || ''
     };
 
     clearCart();
@@ -167,8 +242,9 @@ const handleFormSubmit = () => {
   }
   formError.value = '';
 
+  // P1-1a: Luôn tạo đơn trên server TRƯỚC để có mã đơn chính xác làm nội dung chuyển khoản VietQR
   if (paymentMethod.value === 'BANK') {
-    showQrModal.value = true;
+    submitOrder('VietQR', 'Chuyển khoản ngân hàng (VietQR)');
   } else {
     submitOrder('COD', 'Thanh toán khi nhận hàng (COD)');
   }
@@ -185,7 +261,7 @@ const handleFormSubmit = () => {
       <span class="font-semibold text-[#0D2C54]">Thanh toán</span>
     </nav>
 
-    <!-- Success Screen -->
+    <!-- Success Screen (+ Dynamic VietQR with Order Code if BANK) -->
     <div v-if="completedOrder" class="max-w-xl mx-auto card-surface p-6 sm:p-8 text-center space-y-5">
       <div class="w-16 h-16 rounded-full bg-green-50 border border-green-200 text-[#15803D] flex items-center justify-center mx-auto">
         <Check class="w-8 h-8" />
@@ -194,6 +270,28 @@ const handleFormSubmit = () => {
       <p class="text-xs sm:text-sm text-slate-600 m-0 leading-relaxed">
         Mã đơn hàng của bạn là <strong class="text-[#C81E2B] tabular-nums">#{{ completedOrder.orderCode }}</strong>. Nhân viên kỹ thuật sẽ liên hệ xác nhận phom xe trong 15 phút.
       </p>
+
+      <!-- Dynamic VietQR Payment Box (chỉ hiện sau khi đã tạo đơn thật trên DB) -->
+      <div v-if="completedOrder.methodKey === 'VietQR'" class="bg-[#EFF4FA] border border-[#0D2C54]/20 rounded-xl p-4 space-y-3 text-center">
+        <p class="text-xs font-extrabold uppercase text-[#0D2C54] m-0">Quét mã VietQR để chuyển khoản đúng mã đơn</p>
+        <div class="bg-white rounded-xl p-3 inline-block border border-slate-200">
+          <img
+            :src="vietQrUrl"
+            :alt="`Mã VietQR thanh toán đơn ${completedOrder.orderCode}`"
+            width="220"
+            height="220"
+            class="w-52 h-52 object-contain mx-auto"
+          >
+        </div>
+        <div class="text-xs text-left bg-white rounded-lg p-3 space-y-1.5 border border-slate-200">
+          <div class="flex justify-between"><span class="text-slate-500">Ngân hàng:</span><strong>{{ storeConfig.bank_name }}</strong></div>
+          <div class="flex justify-between"><span class="text-slate-500">Số tài khoản:</span><strong class="font-mono">{{ storeConfig.bank_account }}</strong></div>
+          <div class="flex justify-between"><span class="text-slate-500">Chủ tài khoản:</span><strong>{{ storeConfig.bank_holder }}</strong></div>
+          <div class="flex justify-between"><span class="text-slate-500">Số tiền:</span><strong class="text-[#15803D] tabular-nums">{{ formatCurrency(completedOrder.total) }}</strong></div>
+          <div class="flex justify-between"><span class="text-slate-500">Nội dung CK (bắt buộc):</span><strong class="text-[#C81E2B] font-mono">{{ completedOrder.orderCode }}</strong></div>
+        </div>
+      </div>
+
       <div class="bg-[#F4F6F9] border border-slate-200 rounded-xl p-4 text-left text-xs sm:text-sm space-y-2">
         <div class="flex justify-between"><span class="text-slate-500">Khách hàng:</span><span class="font-semibold text-slate-900">{{ completedOrder.name }}</span></div>
         <div class="flex justify-between"><span class="text-slate-500">Số điện thoại:</span><span class="font-semibold text-slate-900 tabular-nums">{{ completedOrder.phone }}</span></div>
@@ -204,9 +302,29 @@ const handleFormSubmit = () => {
       <p v-if="completedOrder.warning" role="status" class="text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3.5 py-2.5 m-0 text-left">
         Lưu ý: {{ completedOrder.warning }}
       </p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="https://zalo.me/0963294492" target="_blank" rel="noopener" class="btn-outline text-xs px-6 no-underline">NHẮN ZALO XÁC NHẬN NHANH (0963 294 492)</a>
-        <NuxtLink to="/" class="btn-cta text-xs px-8">QUAY LẠI TRANG CHỦ</NuxtLink>
+      <div class="space-y-2.5 pt-1">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <NuxtLink
+            :to="`/tra-cuu-don?code=${completedOrder.orderCode}`"
+            class="btn-outline w-full text-xs px-4 whitespace-nowrap no-underline"
+          >
+            <Search class="w-4 h-4 shrink-0" />
+            <span>TRA CỨU ĐƠN HÀNG</span>
+          </NuxtLink>
+          <a
+            href="https://zalo.me/0963294492"
+            target="_blank"
+            rel="noopener"
+            class="btn-outline w-full text-xs px-4 whitespace-nowrap no-underline"
+          >
+            <MessageCircle class="w-4 h-4 shrink-0" />
+            <span>NHẮN ZALO XÁC NHẬN</span>
+          </a>
+        </div>
+        <NuxtLink to="/" class="btn-cta w-full text-xs px-6 whitespace-nowrap no-underline">
+          <Home class="w-4 h-4 shrink-0" />
+          <span>QUAY LẠI TRANG CHỦ</span>
+        </NuxtLink>
       </div>
     </div>
 
@@ -217,6 +335,10 @@ const handleFormSubmit = () => {
           <h1 class="text-base font-bold uppercase text-[#0D2C54] pb-3 border-b border-slate-200 m-0 flex items-center gap-2">
             <MapPin class="w-4 h-4" /> Thông tin giao hàng &amp; lắp đặt
           </h1>
+
+          <p v-if="priceChangedNotice" role="status" class="text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3.5 py-2.5 m-0">
+            {{ priceChangedNotice }}
+          </p>
 
           <p v-if="formError" role="alert" class="text-xs font-semibold text-[#C81E2B] bg-[#FEF2F2] border border-[#C81E2B]/30 rounded-lg px-3.5 py-2.5 m-0">
             {{ formError }}
@@ -269,7 +391,9 @@ const handleFormSubmit = () => {
             <input v-model="paymentMethod" type="radio" value="BANK" class="mt-1 w-4 h-4 accent-[#0D2C54]">
             <div>
               <span class="text-sm font-semibold text-slate-900 block">Chuyển khoản ngân hàng (VietQR)</span>
-              <span class="text-xs text-slate-500 block mt-0.5">VietinBank · STK: 1098 7654 3210 · CT CỔ PHẦN TRUNG THÀNH.</span>
+              <span class="text-xs text-slate-500 block mt-0.5">
+                {{ storeConfig.bank_name }} · STK: {{ storeConfig.bank_account }} · {{ storeConfig.bank_holder }}. Mã QR kèm đúng mã đơn sẽ hiện ngay sau khi xác nhận đặt hàng.
+              </span>
             </div>
           </label>
         </div>
@@ -295,7 +419,9 @@ const handleFormSubmit = () => {
           </div>
           <div class="flex justify-between text-slate-600">
             <span>Phí vận chuyển</span>
-            <span class="font-semibold text-[#15803D]">Miễn phí</span>
+            <span class="font-semibold" :class="shippingFee === 0 ? 'text-[#15803D]' : 'text-slate-900 tabular-nums'">
+              {{ shippingFee === 0 ? 'Miễn phí' : formatCurrency(shippingFee) }}
+            </span>
           </div>
           <div v-if="discountAmount > 0" class="flex justify-between text-[#15803D] font-semibold">
             <span>Ưu đãi ({{ appliedCoupon?.code }})</span>
@@ -309,40 +435,9 @@ const handleFormSubmit = () => {
         </div>
 
         <button type="submit" form="checkout-form" :disabled="isSubmitting" class="btn-cta w-full text-sm">
-          {{ isSubmitting ? 'ĐANG GỬI ĐƠN...' : 'ĐẶT HÀNG NGAY' }}
+          {{ isSubmitting ? 'ĐANG GỬI ĐƠN...' : (paymentMethod === 'BANK' ? 'ĐẶT HÀNG & HIỆN MÃ VIETQR' : 'ĐẶT HÀNG NGAY') }}
         </button>
       </aside>
     </div>
-
-    <!-- VietQR Modal -->
-    <Teleport to="body">
-      <div v-if="showQrModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]" @click="showQrModal = false" />
-        <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 relative z-10 shadow-2xl space-y-4">
-          <div class="text-center">
-            <h3 class="text-base font-bold text-[#0D2C54] m-0">Thanh Toán Qua VietQR</h3>
-            <p class="text-xs text-slate-500 mt-1 m-0">Quét mã QR bằng ứng dụng ngân hàng để thanh toán</p>
-          </div>
-          <div class="bg-[#F4F6F9] border border-slate-200 rounded-xl p-3.5 text-xs space-y-2">
-            <div class="flex justify-between"><span class="text-slate-500">Ngân hàng:</span><span class="font-semibold text-slate-900">VietinBank</span></div>
-            <div class="flex justify-between"><span class="text-slate-500">Số tài khoản:</span><span class="font-semibold text-slate-900 tabular-nums">1098 7654 3210</span></div>
-            <div class="flex justify-between"><span class="text-slate-500">Chủ tài khoản:</span><span class="font-semibold text-slate-900">CT CỔ PHẦN TRUNG THÀNH</span></div>
-            <div class="flex justify-between"><span class="text-slate-500">Nội dung:</span><span class="font-semibold text-[#0D2C54] select-all">TT {{ phone.replace(/\s+/g, '') }}</span></div>
-            <div class="flex justify-between"><span class="text-slate-500">Số tiền:</span><span class="font-bold text-[#15803D] tabular-nums">{{ formatCurrency(grandTotal) }}</span></div>
-          </div>
-          <div class="flex justify-center">
-            <div class="w-44 h-44 bg-white p-2 rounded-xl border border-slate-200">
-              <img src="/assets/images/vietqr-mockup.webp" alt="Mã chuyển khoản VietQR" width="176" height="176" class="w-full h-full object-contain">
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <button type="button" class="btn-outline text-xs" @click="showQrModal = false">Hủy bỏ</button>
-            <button type="button" :disabled="isSubmitting" class="btn-cta text-xs" @click="showQrModal = false; submitOrder('VietQR', 'Chuyển khoản (VietQR)')">
-              {{ isSubmitting ? 'ĐANG GỬI...' : 'ĐÃ CHUYỂN KHOẢN' }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </Teleport>
   </main>
 </template>
